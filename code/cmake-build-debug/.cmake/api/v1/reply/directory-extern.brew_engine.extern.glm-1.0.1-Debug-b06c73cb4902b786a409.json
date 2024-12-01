@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "extern/brew_engine/extern/glm-1.0.1",
+		"source" : "extern/brew_engine/extern/glm-1.0.1"
+	}
+}

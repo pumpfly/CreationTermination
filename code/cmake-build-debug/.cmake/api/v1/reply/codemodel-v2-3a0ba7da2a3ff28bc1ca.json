@@ -1,0 +1,295 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						2
+					]
+				},
+				{
+					"build" : "extern/brew_engine",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						6
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-extern.brew_engine-Debug-bc7862f575ec75037d1a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "extern/brew_engine",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "extern/brew_engine/extern/glad",
+					"jsonFile" : "directory-extern.brew_engine.extern.glad-Debug-dcb01748cb89e492909b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "extern/brew_engine/extern/glad",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "extern/brew_engine/extern/glfw-3.4",
+					"childIndexes" : 
+					[
+						4,
+						5
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-extern.brew_engine.extern.glfw-3.4-Debug-75976b6a1ecd485359a1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "extern/brew_engine/extern/glfw-3.4",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "extern/brew_engine/extern/glfw-3.4/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-extern.brew_engine.extern.glfw-3.4.src-Debug-63fb4f249b761dae6c2c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 3,
+					"projectIndex" : 3,
+					"source" : "extern/brew_engine/extern/glfw-3.4/src",
+					"targetIndexes" : 
+					[
+						4,
+						7
+					]
+				},
+				{
+					"build" : "extern/brew_engine/extern/glfw-3.4/docs",
+					"jsonFile" : "directory-extern.brew_engine.extern.glfw-3.4.docs-Debug-cb43ceefbd7e6ee7f6b9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 3,
+					"projectIndex" : 3,
+					"source" : "extern/brew_engine/extern/glfw-3.4/docs"
+				},
+				{
+					"build" : "extern/brew_engine/extern/glm-1.0.1",
+					"childIndexes" : 
+					[
+						7
+					],
+					"jsonFile" : "directory-extern.brew_engine.extern.glm-1.0.1-Debug-b06c73cb4902b786a409.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 4,
+					"source" : "extern/brew_engine/extern/glm-1.0.1"
+				},
+				{
+					"build" : "extern/brew_engine/extern/glm-1.0.1/glm",
+					"jsonFile" : "directory-extern.brew_engine.extern.glm-1.0.1.glm-Debug-32c6dac81c1fc43ebc34.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 4,
+					"source" : "extern/brew_engine/extern/glm-1.0.1/glm",
+					"targetIndexes" : 
+					[
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "gl3_creationTermination",
+					"targetIndexes" : 
+					[
+						1,
+						2
+					]
+				},
+				{
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4
+					],
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "brew_engine",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "GLAD",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3,
+						4,
+						5
+					],
+					"name" : "GLFW",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						4,
+						6,
+						7
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6,
+						7
+					],
+					"name" : "glm",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "brew_engine::@9971b3abd68fcce270c0",
+					"jsonFile" : "target-brew_engine-Debug-d15bec67a61250c815a9.json",
+					"name" : "brew_engine",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "copy_assets::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-copy_assets-Debug-5fe22942789da4215841.json",
+					"name" : "copy_assets",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "creationtermination::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-creationtermination-Debug-8f509a2a5ea247ced186.json",
+					"name" : "creationtermination",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "glad::@412f0d21c6aa5f00f409",
+					"jsonFile" : "target-glad-Debug-f3cc3038d928f735dbe5.json",
+					"name" : "glad",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "glfw::@de094520a0e0c4e84442",
+					"jsonFile" : "target-glfw-Debug-01d22633ae81372b8449.json",
+					"name" : "glfw",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "glm::@44ead170140bff3ce2d0",
+					"jsonFile" : "target-glm-Debug-cde7c1667ed93863bbd3.json",
+					"name" : "glm",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "uninstall::@17e4cc43482a7347577a",
+					"jsonFile" : "target-uninstall-Debug-c7f35de7753b4fb1f0c0.json",
+					"name" : "uninstall",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "update_mappings::@de094520a0e0c4e84442",
+					"jsonFile" : "target-update_mappings-Debug-abd4e4b39526c791b5dc.json",
+					"name" : "update_mappings",
+					"projectIndex" : 3
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug",
+		"source" : "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

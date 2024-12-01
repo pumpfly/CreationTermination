@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "extern/brew_engine/extern/glfw-3.4/docs",
+		"source" : "extern/brew_engine/extern/glfw-3.4/docs"
+	}
+}

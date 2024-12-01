@@ -1,0 +1,9 @@
+"C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "NMake Makefiles" -S C:\Users\pumf\Documents\Studium\GameLab3_CreationTermination\02-gl3-benner\code -B C:\Users\pumf\Documents\Studium\GameLab3_CreationTermination\02-gl3-benner\code\cmake-build-debug
+-- Including Win32 support
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Documentation generation requires Doxygen 1.9.8 or later
+-- GLM: Version 1.0.1
+-- GLM: Build with C++ features auto detection
+-- Configuring done (0.2s)
+-- Generating done (0.3s)
+-- Build files have been written to: C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug

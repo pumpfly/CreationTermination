@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "extern/brew_engine/extern/glad",
+		"source" : "extern/brew_engine/extern/glad"
+	}
+}
