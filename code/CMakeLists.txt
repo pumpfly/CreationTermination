@@ -1,24 +1,16 @@
-cmake_minimum_required(VERSION 3.21)
-project(gl3_creationTermination LANGUAGES CXX C)
-
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+cmake_minimum_required(VERSION 3.29)
+project(GameLab3)
 
 set(CMAKE_CXX_STANDARD 17)
-#set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror")
 
-set(PROGRAM "creationtermination")
+add_subdirectory(extern/glad)
 
-add_executable(${PROGRAM}
-    main.cpp
-)
+add_subdirectory(extern/glfw)
 
-target_include_directories(${PROGRAM} PRIVATE src)
+add_subdirectory(extern/glm)
 
-add_custom_target(copy_assets
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/assets ${CMAKE_BINARY_DIR}/
-)
-add_dependencies(${PROGRAM} copy_assets)
+add_subdirectory(extern/soloud)
 
-add_subdirectory(extern/brew_engine)
+add_subdirectory(game)
 
-target_link_libraries(${PROGRAM} PRIVATE brew_engine)
+

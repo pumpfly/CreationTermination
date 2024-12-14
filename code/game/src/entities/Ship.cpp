@@ -1,0 +1,173 @@
+//
+// Created by pumf on 24/10/2024.
+//
+
+#include "Ship.h"
+
+#include <iostream>
+
+#include "../input/Input.h"
+#include "Missile.h"
+#include "../Game.h"
+#include "../Assets.h"
+
+namespace gl3{
+    Ship::Ship(Game* game, glm::vec3 position, float zRotation, glm::vec3 scale, glm::vec4 color)
+    : Entity(Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag"),
+                    Mesh({
+                        -0.3f, 0.25f, 0.0f,
+                        -0.3f, -0.25f, 0.0f,
+                        0.9f,  0.0f, 0.0f,
+
+                        -0.6f, 0.2f, 0.0f,
+                        -0.6f, -0.2f, 0.0f,
+                        0.0f,  0.0f, 0.0f,
+
+                        -0.5f, 0.25f, 0.0f,
+                        -0.5f, 0.7f, 0.0f,
+                        0.5f,  0.02f, 0.0f,
+
+                        -0.5f, -0.25f, 0.0f,
+                        -0.5f, -0.7f, 0.0f,
+                        0.5f,  0.02f, 0.0f
+                    },
+                    {
+                        0, 1, 2, // triangle1
+                        3, 4, 5, // triangle2
+                        6, 7, 8, // triangle3
+                        9, 10, 11 // triangle4
+                    }),
+                    position,
+                    zRotation,
+                    scale,
+                    {0.1f, 0.1f, 0.1f, 0.5f}){
+
+        audio.init();
+        audio.setGlobalVolume(0.1f);
+        firingSound.load(resolveAssetPath("audio/shot.mp3").string().c_str());
+        firingSound.setSingleInstance(true);
+
+    }
+
+    void Ship::update(Game *game, float deltaTime) {
+        auto window = game->getWindow();
+        glm::vec3 forward(0.0f, 0.0f, 0.0f);
+        forward.x += cos(glm::radians(zRotation));
+        forward.y += sin(glm::radians(zRotation));
+        forward = forward * translationSpeed * deltaTime;
+
+        if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+            position -= forward;
+        }
+
+        if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+            position += forward;
+        }
+
+        if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+            position.y = position.y + translationSpeed * deltaTime;
+        }
+
+        if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+            position.y = position.y - translationSpeed * deltaTime;
+        }
+        countdownUntilNextShot -= deltaTime;
+        // Normal shooting
+        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && countdownUntilNextShot <= 0) {
+            audio.play(firingSound);
+            auto angle = glm::radians(zRotation);
+            glm::vec3 forwardVec = {glm::cos(angle), glm::sin(angle), 0.f};
+            glm::vec3 offset {forwardVec.x * getScale().x / 2 , forwardVec.y * getScale().y / 2, 0};
+            // - 90 because mesh up is +y
+            auto missile =
+                std::make_unique<Missile>(game, game->getShip()->position + offset, zRotation - 90, 0.09f);
+            missiles.push_back(std::move(missile));
+            countdownUntilNextShot = timeBetweenShots;
+        }
+
+        // Charging shot
+        if(brew::Input::IsKeyDown(brew::Input::KEY_F)) {
+            charging = true;
+            auto angle = glm::radians(zRotation);
+            glm::vec3 forwardVec = {glm::cos(angle), glm::sin(angle), 0.f};
+            glm::vec3 offset {forwardVec.x * getScale().x / 2 , forwardVec.y * getScale().y / 2, 0};
+            if(!onlySingleMissile) {
+                auto bigM =
+                std::make_unique<Missile>(game,
+                    game->getShip()->position + offset, zRotation - 90, 0.05f);
+                bigMissiles.push_back(std::move(bigM));
+            }
+            missileTempSize = (missileTempSize + 0.5f) * deltaTime;
+            glm::vec3 mts = {missileTempSize, missileTempSize, missileTempSize};
+            bigMissiles.back()->setScale(bigMissiles.back()->getScale() + mts);
+            bigMissiles.back()->setPosition(this->getPosition());
+            onlySingleMissile = true;
+        }
+        if(brew::Input::IsKeyReleased(brew::Input::KEY_F) && charging) {
+            std::cout << "f released" << std::endl;
+            onlySingleMissile = false;
+        }
+
+        //Wave shot
+        if(brew::Input::IsKeyPressed(brew::Input::KEY_E)) {
+            auto angle = glm::radians(zRotation);
+            glm::vec3 forwardVec = {glm::cos(angle), glm::sin(angle), 0.f};
+            glm::vec3 offset {forwardVec.x * getScale().x , forwardVec.y * getScale().y, 0};
+            for(int i = 0; i <= 8; i++) {
+                auto waveM =
+                std::make_unique<Missile>(game,
+                    game->getShip()->position + offset, zRotation - (45.0f + (i * 10.0f)), 0.05f);
+                waveMissiles.push_back(std::move(waveM));
+            }
+        }
+
+        if(brew::Input::IsKeyDown(brew::Input::KEY_LEFT_CONTROL) || brew::Input::IsKeyPressed(brew::Input::KEY_RIGHT_CONTROL)) {
+            shield =
+                std::make_unique<Shield>(game,
+                    game->getShip()->position, zRotation, 0.25);
+            shield->setPosition(this->getPosition());
+        }
+        if(brew::Input::IsKeyReleased(brew::Input::KEY_LEFT_CONTROL) || brew::Input::IsKeyReleased(brew::Input::KEY_RIGHT_CONTROL)) {
+            shield.reset(nullptr);
+        }
+
+        // Normal Missiles
+        for (auto &m: missiles) {
+            m->update(game, deltaTime);
+
+        }
+        if (missiles.size() >= 100) {
+            missiles.erase(missiles.begin());
+        }
+        // Big Missiles
+        for(auto &b: bigMissiles) {
+            b->update(game, deltaTime);
+        }
+        if (bigMissiles.size() >= 20) {
+            bigMissiles.erase(bigMissiles.begin());
+        }
+        // Wave Missiles
+        for(auto &w: waveMissiles) {
+            w->update(game, deltaTime);
+        }
+        if (waveMissiles.size() >= 150) {
+            waveMissiles.erase(waveMissiles.begin());
+        }
+
+        // Shield
+        if(shield) shield->update(game, deltaTime);
+    }
+    void Ship::draw(Game *game) {
+        Entity::draw(game);
+        for (auto &m: missiles) {
+            m->draw(game);
+        }
+        for(auto &b: bigMissiles) {
+            b->draw(game);
+        }
+        for(auto &w : waveMissiles) {
+            w->draw(game);
+        }
+        if(shield) shield->draw(game);
+    }
+}

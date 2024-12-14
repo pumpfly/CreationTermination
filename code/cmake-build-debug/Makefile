@@ -46,10 +46,10 @@ RM = "C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\pumf\Documents\Studium\GameLab3_CreationTermination\02-gl3-benner\code
+CMAKE_SOURCE_DIR = C:\Users\pumf\Documents\Studium\GameLab3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\pumf\Documents\Studium\GameLab3_CreationTermination\02-gl3-benner\code\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\pumf\Documents\Studium\GameLab3\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -109,9 +109,9 @@ install\local\fast: preinstall\fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\pumf\Documents\Studium\GameLab3_CreationTermination\02-gl3-benner\code\cmake-build-debug\CMakeFiles C:\Users\pumf\Documents\Studium\GameLab3_CreationTermination\02-gl3-benner\code\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\pumf\Documents\Studium\GameLab3\cmake-build-debug\CMakeFiles C:\Users\pumf\Documents\Studium\GameLab3\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\pumf\Documents\Studium\GameLab3_CreationTermination\02-gl3-benner\code\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\pumf\Documents\Studium\GameLab3\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -139,45 +139,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named creationtermination
-
-# Build rule for target.
-creationtermination: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) creationtermination
-.PHONY : creationtermination
-
-# fast build rule for target.
-creationtermination\fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\creationtermination.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\creationtermination.dir\build
-.PHONY : creationtermination\fast
-
-#=============================================================================
-# Target rules for targets named copy_assets
-
-# Build rule for target.
-copy_assets: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) copy_assets
-.PHONY : copy_assets
-
-# fast build rule for target.
-copy_assets\fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\copy_assets.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\copy_assets.dir\build
-.PHONY : copy_assets\fast
-
-#=============================================================================
-# Target rules for targets named brew_engine
-
-# Build rule for target.
-brew_engine: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) brew_engine
-.PHONY : brew_engine
-
-# fast build rule for target.
-brew_engine\fast:
-	$(MAKE) $(MAKESILENT) -f extern\brew_engine\CMakeFiles\brew_engine.dir\build.make /nologo -$(MAKEFLAGS) extern\brew_engine\CMakeFiles\brew_engine.dir\build
-.PHONY : brew_engine\fast
-
-#=============================================================================
 # Target rules for targets named glad
 
 # Build rule for target.
@@ -187,7 +148,7 @@ glad: cmake_check_build_system
 
 # fast build rule for target.
 glad\fast:
-	$(MAKE) $(MAKESILENT) -f extern\brew_engine\extern\glad\CMakeFiles\glad.dir\build.make /nologo -$(MAKEFLAGS) extern\brew_engine\extern\glad\CMakeFiles\glad.dir\build
+	$(MAKE) $(MAKESILENT) -f extern\glad\CMakeFiles\glad.dir\build.make /nologo -$(MAKEFLAGS) extern\glad\CMakeFiles\glad.dir\build
 .PHONY : glad\fast
 
 #=============================================================================
@@ -200,7 +161,7 @@ uninstall: cmake_check_build_system
 
 # fast build rule for target.
 uninstall\fast:
-	$(MAKE) $(MAKESILENT) -f extern\brew_engine\extern\glfw-3.4\CMakeFiles\uninstall.dir\build.make /nologo -$(MAKEFLAGS) extern\brew_engine\extern\glfw-3.4\CMakeFiles\uninstall.dir\build
+	$(MAKE) $(MAKESILENT) -f extern\glfw\CMakeFiles\uninstall.dir\build.make /nologo -$(MAKEFLAGS) extern\glfw\CMakeFiles\uninstall.dir\build
 .PHONY : uninstall\fast
 
 #=============================================================================
@@ -213,7 +174,7 @@ glfw: cmake_check_build_system
 
 # fast build rule for target.
 glfw\fast:
-	$(MAKE) $(MAKESILENT) -f extern\brew_engine\extern\glfw-3.4\src\CMakeFiles\glfw.dir\build.make /nologo -$(MAKEFLAGS) extern\brew_engine\extern\glfw-3.4\src\CMakeFiles\glfw.dir\build
+	$(MAKE) $(MAKESILENT) -f extern\glfw\src\CMakeFiles\glfw.dir\build.make /nologo -$(MAKEFLAGS) extern\glfw\src\CMakeFiles\glfw.dir\build
 .PHONY : glfw\fast
 
 #=============================================================================
@@ -226,7 +187,7 @@ update_mappings: cmake_check_build_system
 
 # fast build rule for target.
 update_mappings\fast:
-	$(MAKE) $(MAKESILENT) -f extern\brew_engine\extern\glfw-3.4\src\CMakeFiles\update_mappings.dir\build.make /nologo -$(MAKEFLAGS) extern\brew_engine\extern\glfw-3.4\src\CMakeFiles\update_mappings.dir\build
+	$(MAKE) $(MAKESILENT) -f extern\glfw\src\CMakeFiles\update_mappings.dir\build.make /nologo -$(MAKEFLAGS) extern\glfw\src\CMakeFiles\update_mappings.dir\build
 .PHONY : update_mappings\fast
 
 #=============================================================================
@@ -239,32 +200,34 @@ glm: cmake_check_build_system
 
 # fast build rule for target.
 glm\fast:
-	$(MAKE) $(MAKESILENT) -f extern\brew_engine\extern\glm-1.0.1\glm\CMakeFiles\glm.dir\build.make /nologo -$(MAKEFLAGS) extern\brew_engine\extern\glm-1.0.1\glm\CMakeFiles\glm.dir\build
+	$(MAKE) $(MAKESILENT) -f extern\glm\glm\CMakeFiles\glm.dir\build.make /nologo -$(MAKEFLAGS) extern\glm\glm\CMakeFiles\glm.dir\build
 .PHONY : glm\fast
 
-main.obj: main.cpp.obj
-.PHONY : main.obj
+#=============================================================================
+# Target rules for targets named soloud
 
-# target to build an object file
-main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\creationtermination.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\creationtermination.dir\main.cpp.obj
-.PHONY : main.cpp.obj
+# Build rule for target.
+soloud: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) soloud
+.PHONY : soloud
 
-main.i: main.cpp.i
-.PHONY : main.i
+# fast build rule for target.
+soloud\fast:
+	$(MAKE) $(MAKESILENT) -f extern\soloud\src\CMakeFiles\soloud.dir\build.make /nologo -$(MAKEFLAGS) extern\soloud\src\CMakeFiles\soloud.dir\build
+.PHONY : soloud\fast
 
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\creationtermination.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\creationtermination.dir\main.cpp.i
-.PHONY : main.cpp.i
+#=============================================================================
+# Target rules for targets named Game
 
-main.s: main.cpp.s
-.PHONY : main.s
+# Build rule for target.
+Game: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) Game
+.PHONY : Game
 
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\creationtermination.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\creationtermination.dir\main.cpp.s
-.PHONY : main.cpp.s
+# fast build rule for target.
+Game\fast:
+	$(MAKE) $(MAKESILENT) -f game\CMakeFiles\Game.dir\build.make /nologo -$(MAKEFLAGS) game\CMakeFiles\Game.dir\build
+.PHONY : Game\fast
 
 # Help Target
 help:
@@ -277,17 +240,13 @@ help:
 	@echo ... install/local
 	@echo ... list_install_components
 	@echo ... rebuild_cache
-	@echo ... copy_assets
 	@echo ... uninstall
 	@echo ... update_mappings
-	@echo ... brew_engine
-	@echo ... creationtermination
+	@echo ... Game
 	@echo ... glad
 	@echo ... glfw
 	@echo ... glm
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
+	@echo ... soloud
 .PHONY : help
 
 
