@@ -39,7 +39,7 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
       
       The C compiler identification is MSVC, found in:
-        C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdC/CMakeCCompilerId.exe
+        C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdC/CMakeCCompilerId.exe
       
   -
     kind: "message-v1"
@@ -51,7 +51,7 @@ events:
     message: |
       Detecting C compiler /showIncludes prefix:
         main.c
-        Note: including file: C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\ShowIncludes\\foo.h
+        Note: including file: C:\\Users\\pumf\\Documents\\Studium\\GameLab3_CreationTermination\\02-gl3-benner\\code\\cmake-build-debug\\CMakeFiles\\ShowIncludes\\foo.h
         
       Found prefix "Note: including file: "
   -
@@ -85,7 +85,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
       
       The CXX compiler identification is MSVC, found in:
-        C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdCXX/CMakeCXXCompilerId.exe
+        C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdCXX/CMakeCXXCompilerId.exe
       
   -
     kind: "message-v1"
@@ -97,7 +97,7 @@ events:
     message: |
       Detecting CXX compiler /showIncludes prefix:
         main.c
-        Note: including file: C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\ShowIncludes\\foo.h
+        Note: including file: C:\\Users\\pumf\\Documents\\Studium\\GameLab3_CreationTermination\\02-gl3-benner\\code\\cmake-build-debug\\CMakeFiles\\ShowIncludes\\foo.h
         
       Found prefix "Note: including file: "
   -
@@ -109,8 +109,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-e7auaa"
-      binary: "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-e7auaa"
+      source: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-fi17u4"
+      binary: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-fi17u4"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
@@ -119,28 +119,11 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-e7auaa'
+        Change Dir: 'C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-fi17u4'
         
-        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/bin/cmake.exe" -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_4483e\\fast
-        	"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_4483e.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_4483e.dir\\build
-        Building C object CMakeFiles/cmTC_4483e.dir/CMakeCCompilerABI.c.obj
-        	"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_4483e.dir\\CMakeCCompilerABI.c.obj.d --working-dir=C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-e7auaa --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm33.tmp
-        CMakeCCompilerABI.c
-        Linking C executable cmTC_4483e.exe
-        	"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_4483e.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_4483e.dir\\objects1.rsp @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm1AB.tmp
-        Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_4483e.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_4483e.dir/embed.manifest
-        RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_4483e.dir/manifest.res CMakeFiles\\cmTC_4483e.dir/manifest.rc
-        LINK Pass 1:
-        C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_4483e.dir\\objects1.rsp /out:cmTC_4483e.exe /implib:cmTC_4483e.lib /pdb:C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-e7auaa\\cmTC_4483e.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_4483e.dir/intermediate.manifest CMakeFiles\\cmTC_4483e.dir/manifest.res
-        MT:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_4483e.dir/intermediate.manifest /out:CMakeFiles\\cmTC_4483e.dir/embed.manifest /notify_update
-        RC Pass 2:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_4483e.dir/manifest.res CMakeFiles\\cmTC_4483e.dir/manifest.rc
-        FINAL LINK:
-        C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_4483e.dir\\objects1.rsp /out:cmTC_4483e.exe /implib:cmTC_4483e.lib /pdb:C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-e7auaa\\cmTC_4483e.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_4483e.dir/intermediate.manifest CMakeFiles\\cmTC_4483e.dir/manifest.res
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_10026
+        [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_10026.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_10026.dir\\ /FS -c "C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c"
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_10026.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_10026.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_10026.exe /implib:cmTC_10026.lib /pdb:cmTC_10026.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -180,8 +163,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-5oi00w"
-      binary: "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-5oi00w"
+      source: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-t92aa0"
+      binary: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-t92aa0"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
@@ -191,28 +174,11 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-5oi00w'
+        Change Dir: 'C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-t92aa0'
         
-        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/bin/cmake.exe" -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_2d06c\\fast
-        	"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_2d06c.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_2d06c.dir\\build
-        Building CXX object CMakeFiles/cmTC_2d06c.dir/CMakeCXXCompilerABI.cpp.obj
-        	"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_2d06c.dir\\CMakeCXXCompilerABI.cpp.obj.d --working-dir=C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-5oi00w --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm3CD.tmp
-        CMakeCXXCompilerABI.cpp
-        Linking CXX executable cmTC_2d06c.exe
-        	"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_2d06c.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_2d06c.dir\\objects1.rsp @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm44B.tmp
-        Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_2d06c.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_2d06c.dir/embed.manifest
-        RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_2d06c.dir/manifest.res CMakeFiles\\cmTC_2d06c.dir/manifest.rc
-        LINK Pass 1:
-        C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_2d06c.dir\\objects1.rsp /out:cmTC_2d06c.exe /implib:cmTC_2d06c.lib /pdb:C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-5oi00w\\cmTC_2d06c.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_2d06c.dir/intermediate.manifest CMakeFiles\\cmTC_2d06c.dir/manifest.res
-        MT:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_2d06c.dir/intermediate.manifest /out:CMakeFiles\\cmTC_2d06c.dir/embed.manifest /notify_update
-        RC Pass 2:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_2d06c.dir/manifest.res CMakeFiles\\cmTC_2d06c.dir/manifest.rc
-        FINAL LINK:
-        C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_2d06c.dir\\objects1.rsp /out:cmTC_2d06c.exe /implib:cmTC_2d06c.lib /pdb:C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-5oi00w\\cmTC_2d06c.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_2d06c.dir/intermediate.manifest CMakeFiles\\cmTC_2d06c.dir/manifest.res
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_584a2
+        [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /EHsc  /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_584a2.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_584a2.dir\\ /FS -c "C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\share\\cmake-3.29\\Modules\\CMakeCXXCompilerABI.cpp"
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_584a2.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_584a2.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_584a2.exe /implib:cmTC_584a2.lib /pdb:cmTC_584a2.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -254,31 +220,27 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-r45mhm"
-      binary: "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-r45mhm"
+      source: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-z1iptr"
+      binary: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-z1iptr"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
       CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
-      CMAKE_MODULE_PATH: "C:/Users/pumf/Documents/Studium/GameLab3/extern/glfw/CMake/modules"
+      CMAKE_MODULE_PATH: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/extern/glfw/CMake/modules"
     buildResult:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-r45mhm'
+        Change Dir: 'C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-z1iptr'
         
-        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/bin/cmake.exe" -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_2b3b6\\fast
-        	"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_2b3b6.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_2b3b6.dir\\build
-        Building C object CMakeFiles/cmTC_2b3b6.dir/src.c.obj
-        	"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_2b3b6.dir\\src.c.obj.d --working-dir=C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-r45mhm --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm65D.tmp
-        src.c
-        C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-r45mhm\\src.c(1): fatal error C1083: Cannot open include file: 'pthread.h': No such file or directory
-        NMAKE : fatal error U1077: '"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_2b3b6.dir\\src.c.obj.d --working-dir=C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-r45mhm --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm65D.tmp' : return code '0x2'
-        Stop.
-        NMAKE : fatal error U1077: '"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_2b3b6.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_2b3b6.dir\\build' : return code '0x2'
-        Stop.
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_d6a0d
+        [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS  /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_d6a0d.dir\\src.c.obj /FdCMakeFiles\\cmTC_d6a0d.dir\\ /FS -c C:\\Users\\pumf\\Documents\\Studium\\GameLab3_CreationTermination\\02-gl3-benner\\code\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-z1iptr\\src.c
+        FAILED: CMakeFiles/cmTC_d6a0d.dir/src.c.obj 
+        C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS  /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_d6a0d.dir\\src.c.obj /FdCMakeFiles\\cmTC_d6a0d.dir\\ /FS -c C:\\Users\\pumf\\Documents\\Studium\\GameLab3_CreationTermination\\02-gl3-benner\\code\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-z1iptr\\src.c
+        C:\\Users\\pumf\\Documents\\Studium\\GameLab3_CreationTermination\\02-gl3-benner\\code\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-z1iptr\\src.c(1): fatal error C1083: Cannot open include file: 'pthread.h': No such file or directory
+        ninja: build stopped: subcommand failed.
         
-      exitCode: 2
+      exitCode: 1
   -
     kind: "try_compile-v1"
     backtrace:
@@ -289,41 +251,29 @@ events:
     checks:
       - "Looking for pthread_create in pthreads"
     directories:
-      source: "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-57o002"
-      binary: "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-57o002"
+      source: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-904zmh"
+      binary: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-904zmh"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
       CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
-      CMAKE_MODULE_PATH: "C:/Users/pumf/Documents/Studium/GameLab3/extern/glfw/CMake/modules"
+      CMAKE_MODULE_PATH: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/extern/glfw/CMake/modules"
     buildResult:
       variable: "CMAKE_HAVE_PTHREADS_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-57o002'
+        Change Dir: 'C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-904zmh'
         
-        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/bin/cmake.exe" -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_d3e10\\fast
-        	"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_d3e10.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_d3e10.dir\\build
-        Building C object CMakeFiles/cmTC_d3e10.dir/CheckFunctionExists.c.obj
-        	"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_d3e10.dir\\CheckFunctionExists.c.obj.d --working-dir=C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-57o002 --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm776.tmp
-        CheckFunctionExists.c
-        Linking C executable cmTC_d3e10.exe
-        	"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_d3e10.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_d3e10.dir\\objects1.rsp @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm7F4.tmp
-        Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_d3e10.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_d3e10.dir/embed.manifest
-        RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_d3e10.dir/manifest.res CMakeFiles\\cmTC_d3e10.dir/manifest.rc
-        LINK Pass 1:
-        C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_d3e10.dir\\objects1.rsp /out:cmTC_d3e10.exe /implib:cmTC_d3e10.lib /pdb:C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-57o002\\cmTC_d3e10.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_d3e10.dir/intermediate.manifest CMakeFiles\\cmTC_d3e10.dir/manifest.res
-        LINK Pass 1: command "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_d3e10.dir\\objects1.rsp /out:cmTC_d3e10.exe /implib:cmTC_d3e10.lib /pdb:C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-57o002\\cmTC_d3e10.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_d3e10.dir/intermediate.manifest CMakeFiles\\cmTC_d3e10.dir/manifest.res" failed (exit code 1104) with the following output:
-        LINK : fatal error LNK1104: cannot open file 'pthreads.lib'
-        NMAKE : fatal error U1077: '"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_d3e10.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_d3e10.dir\\objects1.rsp @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm7F4.tmp' : return code '0xffffffff'
-        Stop.
-        NMAKE : fatal error U1077: '"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_d3e10.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_d3e10.dir\\build' : return code '0x2'
-        Stop.
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_45bc2
+        [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS -DCHECK_FUNCTION_EXISTS=pthread_create /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_45bc2.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_45bc2.dir\\ /FS -c C:\\Users\\pumf\\Documents\\Studium\\GameLab3_CreationTermination\\02-gl3-benner\\code\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-904zmh\\CheckFunctionExists.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_45bc2.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_45bc2.dir\\CheckFunctionExists.c.obj  /out:cmTC_45bc2.exe /implib:cmTC_45bc2.lib /pdb:cmTC_45bc2.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        FAILED: cmTC_45bc2.exe 
+        C:\\Windows\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_45bc2.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_45bc2.dir\\CheckFunctionExists.c.obj  /out:cmTC_45bc2.exe /implib:cmTC_45bc2.lib /pdb:cmTC_45bc2.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        LINK Pass 1: command "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_45bc2.dir\\CheckFunctionExists.c.obj /out:cmTC_45bc2.exe /implib:cmTC_45bc2.lib /pdb:cmTC_45bc2.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_45bc2.dir/intermediate.manifest CMakeFiles\\cmTC_45bc2.dir/manifest.res" failed (exit code 1104) with the following output:
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib'\x0d
+        ninja: build stopped: subcommand failed.
         
-      exitCode: 2
+      exitCode: 1
   -
     kind: "try_compile-v1"
     backtrace:
@@ -334,39 +284,27 @@ events:
     checks:
       - "Looking for pthread_create in pthread"
     directories:
-      source: "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-63v0rz"
-      binary: "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-63v0rz"
+      source: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-yglakm"
+      binary: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-yglakm"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Ob0 /Od /RTC1"
       CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
-      CMAKE_MODULE_PATH: "C:/Users/pumf/Documents/Studium/GameLab3/extern/glfw/CMake/modules"
+      CMAKE_MODULE_PATH: "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/extern/glfw/CMake/modules"
     buildResult:
       variable: "CMAKE_HAVE_PTHREAD_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-63v0rz'
+        Change Dir: 'C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-yglakm'
         
-        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.2/bin/cmake/win/x64/bin/cmake.exe" -E env VERBOSE=1 nmake -f Makefile /nologo cmTC_90a9d\\fast
-        	"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_90a9d.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_90a9d.dir\\build
-        Building C object CMakeFiles/cmTC_90a9d.dir/CheckFunctionExists.c.obj
-        	"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_90a9d.dir\\CheckFunctionExists.c.obj.d --working-dir=C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-63v0rz --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm8FD.tmp
-        CheckFunctionExists.c
-        Linking C executable cmTC_90a9d.exe
-        	"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_90a9d.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_90a9d.dir\\objects1.rsp @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm96B.tmp
-        Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_90a9d.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_90a9d.dir/embed.manifest
-        RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_90a9d.dir/manifest.res CMakeFiles\\cmTC_90a9d.dir/manifest.rc
-        LINK Pass 1:
-        C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_90a9d.dir\\objects1.rsp /out:cmTC_90a9d.exe /implib:cmTC_90a9d.lib /pdb:C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-63v0rz\\cmTC_90a9d.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_90a9d.dir/intermediate.manifest CMakeFiles\\cmTC_90a9d.dir/manifest.res
-        LINK Pass 1: command "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_90a9d.dir\\objects1.rsp /out:cmTC_90a9d.exe /implib:cmTC_90a9d.lib /pdb:C:\\Users\\pumf\\Documents\\Studium\\GameLab3\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-63v0rz\\cmTC_90a9d.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_90a9d.dir/intermediate.manifest CMakeFiles\\cmTC_90a9d.dir/manifest.res" failed (exit code 1104) with the following output:
-        LINK : fatal error LNK1104: cannot open file 'pthread.lib'
-        NMAKE : fatal error U1077: '"C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_90a9d.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_90a9d.dir\\objects1.rsp @C:\\Users\\pumf\\AppData\\Local\\Temp\\nm96B.tmp' : return code '0xffffffff'
-        Stop.
-        NMAKE : fatal error U1077: '"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\nmake.exe"  -f CMakeFiles\\cmTC_90a9d.dir\\build.make /nologo -L                  CMakeFiles\\cmTC_90a9d.dir\\build' : return code '0x2'
-        Stop.
+        Run Build Command(s): "C:/Program Files/JetBrains/CLion 2024.2.2/bin/ninja/win/x64/ninja.exe" -v cmTC_8da53
+        [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS -DCHECK_FUNCTION_EXISTS=pthread_create /Ob0 /Od /RTC1 -MDd -Zi /showIncludes /FoCMakeFiles\\cmTC_8da53.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_8da53.dir\\ /FS -c C:\\Users\\pumf\\Documents\\Studium\\GameLab3_CreationTermination\\02-gl3-benner\\code\\cmake-build-debug\\CMakeFiles\\CMakeScratch\\TryCompile-yglakm\\CheckFunctionExists.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_8da53.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_8da53.dir\\CheckFunctionExists.c.obj  /out:cmTC_8da53.exe /implib:cmTC_8da53.lib /pdb:cmTC_8da53.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        FAILED: cmTC_8da53.exe 
+        C:\\Windows\\system32\\cmd.exe /C "cd . && "C:\\Program Files\\JetBrains\\CLion 2024.2.2\\bin\\cmake\\win\\x64\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_8da53.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_8da53.dir\\CheckFunctionExists.c.obj  /out:cmTC_8da53.exe /implib:cmTC_8da53.lib /pdb:cmTC_8da53.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        LINK Pass 1: command "C:\\PROGRA~1\\MICROS~2\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_8da53.dir\\CheckFunctionExists.c.obj /out:cmTC_8da53.exe /implib:cmTC_8da53.lib /pdb:cmTC_8da53.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_8da53.dir/intermediate.manifest CMakeFiles\\cmTC_8da53.dir/manifest.res" failed (exit code 1104) with the following output:
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib'\x0d
+        ninja: build stopped: subcommand failed.
         
-      exitCode: 2
+      exitCode: 1
 ...

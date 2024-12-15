@@ -26,6 +26,11 @@ set(SOURCE_FILES src/main.cpp
         src/entities/Shield.h
         src/entities/Minienemies.cpp
         src/entities/Minienemies.h
+        src/rendering/SpriteRenderer.cpp
+        src/rendering/SpriteRenderer.h
+        src/rendering/Texture2D.cpp
+        src/rendering/Texture2D.h
+        src/stb_image.h
 )
 
 # set executable name

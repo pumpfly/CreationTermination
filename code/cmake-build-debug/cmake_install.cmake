@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/pumf/Documents/Studium/GameLab3
+# Install script for directory: C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,27 +34,27 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/extern/glad/cmake_install.cmake")
+  include("C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/extern/glad/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/extern/glfw/cmake_install.cmake")
+  include("C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/extern/glfw/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/extern/glm/cmake_install.cmake")
+  include("C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/extern/glm/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/extern/soloud/cmake_install.cmake")
+  include("C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/extern/soloud/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/game/cmake_install.cmake")
+  include("C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/game/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -65,5 +65,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/pumf/Documents/Studium/GameLab3/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/pumf/Documents/Studium/GameLab3_CreationTermination/02-gl3-benner/code/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

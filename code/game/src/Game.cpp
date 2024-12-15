@@ -5,13 +5,10 @@
 
 #include <iostream>
 
-#include "entities/Planet.h"
 #include <random>
 #include <stdexcept>
 
 #include "Assets.h"
-#include "entities/Enemy.h"
-#include "entities/Minienemies.h"
 #include "input/Input.h"
 
 namespace gl3 {
@@ -20,7 +17,9 @@ namespace gl3 {
         glViewport(0, 0, width, height);
     }
 
-    Game::Game(int width, int height, const std::string &title) {
+    Game::Game(int width, int height, const std::string &title) :
+        projectionMatrix(glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f))
+    {
         if(!glfwInit()) {
             throw std::runtime_error("Failed to initialize glfw");
         }
@@ -66,6 +65,10 @@ namespace gl3 {
         return projection * view * model;
     }
 
+    glm::mat4 Game::projection() const {
+        return projectionMatrix;
+    }
+
     void Game::run() {
         unsigned int VAO;
         glGenVertexArrays(1, &VAO);
@@ -93,13 +96,13 @@ namespace gl3 {
         ship = spaceShip.get();
         entities.push_back(std::move(spaceShip));
 
-        auto enemy = std::make_unique<Enemy>(nullptr, glm::vec3(2, 0, 0), -90, 0.25);
-        entities.push_back(std::move(enemy));
+        /*auto enemy = std::make_unique<Enemy>(nullptr, glm::vec3(2, 0, 0), -90, 0.25);
+        entities.push_back(std::move(enemy));*/
 
-        for(int i = 0; i < 2000; i++) {
+        /*for(int i = 0; i < 2000; i++) {
             auto miniEnemy = std::make_unique<Minienemies>(glm::vec3(1, 0, 0), -90, 0.07);
             entities.push_back(std::move(miniEnemy));
-        }
+        }*/
 
         backgroundMusic = std::make_unique<SoLoud::Wav>();
         backgroundMusic->load(resolveAssetPath("audio/electronic-wave.mp3").string().c_str());
@@ -117,7 +120,7 @@ namespace gl3 {
             brew::Input::inputUpdate();
 
             auto end = std::chrono::steady_clock::now();
-            std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << '\n';
+            //std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << '\n';
         }
 
         glDeleteVertexArrays(1, &VAO);

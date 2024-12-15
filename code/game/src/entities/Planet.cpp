@@ -48,7 +48,9 @@ namespace gl3 {
 
     Planet::Planet(Game* game, glm::vec3 position, float size, glm::vec4 color)
         : Entity(Shader("vertexShader.vert", "fragmentShader.frag"),
-                 Mesh(glCircleData.vertices, glCircleData.indices), position, 0.f, glm::vec3(size, size, size), color)
+                 Mesh(glCircleData.vertices, glCircleData.indices),
+
+                 position, 0.f, glm::vec3(size, size, size), color)
     {
         gamePtr = game;
     }

@@ -11,8 +11,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "entities/Ship.h"
-#include "input/Input.h"
-
 
 namespace gl3 {
     class Game {
@@ -21,6 +19,8 @@ namespace gl3 {
         virtual ~Game();
         void run();
         static glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
+        glm::mat4 projection() const;
+
 
         Ship *getShip() { return ship; }
         GLFWwindow *getWindow() { return window; }
@@ -38,6 +38,8 @@ namespace gl3 {
         glm::mat4 mvpMatrix{};
         Mesh* mesh = nullptr;
         Shader* shader = nullptr;
+
+        glm::mat4 projectionMatrix;
 
         float zRotation = 0.0f;
         float rotationSpeed = 120.0f;
