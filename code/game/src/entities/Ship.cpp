@@ -12,7 +12,7 @@
 #include "../Assets.h"
 
 namespace gl3{
-    Ship::Ship(Game* game, glm::vec3 position, float zRotation, glm::vec3 scale, glm::vec4 color)
+    Ship::Ship(Game* game, glm::vec2 position, float zRotation, glm::vec2 scale, glm::vec4 color)
     : Entity(Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag"),
                     Mesh({
                         -0.3f, 0.25f, 0.0f,
@@ -40,7 +40,8 @@ namespace gl3{
                     position,
                     zRotation,
                     scale,
-                    {0.1f, 0.1f, 0.1f, 0.5f}){
+                    {0.1f, 0.1f, 0.1f, 0.5f},
+                    Texture2D::FromFile("sprites/witch.png")){
 
         audio.init();
         audio.setGlobalVolume(0.1f);
@@ -51,7 +52,7 @@ namespace gl3{
 
     void Ship::update(Game *game, float deltaTime) {
         auto window = game->getWindow();
-        glm::vec3 forward(0.0f, 0.0f, 0.0f);
+        glm::vec2 forward(0.0f, 0.0f);
         forward.x += cos(glm::radians(zRotation));
         forward.y += sin(glm::radians(zRotation));
         forward = forward * translationSpeed * deltaTime;
@@ -76,11 +77,11 @@ namespace gl3{
         if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && countdownUntilNextShot <= 0) {
             audio.play(firingSound);
             auto angle = glm::radians(zRotation);
-            glm::vec3 forwardVec = {glm::cos(angle), glm::sin(angle), 0.f};
-            glm::vec3 offset {forwardVec.x * getScale().x / 2 , forwardVec.y * getScale().y / 2, 0};
+            glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
+            glm::vec2 offset {forwardVec.x * getScale().x / 2 , forwardVec.y * getScale().y / 2};
             // - 90 because mesh up is +y
             auto missile =
-                std::make_unique<Missile>(game, game->getShip()->position + offset, zRotation - 90, 0.09f);
+                std::make_unique<Missile>(game, game->getShip()->position + offset, zRotation - 90, glm::vec2(0.09f, 0.09f));
             missiles.push_back(std::move(missile));
             countdownUntilNextShot = timeBetweenShots;
         }
@@ -90,15 +91,15 @@ namespace gl3{
             charging = true;
             auto angle = glm::radians(zRotation);
             glm::vec3 forwardVec = {glm::cos(angle), glm::sin(angle), 0.f};
-            glm::vec3 offset {forwardVec.x * getScale().x / 2 , forwardVec.y * getScale().y / 2, 0};
+            glm::vec2 offset {forwardVec.x * getScale().x / 2 , forwardVec.y * getScale().y / 2};
             if(!onlySingleMissile) {
                 auto bigM =
                 std::make_unique<Missile>(game,
-                    game->getShip()->position + offset, zRotation - 90, 0.05f);
+                    game->getShip()->position + offset, zRotation - 90, glm::vec2(0.05f, 0.05f));
                 bigMissiles.push_back(std::move(bigM));
             }
             missileTempSize = (missileTempSize + 0.5f) * deltaTime;
-            glm::vec3 mts = {missileTempSize, missileTempSize, missileTempSize};
+            glm::vec2 mts = {missileTempSize, missileTempSize};
             bigMissiles.back()->setScale(bigMissiles.back()->getScale() + mts);
             bigMissiles.back()->setPosition(this->getPosition());
             onlySingleMissile = true;
@@ -111,12 +112,12 @@ namespace gl3{
         //Wave shot
         if(brew::Input::IsKeyPressed(brew::Input::KEY_E)) {
             auto angle = glm::radians(zRotation);
-            glm::vec3 forwardVec = {glm::cos(angle), glm::sin(angle), 0.f};
-            glm::vec3 offset {forwardVec.x * getScale().x , forwardVec.y * getScale().y, 0};
+            glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
+            glm::vec2 offset {forwardVec.x * getScale().x , forwardVec.y * getScale().y};
             for(int i = 0; i <= 8; i++) {
                 auto waveM =
                 std::make_unique<Missile>(game,
-                    game->getShip()->position + offset, zRotation - (45.0f + (i * 10.0f)), 0.05f);
+                    game->getShip()->position + offset, zRotation - (45.0f + (i * 10.0f)), glm::vec2(0.05f, 0.05f));
                 waveMissiles.push_back(std::move(waveM));
             }
         }
@@ -124,7 +125,7 @@ namespace gl3{
         if(brew::Input::IsKeyDown(brew::Input::KEY_LEFT_CONTROL) || brew::Input::IsKeyPressed(brew::Input::KEY_RIGHT_CONTROL)) {
             shield =
                 std::make_unique<Shield>(game,
-                    game->getShip()->position, zRotation, 0.25);
+                    game->getShip()->position, zRotation, glm::vec2(0.25, 0.25));
             shield->setPosition(this->getPosition());
         }
         if(brew::Input::IsKeyReleased(brew::Input::KEY_LEFT_CONTROL) || brew::Input::IsKeyReleased(brew::Input::KEY_RIGHT_CONTROL)) {
@@ -169,5 +170,6 @@ namespace gl3{
             w->draw(game);
         }
         if(shield) shield->draw(game);
+        SpriteRenderer::Instance().DrawSprite(game, texture, position, scale, zRotation, color);
     }
 }

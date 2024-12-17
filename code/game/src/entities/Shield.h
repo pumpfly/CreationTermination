@@ -5,7 +5,7 @@
 namespace gl3 {
     class Shield : public Entity {
     public:
-        explicit Shield(gl3::Game *game, glm::vec3 position, float zRotation, float size);
+        explicit Shield(gl3::Game *game, glm::vec2 position, float zRotation, glm::vec2 scale);
         void update(gl3::Game *game, float deltaTime) override;
     };
 }

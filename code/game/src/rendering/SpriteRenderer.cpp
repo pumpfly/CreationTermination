@@ -9,7 +9,7 @@ namespace gl3 {
 }
 
 SpriteRenderer::SpriteRenderer()
-    : defaultShader(gl3::Shader::Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag")),
+    : defaultShader(gl3::Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag")),
     shader(&defaultShader),
     mesh(gl3::Mesh(
             {0.0f, 1.0f, 0.0f,
@@ -81,29 +81,3 @@ void SpriteRenderer::DrawSprite(gl3::Game *game, Texture2D &texture, glm::vec2 p
     //this->mesh.draw();
     // TODO: actually draw the sprite bz rendering the mesh. this is incomplete.
 }
-
-// void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec2 size, float rotate, glm::vec3 color)
-// {
-//     // prepare transformations
-//     this->shader.use();
-//     glm::mat4 model = glm::mat4(1.0f);
-//     model = glm::translate(model, glm::vec3(position, 0.0f));  // first translate (transformations are: scale happens first, then rotation, and then final translation happens; reversed order)
-//
-//     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f)); // move origin of rotation to center of quad
-//     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f)); // then rotate
-//     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f)); // move origin back
-//
-//     model = glm::scale(model, glm::vec3(size, 1.0f)); // last scale
-//
-//     this->shader.setMatrix("model", model);
-//
-//     // render textured quad
-//     this->shader.setVector("color", color);
-//
-//     glActiveTexture(GL_TEXTURE0);
-//     texture.Bind();
-//
-//     glBindVertexArray(this->baseQuadVAO);
-//     glDrawArrays(GL_TRIANGLES, 0, 6);
-//     glBindVertexArray(0);
-// }

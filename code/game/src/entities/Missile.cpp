@@ -6,7 +6,7 @@
 #include "../Game.h"
 
 namespace gl3 {
-    Missile::Missile(gl3::Game *game, glm::vec3 position, float zRotation, float size) : Entity(
+    Missile::Missile(gl3::Game *game, glm::vec2 position, float zRotation, glm::vec2 scale) : Entity(
             Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag"),
             Mesh({0.0f, 0.0f, 0.0f,
                   0.0f, 0.5f, 0.0f,
@@ -30,7 +30,7 @@ namespace gl3 {
                   0, 9, 1}),
             position,
             zRotation,
-            glm::vec3(size),
+            scale,
             {7.0f, 0.0f, 1.0f, 1.0f}) {
     }
     void Missile::update(gl3::Game *game, float deltaTime) {

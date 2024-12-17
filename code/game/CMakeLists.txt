@@ -13,8 +13,6 @@ set(SOURCE_FILES src/main.cpp
         src/entities/Ship.cpp
         src/entities/Ship.h
         src/Assets.h
-        src/entities/Planet.cpp
-        src/entities/Planet.h
         src/entities/Enemy.cpp
         src/entities/Enemy.h
         src/entities/Missile.cpp

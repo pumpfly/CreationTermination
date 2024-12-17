@@ -11,8 +11,8 @@
 namespace gl3 {
     class Minienemies : public Entity {
     public:
-        explicit Minienemies(glm::vec3 position = glm::vec3(0, 0, 0), float zRotation = 0,
-            float size = 0.01);
+        explicit Minienemies(glm::vec2 position = glm::vec2(0, 0), float zRotation = 0,
+            glm::vec2 scale = glm::vec2(1, 1));
 
         void update(Game *game, float deltaTime) override;
 

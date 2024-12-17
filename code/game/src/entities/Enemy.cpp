@@ -12,7 +12,7 @@
 #include <cmath>
 
 namespace gl3 {
-    Enemy::Enemy(Game * game, glm::vec3 position, float zRotation, float size) : Entity(
+    Enemy::Enemy(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale) : Entity(
         Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag"),
                     Mesh({
                         0.0f, 0.0f, 0.0f,
@@ -39,7 +39,7 @@ namespace gl3 {
                     }),
                     position,
                     zRotation,
-                    glm::vec3(size, size, size),
+                    scale,
                     {0.0f, 0.0f, 0.0f, 1.0f}){
 
         audio.init();
@@ -94,10 +94,10 @@ namespace gl3 {
         {
             // -90 because mesh forward is +y
             auto angle = glm::radians(zRotation - 90);
-            glm::vec3 forwardVec = {glm::cos(angle), glm::sin(angle), 0.f};
-            glm::vec3 offset{forwardVec.x * getScale().x, forwardVec.y * getScale().y, 0};
+            glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
+            glm::vec2 offset{forwardVec.x * getScale().x, forwardVec.y * getScale().y};
             auto missile =
-                    std::make_unique<Missile>(game, position + offset, zRotation - 180, 0.05f);
+                    std::make_unique<Missile>(game, position + offset, zRotation - 180, glm::vec2(0.05f, 0.05f));
             missiles.push_back(std::move(missile));
             countdownUntilNextShot = timeBetweenShots;
         }

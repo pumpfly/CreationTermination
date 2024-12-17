@@ -6,7 +6,7 @@
 #include "../Game.h"
 
 namespace gl3 {
-    Shield::Shield(gl3::Game *game, glm::vec3 position, float zRotation, float size) : Entity(
+    Shield::Shield(gl3::Game *game, glm::vec2 position, float zRotation, glm::vec2 scale) : Entity(
                 gl3::Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag"),
                 gl3::Mesh({0.0f, 0.0f, 0.0f,
                     0.2f, 1.0f, 0.0f,
@@ -44,7 +44,7 @@ namespace gl3 {
                      0, 16, 1}),
                 position,
                 zRotation,
-                glm::vec3(size),
+                scale,
                 {1.0f, 1.0f, 1.0f, 0.5f}) {
     }
 
