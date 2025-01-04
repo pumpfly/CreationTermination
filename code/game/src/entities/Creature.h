@@ -9,9 +9,10 @@
 #include "Missile.h"
 
 namespace gl3 {
-    class Enemy : public Entity {
+    class Creature : public Entity {
     public:
-        explicit Enemy(Game* game, glm::vec2 position = glm::vec2(0, 0), float zRotation = 0, glm::vec2 scale = glm::vec2(1, 1));
+        explicit Creature(Game* game, glm::vec2 position = glm::vec2(0, 0), float zRotation = 0,
+            glm::vec2 scale = glm::vec2(1, 1), Texture2D texture = Texture2D::FromFile("sprites/a.png"));
 
         void update(Game *game, float deltaTime) override;
         void draw(Game *game) override;

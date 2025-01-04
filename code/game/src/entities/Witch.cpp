@@ -2,7 +2,7 @@
 // Created by pumf on 24/10/2024.
 //
 
-#include "Ship.h"
+#include "Witch.h"
 
 #include <iostream>
 
@@ -12,7 +12,7 @@
 #include "../Assets.h"
 
 namespace gl3{
-    Ship::Ship(Game* game, glm::vec2 position, float zRotation, glm::vec2 scale, glm::vec4 color)
+    Witch::Witch(Game* game, glm::vec2 position, float zRotation, glm::vec2 scale, glm::vec4 color, Texture2D texture)
     : Entity(Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag"),
                     Mesh({
                         -0.3f, 0.25f, 0.0f,
@@ -41,7 +41,7 @@ namespace gl3{
                     zRotation,
                     scale,
                     {0.1f, 0.1f, 0.1f, 0.5f},
-                    Texture2D::FromFile("sprites/witch.png")){
+                    texture){
 
         audio.init();
         audio.setGlobalVolume(0.1f);
@@ -50,7 +50,7 @@ namespace gl3{
 
     }
 
-    void Ship::update(Game *game, float deltaTime) {
+    void Witch::update(Game *game, float deltaTime) {
         auto window = game->getWindow();
         glm::vec2 forward(0.0f, 0.0f);
         forward.x += cos(glm::radians(zRotation));
@@ -158,7 +158,7 @@ namespace gl3{
         // Shield
         if(shield) shield->update(game, deltaTime);
     }
-    void Ship::draw(Game *game) {
+    void Witch::draw(Game *game) {
         Entity::draw(game);
         for (auto &m: missiles) {
             m->draw(game);
@@ -170,6 +170,7 @@ namespace gl3{
             w->draw(game);
         }
         if(shield) shield->draw(game);
-        SpriteRenderer::Instance().DrawSprite(game, texture, position, scale, zRotation, color);
+        SpriteRenderer::Instance().DrawSprite(game, texture, glm::vec2(200, 200),
+            glm::vec2(100, 100), zRotation, color);
     }
 }

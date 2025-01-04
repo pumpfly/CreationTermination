@@ -10,11 +10,11 @@ set(SOURCE_FILES src/main.cpp
         src/rendering/Mesh.h
         src/entities/Entity.cpp
         src/entities/Entity.h
-        src/entities/Ship.cpp
-        src/entities/Ship.h
+        src/entities/Witch.cpp
+        src/entities/Witch.h
         src/Assets.h
-        src/entities/Enemy.cpp
-        src/entities/Enemy.h
+        src/entities/Creature.cpp
+        src/entities/Creature.h
         src/entities/Missile.cpp
         src/entities/Missile.h
         src/Input/Input.cpp

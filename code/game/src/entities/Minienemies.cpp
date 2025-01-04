@@ -4,11 +4,11 @@
 
 #include "Minienemies.h"
 
-#include "Enemy.h"
+#include "Creature.h"
 #include "../Game.h"
 
 namespace gl3 {
-    Minienemies::Minienemies(glm::vec2 position, float zRotation, glm::vec2 scale) : Entity(
+    Minienemies::Minienemies(glm::vec2 position, float zRotation, glm::vec2 scale, Texture2D texture) : Entity(
             Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag"),
             Mesh({0.0f, 0.0f, 0.0f,
                         0.0f, -0.9f, 0.0f,
@@ -35,7 +35,8 @@ namespace gl3 {
             position,
             zRotation,
             scale,
-            glm::vec4(0.35f, 0.35f, 0.35f, 1.0f))
+            glm::vec4(0.35f, 0.35f, 0.35f, 1.0f),
+            texture)
     {}
 
     float lerp2(float a, float b, float f)

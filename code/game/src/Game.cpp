@@ -9,6 +9,8 @@
 #include <stdexcept>
 
 #include "Assets.h"
+#include "entities/Creature.h"
+#include "entities/Minienemies.h"
 #include "input/Input.h"
 
 namespace gl3 {
@@ -77,32 +79,15 @@ namespace gl3 {
 
         glEnable(GL_BLEND);
 
-        std::mt19937 randomNumberEngine{ static_cast<unsigned int>(std::chrono::steady_clock::now().time_since_epoch().count()) };
-        std::uniform_real_distribution positionDist{-1.5, 2.0};
-        std::uniform_real_distribution scaleDist{0.2, 5.0};
-        std::uniform_real_distribution colorDist{0.5, 1.0};
-        std::uniform_real_distribution extraNumber{0.3, 0.8};
-        /*for(auto i = 0; i < 50; ++i) {
-            auto randomPosition = glm::vec3(static_cast<float>(positionDist(randomNumberEngine) * 1.5), static_cast<float>(positionDist(randomNumberEngine) * 1.5) , 0);
-            auto randomScale = static_cast<float>(scaleDist(randomNumberEngine));
-            auto c = colorDist(randomNumberEngine);
-            auto r = extraNumber(randomNumberEngine);
-            auto randomColor = glm::vec4( c/r, c/2.0, c, 1.0);
-            auto entity = std::make_unique<Planet>(nullptr, randomPosition, randomScale, randomColor);
-            entities.push_back(std::move(entity));
-        }*/
-
-        auto spaceShip = std::make_unique<Ship>(nullptr, glm::vec3(-2, 0, 0));
+        auto spaceShip = std::make_unique<Witch>(nullptr, glm::vec3(-2, 0, 0));
         ship = spaceShip.get();
         entities.push_back(std::move(spaceShip));
 
-        /*auto enemy = std::make_unique<Enemy>(nullptr, glm::vec3(2, 0, 0), -90, 0.25);
-        entities.push_back(std::move(enemy));*/
+        auto creature = std::make_unique<Creature>(nullptr, glm::vec3(2, 0, 0), -90, glm::vec2(0.25, 0.25));
+        entities.push_back(std::move(creature));
 
-        /*for(int i = 0; i < 2000; i++) {
-            auto miniEnemy = std::make_unique<Minienemies>(glm::vec3(1, 0, 0), -90, 0.07);
-            entities.push_back(std::move(miniEnemy));
-        }*/
+        auto miniEnemy = std::make_unique<Minienemies>(glm::vec3(1, 0, 0), -90, glm::vec2(0.07, 0.07));
+        entities.push_back(std::move(miniEnemy));
 
         backgroundMusic = std::make_unique<SoLoud::Wav>();
         backgroundMusic->load(resolveAssetPath("audio/electronic-wave.mp3").string().c_str());

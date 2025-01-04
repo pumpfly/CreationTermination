@@ -2,7 +2,7 @@
 // Created by Lisa B on 29/10/2024.
 //
 
-#include "Enemy.h"
+#include "Creature.h"
 
 #include <iostream>
 #include <random>
@@ -12,7 +12,7 @@
 #include <cmath>
 
 namespace gl3 {
-    Enemy::Enemy(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale) : Entity(
+    Creature::Creature(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale, Texture2D texture) : Entity(
         Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag"),
                     Mesh({
                         0.0f, 0.0f, 0.0f,
@@ -40,7 +40,8 @@ namespace gl3 {
                     position,
                     zRotation,
                     scale,
-                    {0.0f, 0.0f, 0.0f, 1.0f}){
+                    {0.0f, 0.0f, 0.0f, 1.0f},
+                    texture){
 
         audio.init();
         audio.setGlobalVolume(0.1f);
@@ -53,7 +54,7 @@ namespace gl3 {
         return a - f*(b - a);
     }
 
-    void Enemy::update(Game* game, float deltaTime)
+    void Creature::update(Game* game, float deltaTime)
     {
         std::time_t elapsedTime = std::time(nullptr);
         const auto shipPosition = game->getShip()->getPosition();
@@ -113,7 +114,7 @@ namespace gl3 {
 
     }
 
-    void Enemy::draw(Game* game)
+    void Creature::draw(Game* game)
     {
         Entity::draw(game);
         for (auto& m: missiles)

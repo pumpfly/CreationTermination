@@ -10,7 +10,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "entities/Ship.h"
+#include "entities/Witch.h"
 
 namespace gl3 {
     class Game {
@@ -22,7 +22,7 @@ namespace gl3 {
         glm::mat4 projection() const;
 
 
-        Ship *getShip() { return ship; }
+        Witch *getShip() { return ship; }
         GLFWwindow *getWindow() { return window; }
     private:
         static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
@@ -34,7 +34,7 @@ namespace gl3 {
         std::unique_ptr<SoLoud::Wav> backgroundMusic;
 
         GLFWwindow *window = nullptr;
-        Ship* ship = nullptr;
+        Witch* ship = nullptr;
         glm::mat4 mvpMatrix{};
         Mesh* mesh = nullptr;
         Shader* shader = nullptr;

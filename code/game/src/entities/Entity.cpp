@@ -7,13 +7,13 @@ namespace gl3 {
             zRotation(zRotation),
             scale(scale),
             color(color),
-            texture(texture),
             shader(std::move(shader)),
-            mesh(std::move(mesh)) {
+            mesh(std::move(mesh)),
+            texture(texture){
     }
 
     void Entity::draw(Game *game) {
-        //SpriteRenderer::Instance().DrawSprite(game, texture, glm::vec2(200, 100),
-        //    glm::vec2(100, 100), zRotation, color);
+        SpriteRenderer::Instance().DrawSprite(game, texture, glm::vec2(200, 100),
+            glm::vec2(100, 100), zRotation, color);
     }
 }

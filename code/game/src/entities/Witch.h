@@ -10,11 +10,12 @@
 #include "Shield.h"
 
 namespace gl3 {
-    class Ship : public Entity{
+    class Witch : public Entity{
     public:
-        explicit Ship(Game* game, glm::vec2 position = glm::vec2(0.0f, 0.0f),
+        explicit Witch(Game* game, glm::vec2 position = glm::vec2(0.0f, 0.0f),
              float zRotation = 0.0f,
-             glm::vec2 scale = glm::vec2(0.15f, 0.15f), glm::vec4 color = glm::vec4(0.15f, 0.15f, 0.15f, 1.0f));
+             glm::vec2 scale = glm::vec2(0.15f, 0.15f), glm::vec4 color = glm::vec4(0.15f, 0.15f, 0.15f, 1.0f),
+             Texture2D texture = Texture2D::FromFile("sprites/witch.png"));
 
         void update(Game *game, float deltaTime) override;
         void draw(Game *game) override;
