@@ -6,8 +6,6 @@ set(SOURCE_FILES src/main.cpp
         src/Game.h
         src/rendering/Shader.cpp
         src/rendering/Shader.h
-        src/rendering/Mesh.cpp
-        src/rendering/Mesh.h
         src/entities/Entity.cpp
         src/entities/Entity.h
         src/entities/Witch.cpp
@@ -45,7 +43,5 @@ target_link_libraries(${EXE_FILE} PRIVATE glad glfw glm soloud)
 
 target_compile_definitions(${EXE_FILE} PRIVATE ASSET_ROOT=./assets/)
 
-# copy assets to output directory before build
-add_custom_command(TARGET ${EXE_FILE} PRE_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${EXE_FILE}>/assets)
+add_custom_target(copy_assets COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/assets ${CMAKE_BINARY_DIR}/game/assets)
+add_dependencies(${EXE_FILE} copy_assets)

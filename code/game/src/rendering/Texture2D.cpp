@@ -49,11 +49,11 @@ Texture2D Texture2D::FromBytes(unsigned int width, unsigned int height, unsigned
 Texture2D Texture2D::FromFile(const char* filename) {
     int width, height, nrChannels;
     auto path = gl3::resolveAssetPath(filename).string();
-    std::cout << path << std::endl;
 
     unsigned char *data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
-    std::cout << height << std::endl;
-    std::cout << width << std::endl;
+
+    std::cout << "Texture2D.cpp: \n\tImage height = " << height << "\n\tImage width = " << width
+    << "\n\tFile from path: " << path << std::endl;
 
     if(!data) {
         std::cerr << "Failed to load image" << std::endl;

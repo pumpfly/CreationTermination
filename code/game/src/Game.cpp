@@ -79,9 +79,9 @@ namespace gl3 {
 
         glEnable(GL_BLEND);
 
-        auto spaceShip = std::make_unique<Witch>(nullptr, glm::vec3(-2, 0, 0));
-        ship = spaceShip.get();
-        entities.push_back(std::move(spaceShip));
+        auto witch = std::make_unique<Witch>(nullptr, glm::vec3(-2, 0, 0));
+        w = witch.get();
+        entities.push_back(std::move(witch));
 
         auto creature = std::make_unique<Creature>(nullptr, glm::vec3(2, 0, 0), -90, glm::vec2(0.25, 0.25));
         entities.push_back(std::move(creature));

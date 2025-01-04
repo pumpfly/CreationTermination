@@ -3,7 +3,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "Mesh.h"
 #include "Shader.h"
 #include "Texture2D.h"
 
@@ -43,5 +42,4 @@ private:
     gl3::Shader defaultShader; // Stores a copy of the default shader, to quickly restore it.
     unsigned int baseQuadVAO{};
 
-    gl3::Mesh mesh;
 };

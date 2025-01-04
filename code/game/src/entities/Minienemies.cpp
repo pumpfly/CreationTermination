@@ -9,29 +9,6 @@
 
 namespace gl3 {
     Minienemies::Minienemies(glm::vec2 position, float zRotation, glm::vec2 scale, Texture2D texture) : Entity(
-            Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag"),
-            Mesh({0.0f, 0.0f, 0.0f,
-                        0.0f, -0.9f, 0.0f,
-                        -0.6f, 0.5f, 0.0f,
-                        -0.3f, 0.25f, 0.0f,
-                        -0.2f, 0.65f, 0.0f,
-                        -0.1f, 0.3f, 0.0f,
-
-                        0.0f, 0.2f, 0.0f,
-
-                        0.1f, 0.3f, 0.0f,
-                        0.2f, 0.65f, 0.0f,
-                        0.3f, 0.25f, 0.0f,
-                        0.6f, 0.5f, 0.0f,
-                    },
-                    {
-                        0, 1, 2, // triangle1
-                        0, 3, 4, // triangle2
-                        0, 5, 6, // triangle3
-                        0, 6, 7, // triangle4
-                        0, 8, 9,  // triangle5
-                        0, 10, 1 // triangle6
-                    }),
             position,
             zRotation,
             scale,

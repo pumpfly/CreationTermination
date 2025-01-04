@@ -1,7 +1,6 @@
 #pragma once
 
 #include "glm/vec3.hpp"
-#include "../rendering/Mesh.h"
 #include "../rendering/Shader.h"
 #include "../rendering/Texture2D.h"
 #include "../rendering/SpriteRenderer.h"
@@ -11,9 +10,7 @@ namespace gl3{
 
     class Entity {
     public:
-        Entity(Shader shader,
-               Mesh mesh,
-               glm::vec2 position = glm::vec3(0.0f, 0.0f, 0.0f),
+        Entity(glm::vec2 position = glm::vec3(0.0f, 0.0f, 0.0f),
                float zRotation = 0.0f,
                glm::vec2 scale = glm::vec3(1.0f, 1.0f, 1.0f),
                glm::vec4 color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
@@ -39,9 +36,6 @@ namespace gl3{
         glm::vec4 color;
         Texture2D texture;
 
-    private:
-        Shader shader;
-        Mesh mesh;
     };
 }
 

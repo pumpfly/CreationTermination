@@ -8,17 +8,9 @@ namespace gl3 {
     class Game;
 }
 
-SpriteRenderer::SpriteRenderer()
-    : defaultShader(gl3::Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag")),
-    shader(&defaultShader),
-    mesh(gl3::Mesh(
-            {0.0f, 1.0f, 0.0f,
-                1.0f, 0.0f, 0.0f,
-                0.0f, 0.0f, 0.0f,
-                1.0f, 1.0f, 0.0f},
-            {0, 1, 2,
-                0, 3, 1}))
-    {
+SpriteRenderer::SpriteRenderer() :
+    defaultShader(gl3::Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag")),
+    shader(&defaultShader) {
 
     // configure VAO/VBO
     unsigned int VBO;
@@ -63,9 +55,11 @@ void SpriteRenderer::DrawSprite(gl3::Game *game, Texture2D &texture, glm::vec2 p
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position, 0.0f));
+
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
+
     model = glm::scale(model, glm::vec3(size, 1.0f));
 
     this->shader->setMatrix("model", model);
@@ -78,6 +72,4 @@ void SpriteRenderer::DrawSprite(gl3::Game *game, Texture2D &texture, glm::vec2 p
     glBindVertexArray(this->baseQuadVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
-    //this->mesh.draw();
-    // TODO: actually draw the sprite bz rendering the mesh. this is incomplete.
 }

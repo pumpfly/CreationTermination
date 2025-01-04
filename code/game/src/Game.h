@@ -22,7 +22,7 @@ namespace gl3 {
         glm::mat4 projection() const;
 
 
-        Witch *getShip() { return ship; }
+        Witch *getShip() { return w; }
         GLFWwindow *getWindow() { return window; }
     private:
         static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
@@ -34,9 +34,8 @@ namespace gl3 {
         std::unique_ptr<SoLoud::Wav> backgroundMusic;
 
         GLFWwindow *window = nullptr;
-        Witch* ship = nullptr;
+        Witch* w = nullptr;
         glm::mat4 mvpMatrix{};
-        Mesh* mesh = nullptr;
         Shader* shader = nullptr;
 
         glm::mat4 projectionMatrix;

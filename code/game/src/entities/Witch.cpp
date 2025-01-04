@@ -13,35 +13,7 @@
 
 namespace gl3{
     Witch::Witch(Game* game, glm::vec2 position, float zRotation, glm::vec2 scale, glm::vec4 color, Texture2D texture)
-    : Entity(Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag"),
-                    Mesh({
-                        -0.3f, 0.25f, 0.0f,
-                        -0.3f, -0.25f, 0.0f,
-                        0.9f,  0.0f, 0.0f,
-
-                        -0.6f, 0.2f, 0.0f,
-                        -0.6f, -0.2f, 0.0f,
-                        0.0f,  0.0f, 0.0f,
-
-                        -0.5f, 0.25f, 0.0f,
-                        -0.5f, 0.7f, 0.0f,
-                        0.5f,  0.02f, 0.0f,
-
-                        -0.5f, -0.25f, 0.0f,
-                        -0.5f, -0.7f, 0.0f,
-                        0.5f,  0.02f, 0.0f
-                    },
-                    {
-                        0, 1, 2, // triangle1
-                        3, 4, 5, // triangle2
-                        6, 7, 8, // triangle3
-                        9, 10, 11 // triangle4
-                    }),
-                    position,
-                    zRotation,
-                    scale,
-                    {0.1f, 0.1f, 0.1f, 0.5f},
-                    texture){
+    : Entity(position,zRotation,scale,color,texture){
 
         audio.init();
         audio.setGlobalVolume(0.1f);
@@ -170,7 +142,7 @@ namespace gl3{
             w->draw(game);
         }
         if(shield) shield->draw(game);
-        SpriteRenderer::Instance().DrawSprite(game, texture, glm::vec2(200, 200),
-            glm::vec2(100, 100), zRotation, color);
+        SpriteRenderer::Instance().DrawSprite(game, texture, glm::vec2(200, 100),
+            glm::vec2(500, 500), zRotation, color);
     }
 }
