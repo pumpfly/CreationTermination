@@ -11,8 +11,8 @@
 namespace gl3 {
     class Minienemies : public Entity {
     public:
-        explicit Minienemies(glm::vec2 position = glm::vec2(0, 0), float zRotation = 0,
-            glm::vec2 scale = glm::vec2(1, 1), Texture2D texture = Texture2D::FromFile("sprites/a.png"));
+        explicit Minienemies(glm::vec2 position = glm::vec2(300, 300), float zRotation = 0,
+            glm::vec2 scale = glm::vec2(50, 50), Texture2D texture = Texture2D::FromFile("sprites/testblock.png"));
 
         void update(Game *game, float deltaTime) override;
 

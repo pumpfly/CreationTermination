@@ -12,12 +12,8 @@
 #include <cmath>
 
 namespace gl3 {
-    Creature::Creature(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale, Texture2D texture) : Entity(
-                    position,
-                    zRotation,
-                    scale,
-                    {0.0f, 0.0f, 0.0f, 1.0f},
-                    texture){
+    Creature::Creature(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale, Texture2D texture)
+    : Entity(position, zRotation, scale, color, texture){
 
         audio.init();
         audio.setGlobalVolume(0.1f);

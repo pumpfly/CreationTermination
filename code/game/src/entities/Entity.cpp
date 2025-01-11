@@ -11,7 +11,7 @@ namespace gl3 {
     }
 
     void Entity::draw(Game *game) {
-        /*SpriteRenderer::Instance().DrawSprite(game, texture, glm::vec2(200, 100),
-            glm::vec2(100, 100), zRotation, color);*/
+        SpriteRenderer::Instance().DrawSprite(game, texture, position,
+            scale, zRotation, color);
     }
 }

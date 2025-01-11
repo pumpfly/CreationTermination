@@ -30,19 +30,19 @@ namespace gl3{
         forward = forward * translationSpeed * deltaTime;
 
         if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-            position -= forward;
+            position -= forward * 200.0f;
         }
 
         if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            position += forward;
+            position += forward * 200.0f;
         }
 
         if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-            position.y = position.y + translationSpeed * deltaTime;
+            position.y = position.y - translationSpeed * deltaTime * 200;
         }
 
         if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-            position.y = position.y - translationSpeed * deltaTime;
+            position.y = position.y + translationSpeed * deltaTime * 200;
         }
         countdownUntilNextShot -= deltaTime;
         // Normal shooting
@@ -50,10 +50,10 @@ namespace gl3{
             audio.play(firingSound);
             auto angle = glm::radians(zRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
-            glm::vec2 offset {forwardVec.x * getScale().x / 2 , forwardVec.y * getScale().y / 2};
+            glm::vec2 offset {forwardVec.x * getScale().x, forwardVec.y * getScale().y*2};
             // - 90 because mesh up is +y
             auto missile =
-                std::make_unique<Missile>(game, game->getShip()->position + offset, zRotation - 90, glm::vec2(0.09f, 0.09f));
+                std::make_unique<Missile>(game, game->getShip()->position + offset, zRotation - 90, glm::vec2(10, 10));
             missiles.push_back(std::move(missile));
             countdownUntilNextShot = timeBetweenShots;
         }
@@ -142,7 +142,7 @@ namespace gl3{
             w->draw(game);
         }
         if(shield) shield->draw(game);
-        SpriteRenderer::Instance().DrawSprite(game, texture, glm::vec2(200, 100),
-            glm::vec2(500, 500), zRotation, color);
+        //SpriteRenderer::Instance().DrawSprite(game, texture, position,
+            //scale, zRotation, color);
     }
 }

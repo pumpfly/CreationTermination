@@ -79,14 +79,14 @@ namespace gl3 {
 
         glEnable(GL_BLEND);
 
-        auto witch = std::make_unique<Witch>(nullptr, glm::vec3(-2, 0, 0));
+        auto witch = std::make_unique<Witch>(nullptr);
         w = witch.get();
         entities.push_back(std::move(witch));
 
-        auto creature = std::make_unique<Creature>(nullptr, glm::vec3(2, 0, 0), -90, glm::vec2(0.25, 0.25));
+        auto creature = std::make_unique<Creature>(nullptr);
         entities.push_back(std::move(creature));
 
-        auto miniEnemy = std::make_unique<Minienemies>(glm::vec3(1, 0, 0), -90, glm::vec2(0.07, 0.07));
+        auto miniEnemy = std::make_unique<Minienemies>();
         entities.push_back(std::move(miniEnemy));
 
         backgroundMusic = std::make_unique<SoLoud::Wav>();
