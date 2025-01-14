@@ -12,7 +12,7 @@
 namespace gl3 {
     class Witch : public Entity{
     public:
-        explicit Witch(Game* game, glm::vec2 position = glm::vec2(0.0f, 0.0f),
+        explicit Witch(Game* game, glm::vec2 position = glm::vec2(100.0f, 100.0f),
              float zRotation = 0.0f,
              glm::vec2 scale = glm::vec2(100, 100), glm::vec4 color = glm::vec4(1, 1, 1, 1.0f),
              Texture2D texture = Texture2D::FromFile("sprites/witch.png"));

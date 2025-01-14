@@ -7,5 +7,7 @@ uniform vec4 color;
 out vec4 fragColor;
 
 void main() {
-    fragColor = color * texture(image, TexCoords);
+    vec4 texColor = color * texture(image, TexCoords);
+    if(texColor.a < 0.01) discard;
+    fragColor = texColor;
 }

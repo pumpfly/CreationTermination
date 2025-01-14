@@ -34,7 +34,7 @@ Texture2D Texture2D::FromBytes(unsigned int width, unsigned int height, unsigned
     newTex.Height = height;
     // create Texture
     glBindTexture(GL_TEXTURE_2D, newTex.ID);
-    glTexImage2D(GL_TEXTURE_2D, 0, newTex.Internal_Format, width, height, 0, newTex.Image_Format, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
     // set Texture wrap and filter modes
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, newTex.Wrap_S);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, newTex.Wrap_T);
@@ -51,10 +51,6 @@ Texture2D Texture2D::FromFile(const char* filename) {
     auto path = gl3::resolveAssetPath(filename).string();
 
     unsigned char *data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
-
-    std::cout << "Texture2D.cpp: \n\tImage height = " << height << "\n\tImage width = " << width
-    << "\n\tFile from path: " << path << std::endl;
-
     if(!data) {
         std::cerr << "Failed to load image" << std::endl;
         exit(-1);

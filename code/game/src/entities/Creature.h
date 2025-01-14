@@ -11,8 +11,9 @@
 namespace gl3 {
     class Creature : public Entity {
     public:
-        explicit Creature(Game* game, glm::vec2 position = glm::vec2(100, 100), float zRotation = 0,
-            glm::vec2 scale = glm::vec2(100, 100), Texture2D texture = Texture2D::FromFile("sprites/a.png"));
+        explicit Creature(Game* game, glm::vec2 position = glm::vec2(1150, 600), float zRotation = 0,
+            glm::vec2 scale = glm::vec2(100, 100), glm::vec4 color = glm::vec4(1, 1, 1, 1.0f),
+            Texture2D texture = Texture2D::FromFile("sprites/a.png"));
 
         void update(Game *game, float deltaTime) override;
         void draw(Game *game) override;

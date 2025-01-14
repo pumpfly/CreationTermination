@@ -12,13 +12,13 @@
 #include <cmath>
 
 namespace gl3 {
-    Creature::Creature(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale, Texture2D texture)
+    Creature::Creature(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale, glm::vec4 color, Texture2D texture)
     : Entity(position, zRotation, scale, color, texture){
 
-        audio.init();
+        /*audio.init();
         audio.setGlobalVolume(0.1f);
         firingSound.load(resolveAssetPath("audio/shot.mp3").string().c_str());
-        firingSound.setSingleInstance(true);
+        firingSound.setSingleInstance(true);*/
 
     }
      float lerp(float a, float b, float f)
@@ -39,29 +39,30 @@ namespace gl3 {
 
         if(position.y < 1.2 && position.y > -1.2) {
             position.y = lerp(position.y, shipPosition.y, deltaTime * speed);
+        }
+        else if (position.y >= 1.2 || position.y <= -1.2) {
             if(position.y == shipPosition.y) {
                 if(shipPosition.y == 0) {
                     std::cout << "they are equal and 0" << std::endl;
                     position.y = lerp(position.y+0.02f, shipPosition.y, deltaTime * speed * 2);
                 }
-                else {
-                    position.y = lerp(position.y*0.02f, shipPosition.y, deltaTime * speed* 2.0f);
-                }
+                std::cout << "i am in" << std::endl;
+                position.y = lerp(position.y, shipPosition.y, deltaTime * speed* 2.0f);
             }
-        }
-        else if (position.y >= 1.2 || position.y <= -1.2) {
+            //std::cout << "i am out" << std::endl;
             if(position.y >= 1.2 && lerp(position.y, shipPosition.y, deltaTime * speed) < position.y) {
                 position.y = lerp(position.y, shipPosition.y, deltaTime * speed);
             }
             else if(position.y <= -1.2 && lerp(position.y, shipPosition.y, deltaTime * speed) > position.y){
-                position.y = lerp(position.y, shipPosition.y, deltaTime * speed);
+                position.y = lerp(position.y, shipPosition.y, deltaTime / speed);
             }
         }
 
         //std::cout << position.y << std::endl;
         /*
-         * Shooting
-         */
+         * Defense
+         *
+        /*
         countdownUntilNextShot -= deltaTime;
         if (elapsedTime % 5 == 0 && countdownUntilNextShot <= 0)
         {
@@ -74,6 +75,7 @@ namespace gl3 {
             missiles.push_back(std::move(missile));
             countdownUntilNextShot = timeBetweenShots;
         }
+        */
 
         for (auto& m: missiles)
         {

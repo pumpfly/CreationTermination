@@ -50,7 +50,7 @@ namespace gl3{
             audio.play(firingSound);
             auto angle = glm::radians(zRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
-            glm::vec2 offset {forwardVec.x * getScale().x, forwardVec.y * getScale().y*2};
+            glm::vec2 offset {forwardVec.x * getScale().x, getScale().y / 2};
             // - 90 because mesh up is +y
             auto missile =
                 std::make_unique<Missile>(game, game->getShip()->position + offset, zRotation - 90, glm::vec2(10, 10));
@@ -62,18 +62,20 @@ namespace gl3{
         if(brew::Input::IsKeyDown(brew::Input::KEY_F)) {
             charging = true;
             auto angle = glm::radians(zRotation);
-            glm::vec3 forwardVec = {glm::cos(angle), glm::sin(angle), 0.f};
-            glm::vec2 offset {forwardVec.x * getScale().x / 2 , forwardVec.y * getScale().y / 2};
+            glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
+            glm::vec2 offset {forwardVec.x * getScale().x, getScale().y / 2 - 10};
             if(!onlySingleMissile) {
                 auto bigM =
                 std::make_unique<Missile>(game,
-                    game->getShip()->position + offset, zRotation - 90, glm::vec2(0.05f, 0.05f));
+                    game->getShip()->position + offset, zRotation - 90, glm::vec2(10, 10));
                 bigMissiles.push_back(std::move(bigM));
             }
-            missileTempSize = (missileTempSize + 0.5f) * deltaTime;
-            glm::vec2 mts = {missileTempSize, missileTempSize};
-            bigMissiles.back()->setScale(bigMissiles.back()->getScale() + mts);
-            bigMissiles.back()->setPosition(this->getPosition());
+            if(bigMissiles.back()->getScale().x <= 50.0f) {
+                missileTempSize = (missileTempSize + 33.0f) * deltaTime;
+                bigMissiles.back()->setScale(bigMissiles.back()->getScale()* missileTempSize);
+            }
+            //TODO: it should grow from the center
+            bigMissiles.back()->setPosition(game->getShip()->position + offset); //this->getPosition()
             onlySingleMissile = true;
         }
         if(brew::Input::IsKeyReleased(brew::Input::KEY_F) && charging) {
@@ -85,11 +87,11 @@ namespace gl3{
         if(brew::Input::IsKeyPressed(brew::Input::KEY_E)) {
             auto angle = glm::radians(zRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
-            glm::vec2 offset {forwardVec.x * getScale().x , forwardVec.y * getScale().y};
+            glm::vec2 offset {forwardVec.x * getScale().x, getScale().y / 2 - 10};
             for(int i = 0; i <= 8; i++) {
                 auto waveM =
                 std::make_unique<Missile>(game,
-                    game->getShip()->position + offset, zRotation - (45.0f + (i * 10.0f)), glm::vec2(0.05f, 0.05f));
+                    game->getShip()->position + offset, zRotation - (45.0f + (i * 10.0f)), glm::vec2(5.0f, 5.0f));
                 waveMissiles.push_back(std::move(waveM));
             }
         }
