@@ -23,58 +23,39 @@ namespace gl3 {
     }
      float lerp(float a, float b, float f)
     {
-        return a - f*(b - a);
+        return a + f * (b - a);
     }
 
     void Creature::update(Game* game, float deltaTime)
     {
         std::time_t elapsedTime = std::time(nullptr);
-        const auto shipPosition = game->getShip()->getPosition();
-        auto distanceToShip = glm::distance(position, shipPosition);
-        float delta_x = this->getPosition().x - shipPosition.x;
-        float delta_y = this->getPosition().y - shipPosition.y;
-        float theta_radians = atan2(delta_y, delta_x);
+        const auto witchPosition = game->getShip()->getPosition();
+        auto distanceToShip = glm::distance(position, witchPosition);
+        /*float delta_x = this->getPosition().x - witchPosition.x;
+        float delta_y = this->getPosition().y - witchPosition.y;
+        float theta_radians = atan2(delta_y, delta_x);*/
 
-        zRotation = glm::degrees(theta_radians) - 90.0f;
+        //zRotation = glm::degrees(theta_radians) - 90.0f;
 
-        if(position.y < 1.2 && position.y > -1.2) {
-            position.y = lerp(position.y, shipPosition.y, deltaTime * speed);
+        std::random_device dev;
+        std::mt19937 rng(dev());
+        std::uniform_real_distribution<> dist{-1.2f, 500.0f};
+
+        countdown -= deltaTime;
+        for(int i = 0; i < 20; i++) {
+            if(countdown <= 0) {
+                newPosition = dist(rng);
+                countdown = positionChangeTime;
+            }
+            std::cout <<"inside for loop " << newPosition << std::endl;
         }
-        else if (position.y >= 1.2 || position.y <= -1.2) {
-            if(position.y == shipPosition.y) {
-                if(shipPosition.y == 0) {
-                    std::cout << "they are equal and 0" << std::endl;
-                    position.y = lerp(position.y+0.02f, shipPosition.y, deltaTime * speed * 2);
-                }
-                std::cout << "i am in" << std::endl;
-                position.y = lerp(position.y, shipPosition.y, deltaTime * speed* 2.0f);
-            }
-            //std::cout << "i am out" << std::endl;
-            if(position.y >= 1.2 && lerp(position.y, shipPosition.y, deltaTime * speed) < position.y) {
-                position.y = lerp(position.y, shipPosition.y, deltaTime * speed);
-            }
-            else if(position.y <= -1.2 && lerp(position.y, shipPosition.y, deltaTime * speed) > position.y){
-                position.y = lerp(position.y, shipPosition.y, deltaTime / speed);
-            }
-        }
+        position.y = lerp(position.y, newPosition, deltaTime * speed);
+
 
         //std::cout << position.y << std::endl;
         /*
          * Defense
          *
-        /*
-        countdownUntilNextShot -= deltaTime;
-        if (elapsedTime % 5 == 0 && countdownUntilNextShot <= 0)
-        {
-            // -90 because mesh forward is +y
-            auto angle = glm::radians(zRotation - 90);
-            glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
-            glm::vec2 offset{forwardVec.x * getScale().x, forwardVec.y * getScale().y};
-            auto missile =
-                    std::make_unique<Missile>(game, position + offset, zRotation - 180, glm::vec2(0.05f, 0.05f));
-            missiles.push_back(std::move(missile));
-            countdownUntilNextShot = timeBetweenShots;
-        }
         */
 
         for (auto& m: missiles)

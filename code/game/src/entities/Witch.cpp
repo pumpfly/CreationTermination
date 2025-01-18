@@ -15,10 +15,10 @@ namespace gl3{
     Witch::Witch(Game* game, glm::vec2 position, float zRotation, glm::vec2 scale, glm::vec4 color, Texture2D texture)
     : Entity(position,zRotation,scale,color,texture){
 
-        audio.init();
+        /*audio.init();
         audio.setGlobalVolume(0.1f);
         firingSound.load(resolveAssetPath("audio/shot.mp3").string().c_str());
-        firingSound.setSingleInstance(true);
+        firingSound.setSingleInstance(true);*/
 
     }
 
@@ -71,8 +71,8 @@ namespace gl3{
                 bigMissiles.push_back(std::move(bigM));
             }
             if(bigMissiles.back()->getScale().x <= 50.0f) {
-                missileTempSize = (missileTempSize + 33.0f) * deltaTime;
-                bigMissiles.back()->setScale(bigMissiles.back()->getScale()* missileTempSize);
+                missileTempSize = (missileTempSize + 100.0f) * deltaTime;
+                bigMissiles.back()->setScale(bigMissiles.back()->getScale()+ missileTempSize);
             }
             //TODO: it should grow from the center
             bigMissiles.back()->setPosition(game->getShip()->position + offset); //this->getPosition()

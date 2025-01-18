@@ -10,7 +10,7 @@
 
 #include "Assets.h"
 #include "entities/Creature.h"
-#include "entities/Minienemies.h"
+#include "entities/bats.h"
 #include "input/Input.h"
 
 namespace gl3 {
@@ -43,8 +43,8 @@ namespace gl3 {
             throw std::runtime_error("gl error");
         }
 
-        audio.init();
-        audio.setGlobalVolume(0.1f);
+        //audio.init();
+        //audio.setGlobalVolume(0.1f);
 
         glfwSetKeyCallback(window, brew::Input::key_callback);
 
@@ -86,7 +86,7 @@ namespace gl3 {
         auto creature = std::make_unique<Creature>(nullptr);
         entities.push_back(std::move(creature));
 
-        auto miniEnemy = std::make_unique<Minienemies>();
+        auto miniEnemy = std::make_unique<bats>();
         entities.push_back(std::move(miniEnemy));
 
         backgroundMusic = std::make_unique<SoLoud::Wav>();

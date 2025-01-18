@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <random>
 #include <soloud_wav.h>
 
 #include "Entity.h"
@@ -13,13 +14,17 @@ namespace gl3 {
     public:
         explicit Creature(Game* game, glm::vec2 position = glm::vec2(1150, 600), float zRotation = 0,
             glm::vec2 scale = glm::vec2(100, 100), glm::vec4 color = glm::vec4(1, 1, 1, 1.0f),
-            Texture2D texture = Texture2D::FromFile("sprites/a.png"));
+            Texture2D texture = Texture2D::FromFile("sprites/creature.png"));
 
         void update(Game *game, float deltaTime) override;
         void draw(Game *game) override;
 
     private:
         float speed = 1.5f;
+
+        float positionChangeTime = 1.0f;
+        float countdown = positionChangeTime;
+        float newPosition = 500;
 
         const float timeBetweenShots = 0.1;
         float countdownUntilNextShot = timeBetweenShots;

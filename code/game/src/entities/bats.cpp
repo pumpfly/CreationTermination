@@ -2,13 +2,13 @@
 // Created by pumf on 07/12/2024.
 //
 
-#include "Minienemies.h"
+#include "bats.h"
 
 #include "Creature.h"
 #include "../Game.h"
 
 namespace gl3 {
-    Minienemies::Minienemies(glm::vec2 position, float zRotation, glm::vec2 scale, Texture2D texture) : Entity(
+    bats::bats(glm::vec2 position, float zRotation, glm::vec2 scale, Texture2D texture) : Entity(
             position,
             zRotation,
             scale,
@@ -21,8 +21,8 @@ namespace gl3 {
         return a + f * (b - a);
     }
 
-    void Minienemies::update(Game *game, float deltaTime) {
-        /*std::time_t elapsedTime = std::time(nullptr);
+    void bats::update(Game *game, float deltaTime) {
+        std::time_t elapsedTime = std::time(nullptr);
         const auto shipPosition = game->getShip()->getPosition();
         auto distanceToShip = glm::distance(position, shipPosition);
         float delta_x = this->getPosition().x - shipPosition.x;
@@ -33,7 +33,7 @@ namespace gl3 {
         if (distanceToShip >= 0.5f) {
             position.x = lerp2(position.x, shipPosition.x, deltaTime * speed);
             position.y = lerp2(position.y, shipPosition.y, deltaTime * speed);
-        }*/
+        }
 
     }
 }

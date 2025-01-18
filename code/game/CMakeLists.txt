@@ -20,8 +20,8 @@ set(SOURCE_FILES src/main.cpp
         src/input/Bitmanipulation.h
         src/entities/Shield.cpp
         src/entities/Shield.h
-        src/entities/Minienemies.cpp
-        src/entities/Minienemies.h
+        src/entities/bats.cpp
+        src/entities/bats.h
         src/rendering/SpriteRenderer.cpp
         src/rendering/SpriteRenderer.h
         src/rendering/Texture2D.cpp

@@ -26,7 +26,7 @@ namespace gl3 {
 
         bool charging = false;
         bool onlySingleMissile = false;
-        float missileTempSize = 0.05f;
+        float missileTempSize = 1.0f;
 
         //Missiles
         const float timeBetweenShots = 0.1;

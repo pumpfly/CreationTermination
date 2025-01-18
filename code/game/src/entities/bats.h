@@ -9,10 +9,10 @@
 #include "Missile.h"
 
 namespace gl3 {
-    class Minienemies : public Entity {
+    class bats : public Entity {
     public:
-        explicit Minienemies(glm::vec2 position = glm::vec2(300, 300), float zRotation = 0,
-            glm::vec2 scale = glm::vec2(50, 50), Texture2D texture = Texture2D::FromFile("sprites/testblock.png"));
+        explicit bats(glm::vec2 position = glm::vec2(300, 300), float zRotation = 0,
+            glm::vec2 scale = glm::vec2(20, 20), Texture2D texture = Texture2D::FromFile("sprites/testblock.png"));
 
         void update(Game *game, float deltaTime) override;
 
