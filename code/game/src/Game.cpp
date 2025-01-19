@@ -117,6 +117,12 @@ namespace gl3 {
             glfwSetWindowShouldClose(window, true);
         }
         for(auto &entity: entities) {
+            for(auto &other: entities) {
+                if(entity != other && entity->checkCollision(*other)) {
+                    std::cout << entity->checkCollision(*other) << std::endl;
+                    entity->setColor({1, 0, 0, 1});
+                }
+            }
             entity->update(this, deltaTime);
         }
     };

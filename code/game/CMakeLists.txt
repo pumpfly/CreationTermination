@@ -13,8 +13,8 @@ set(SOURCE_FILES src/main.cpp
         src/Assets.h
         src/entities/Creature.cpp
         src/entities/Creature.h
-        src/entities/Missile.cpp
-        src/entities/Missile.h
+        src/entities/Missiles.cpp
+        src/entities/Missiles.h
         src/Input/Input.cpp
         src/Input/Input.h
         src/input/Bitmanipulation.h

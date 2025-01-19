@@ -1,4 +1,4 @@
-#include "Missile.h"
+#include "Missiles.h"
 
 #include <iostream>
 
@@ -6,16 +6,20 @@
 #include "../Game.h"
 
 namespace gl3 {
-    Missile::Missile(gl3::Game *game, glm::vec2 position, float zRotation, glm::vec2 scale, Texture2D texture) : Entity(
+    Missiles::Missiles(glm::vec2 position, float zRotation, glm::vec2 scale, float radius,
+        glm::vec4 color, Texture2D texture, TYPE type) : Entity(
             position,
             zRotation,
             scale,
-            {7.0f, 0.0f, 1.0f, 1.0f},
-            texture) {
+            radius,
+            color,
+            texture,
+            type) {
     }
-    void Missile::update(gl3::Game *game, float deltaTime) {
+    void Missiles::update(gl3::Game *game, float deltaTime) {
         position.y = getPosition().y - sin(glm::radians(zRotation - 90.0f)) * speed * deltaTime;
         position.x = getPosition().x - cos(glm::radians(zRotation - 90.0f)) * speed * deltaTime;
+
     }
 
 }

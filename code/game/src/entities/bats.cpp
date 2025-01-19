@@ -8,12 +8,14 @@
 #include "../Game.h"
 
 namespace gl3 {
-    bats::bats(glm::vec2 position, float zRotation, glm::vec2 scale, Texture2D texture) : Entity(
+    bats::bats(glm::vec2 position, float zRotation, glm::vec2 scale, float radius, Texture2D texture, TYPE type) : Entity(
             position,
             zRotation,
             scale,
+            radius,
             glm::vec4(0.35f, 0.35f, 0.35f, 1.0f),
-            texture)
+            texture,
+            type)
     {}
 
     float lerp2(float a, float b, float f)
@@ -22,7 +24,7 @@ namespace gl3 {
     }
 
     void bats::update(Game *game, float deltaTime) {
-        std::time_t elapsedTime = std::time(nullptr);
+        /*std::time_t elapsedTime = std::time(nullptr);
         const auto shipPosition = game->getShip()->getPosition();
         auto distanceToShip = glm::distance(position, shipPosition);
         float delta_x = this->getPosition().x - shipPosition.x;
@@ -33,7 +35,7 @@ namespace gl3 {
         if (distanceToShip >= 0.5f) {
             position.x = lerp2(position.x, shipPosition.x, deltaTime * speed);
             position.y = lerp2(position.y, shipPosition.y, deltaTime * speed);
-        }
+        }*/
 
     }
 }

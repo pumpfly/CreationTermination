@@ -6,13 +6,13 @@
 #include <soloud_wav.h>
 
 #include "Entity.h"
-#include "Missile.h"
+#include "Missiles.h"
 
 namespace gl3 {
     class bats : public Entity {
     public:
-        explicit bats(glm::vec2 position = glm::vec2(300, 300), float zRotation = 0,
-            glm::vec2 scale = glm::vec2(20, 20), Texture2D texture = Texture2D::FromFile("sprites/testblock.png"));
+        explicit bats(glm::vec2 position = glm::vec2(400, 400), float zRotation = 0, glm::vec2 scale = glm::vec2(20, 20),
+            float radius = 20, Texture2D texture = Texture2D::FromFile("sprites/testblock.png"), TYPE type = enemy);
 
         void update(Game *game, float deltaTime) override;
 

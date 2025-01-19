@@ -8,12 +8,12 @@
 #include <random>
 #include "../Assets.h"
 #include "../Game.h"
-#include <iostream>
-#include <cmath>
+
 
 namespace gl3 {
-    Creature::Creature(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale, glm::vec4 color, Texture2D texture)
-    : Entity(position, zRotation, scale, color, texture){
+    Creature::Creature(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale, float radius,
+        glm::vec4 color, Texture2D texture, TYPE type)
+    : Entity(position, zRotation, scale, radius, color, texture, type){
 
         /*audio.init();
         audio.setGlobalVolume(0.1f);
@@ -47,7 +47,6 @@ namespace gl3 {
                 newPosition = dist(rng);
                 countdown = positionChangeTime;
             }
-            std::cout <<"inside for loop " << newPosition << std::endl;
         }
         position.y = lerp(position.y, newPosition, deltaTime * speed);
 
@@ -57,15 +56,6 @@ namespace gl3 {
          * Defense
          *
         */
-
-        for (auto& m: missiles)
-        {
-            m->update(game, deltaTime);
-        }
-        if (missiles.size() >= 100)
-        {
-            missiles.erase(missiles.begin());
-        }
 
     }
 
