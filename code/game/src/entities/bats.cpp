@@ -25,7 +25,7 @@ namespace gl3 {
 
     void bats::update(Game *game, float deltaTime) {
         /*std::time_t elapsedTime = std::time(nullptr);
-        const auto shipPosition = game->getShip()->getPosition();
+        const auto shipPosition = game->getWitch()->getPosition();
         auto distanceToShip = glm::distance(position, shipPosition);
         float delta_x = this->getPosition().x - shipPosition.x;
         float delta_y = this->getPosition().y - shipPosition.y;

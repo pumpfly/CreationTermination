@@ -29,7 +29,7 @@ namespace gl3 {
     void Creature::update(Game* game, float deltaTime)
     {
         std::time_t elapsedTime = std::time(nullptr);
-        const auto witchPosition = game->getShip()->getPosition();
+        const auto witchPosition = game->getWitch()->getPosition();
         auto distanceToShip = glm::distance(position, witchPosition);
         /*float delta_x = this->getPosition().x - witchPosition.x;
         float delta_y = this->getPosition().y - witchPosition.y;

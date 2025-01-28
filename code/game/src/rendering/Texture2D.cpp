@@ -46,7 +46,7 @@ Texture2D Texture2D::FromBytes(unsigned int width, unsigned int height, unsigned
     return newTex;
 }
 
-Texture2D Texture2D::FromFile(const char* filename) {
+Texture2D Texture2D::FromFile(const char *filename) {
     int width, height, nrChannels;
     auto path = gl3::resolveAssetPath(filename).string();
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "glm/vec3.hpp"
-#include "../rendering/Shader.h"
 #include "../rendering/Texture2D.h"
 #include "../rendering/SpriteRenderer.h"
 

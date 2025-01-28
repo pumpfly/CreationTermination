@@ -22,8 +22,9 @@ namespace gl3 {
         glm::mat4 projection() const;
 
 
-        Witch *getShip() { return w; }
+        Witch *getWitch() { return w; }
         GLFWwindow *getWindow() { return window; }
+        [[nodiscard]] std::vector<std::unique_ptr<Entity>> &getEntities() { return entities; }
     private:
         static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
         void update();
@@ -36,7 +37,6 @@ namespace gl3 {
         GLFWwindow *window = nullptr;
         Witch* w = nullptr;
         glm::mat4 mvpMatrix{};
-        Shader* shader = nullptr;
 
         glm::mat4 projectionMatrix;
 

@@ -14,7 +14,7 @@ namespace gl3 {
     public:
         explicit Witch(Game* game, glm::vec2 position = glm::vec2(100.0f, 100.0f),
              float zRotation = 0.0f, glm::vec2 scale = glm::vec2(100, 100),
-             float radius = 100, glm::vec4 color = glm::vec4(1, 1, 1, 1.0f),
+             float radius = 50, glm::vec4 color = glm::vec4(1, 1, 1, 1.0f),
              Texture2D texture = Texture2D::FromFile("sprites/witch.png"), TYPE type = witch);
 
         void update(Game *game, float deltaTime) override;

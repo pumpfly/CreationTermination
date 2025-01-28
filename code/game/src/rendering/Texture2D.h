@@ -31,7 +31,7 @@ public:
     static Texture2D FromBytes(unsigned int width, unsigned int height, unsigned char* data);
 
     // FromFile loads an image file, and generates a Texture2D from it.
-    static Texture2D FromFile(const char* filename);
+    static Texture2D FromFile(const char *filename);
 
     // binds the texture as the current active GL_TEXTURE_2D texture object
     void Bind() const;

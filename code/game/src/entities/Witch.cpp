@@ -24,6 +24,7 @@ namespace gl3{
     }
 
     void Witch::update(Game *game, float deltaTime) {
+
         auto window = game->getWindow();
         glm::vec2 forward(0.0f, 0.0f);
         forward.x += cos(glm::radians(zRotation));
@@ -56,7 +57,7 @@ namespace gl3{
             glm::vec2 offset {forwardVec.x * getScale().x, getScale().y / 2};
             // - 90 because mesh up is +y
             auto missile =
-                std::make_unique<Missiles>(game->getShip()->position + offset, zRotation - 90, glm::vec2(10, 10), 10);
+                std::make_unique<Missiles>(game->getWitch()->position + offset, zRotation - 90, glm::vec2(10, 10), 10);
             missiles.push_back(std::move(missile));
             countdownUntilNextShot = timeBetweenShots;
         }
@@ -69,7 +70,7 @@ namespace gl3{
             glm::vec2 offset {forwardVec.x * getScale().x, getScale().y / 2 - 10};
             if(!onlySingleMissile) {
                 auto bigM =
-                std::make_unique<Missiles>(game->getShip()->position + offset,
+                std::make_unique<Missiles>(game->getWitch()->position + offset,
                     zRotation - 90, glm::vec2(10, 10), 10);
                 bigMissiles.push_back(std::move(bigM));
             }
@@ -79,7 +80,7 @@ namespace gl3{
                 bigMissiles.back()->setRadius(bigMissiles.back()->getRadius() + missileTempSize);
             }
             //TODO: it should grow from the center
-            bigMissiles.back()->setPosition(game->getShip()->position + offset); //this->getPosition()
+            bigMissiles.back()->setPosition(game->getWitch()->position + offset); //this->getPosition()
             onlySingleMissile = true;
         }
         if(brew::Input::IsKeyReleased(brew::Input::KEY_F) && charging) {
@@ -93,7 +94,7 @@ namespace gl3{
             glm::vec2 offset {forwardVec.x * getScale().x, getScale().y / 2 - 10};
             for(int i = 0; i <= 8; i++) {
                 auto waveM =
-                std::make_unique<Missiles>(game->getShip()->position + offset, zRotation - (45.0f + (i * 10.0f)),
+                std::make_unique<Missiles>(game->getWitch()->position + offset, zRotation - (45.0f + (i * 10.0f)),
                     glm::vec2(5.0f, 5.0f), 5);
                 waveMissiles.push_back(std::move(waveM));
             }
@@ -102,7 +103,7 @@ namespace gl3{
         if(brew::Input::IsKeyDown(brew::Input::KEY_LEFT_CONTROL) || brew::Input::IsKeyPressed(brew::Input::KEY_RIGHT_CONTROL)) {
             shield =
                 std::make_unique<Shield>(game,
-                    game->getShip()->position, zRotation, glm::vec2(120, 120), 120);
+                    game->getWitch()->position, zRotation, glm::vec2(120, 120), 120);
             shield->setPosition(this->getPosition());
         }
         if(brew::Input::IsKeyReleased(brew::Input::KEY_LEFT_CONTROL) || brew::Input::IsKeyReleased(brew::Input::KEY_RIGHT_CONTROL)) {
@@ -112,21 +113,41 @@ namespace gl3{
         // Normal Missiles
         for (auto &m: missiles) {
             m->update(game, deltaTime);
-
+            for(auto &other: game->getEntities()) {
+                if(m != other && m->checkCollision(*other)) {
+                    std::cout << m->checkCollision(*other) << std::endl;
+                    m->setColor({1, 0, 0, 1});
+                }
+            }
         }
         if (missiles.size() >= 100) {
             missiles.erase(missiles.begin());
         }
+
         // Big Missiles
         for(auto &b: bigMissiles) {
             b->update(game, deltaTime);
+            for(auto &other: game->getEntities()) {
+                if(b != other && b->checkCollision(*other)) {
+                    std::cout << b->checkCollision(*other) << std::endl;
+                    b->setColor({1, 0, 0, 1});
+                }
+            }
         }
         if (bigMissiles.size() >= 20) {
             bigMissiles.erase(bigMissiles.begin());
         }
+
         // Wave Missiles
         for(auto &w: waveMissiles) {
             w->update(game, deltaTime);
+            for(auto &other: game->getEntities()) {
+                if(w != other && w->checkCollision(*other)) {
+                    std::cout << w->checkCollision(*other) << std::endl;
+                    other->setColor({1, 0, 0, 1});
+                }
+            }
+
         }
         if (waveMissiles.size() >= 150) {
             waveMissiles.erase(waveMissiles.begin());

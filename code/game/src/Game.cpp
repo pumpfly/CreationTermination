@@ -89,9 +89,11 @@ namespace gl3 {
         auto miniEnemy = std::make_unique<bats>();
         entities.push_back(std::move(miniEnemy));
 
-        backgroundMusic = std::make_unique<SoLoud::Wav>();
+
+
+        /*backgroundMusic = std::make_unique<SoLoud::Wav>();
         backgroundMusic->load(resolveAssetPath("audio/electronic-wave.mp3").string().c_str());
-        audio.playBackground(*backgroundMusic);
+        audio.playBackground(*backgroundMusic);*/
 
 
         glfwSetTime(1.0 /200);
@@ -128,9 +130,11 @@ namespace gl3 {
     };
 
     void Game::draw() {
-        glClearColor(0.87f, 0.95f, 0.4f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
+        Texture2D texture_2d = Texture2D::FromFile("background/forest.png");
+        SpriteRenderer::Instance().DrawSprite(this, texture_2d,
+            glm::vec2(0.0f, 0.0f), glm::vec2(1920/1.5, 1080/1.5), 0.0f);
+        //glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        //glClear(GL_COLOR_BUFFER_BIT);
         for(auto &entity: entities) {
             entity->draw(this);
         }

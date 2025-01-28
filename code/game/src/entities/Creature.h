@@ -13,7 +13,7 @@ namespace gl3 {
     class Creature : public Entity {
     public:
         explicit Creature(Game* game, glm::vec2 position = glm::vec2(1150, 600), float zRotation = 0,
-            glm::vec2 scale = glm::vec2(100, 100), float radius = 100, glm::vec4 color = glm::vec4(1, 1, 1, 1.0f),
+            glm::vec2 scale = glm::vec2(100, 100), float radius = 50, glm::vec4 color = glm::vec4(1, 1, 1, 1.0f),
             Texture2D texture = Texture2D::FromFile("sprites/creature.png"), TYPE type = enemy);
 
         void update(Game *game, float deltaTime) override;
