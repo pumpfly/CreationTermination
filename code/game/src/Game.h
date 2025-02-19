@@ -13,18 +13,27 @@
 #include "entities/Witch.h"
 
 namespace gl3 {
+    // Represents the current state of the game
+    enum GameState {
+        GAME_ACTIVE,
+        GAME_MENU,
+        GAME_WIN
+    };
     class Game {
     public:
+
         Game(int width, int height, const std::string &title);
         virtual ~Game();
+        void init();
         void run();
         static glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
         glm::mat4 projection() const;
 
-
         Witch *getWitch() { return w; }
         GLFWwindow *getWindow() { return window; }
         [[nodiscard]] std::vector<std::unique_ptr<Entity>> &getEntities() { return entities; }
+
+
     private:
         static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
         void update();
@@ -50,6 +59,7 @@ namespace gl3 {
         float deltaTime = 1.0f/60;
 
         std::vector<std::unique_ptr<Entity>> entities;
+
         };
 
     };

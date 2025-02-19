@@ -14,6 +14,7 @@
 class Texture2D
 {
 public:
+    Texture2D();
     // holds the ID of the texture object, used for all texture operations to reference to this particular texture
     unsigned int ID{};
     // texture image dimensions
@@ -37,8 +38,7 @@ public:
     void Bind() const;
 
 private:
-    // constructor (sets default texture modes)
-    Texture2D();
+
 };
 
 #endif

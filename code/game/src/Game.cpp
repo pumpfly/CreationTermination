@@ -12,6 +12,7 @@
 #include "entities/Creature.h"
 #include "entities/bats.h"
 #include "input/Input.h"
+#include "rendering/ResourceManager.h"
 
 namespace gl3 {
 
@@ -71,6 +72,10 @@ namespace gl3 {
         return projectionMatrix;
     }
 
+    void Game::init() {
+        ResourceManager::LoadTexture("background/forest.png", true, "background");
+    };
+
     void Game::run() {
         unsigned int VAO;
         glGenVertexArrays(1, &VAO);
@@ -90,11 +95,9 @@ namespace gl3 {
         entities.push_back(std::move(miniEnemy));
 
 
-
         /*backgroundMusic = std::make_unique<SoLoud::Wav>();
         backgroundMusic->load(resolveAssetPath("audio/electronic-wave.mp3").string().c_str());
         audio.playBackground(*backgroundMusic);*/
-
 
         glfwSetTime(1.0 /200);
 
@@ -130,11 +133,11 @@ namespace gl3 {
     };
 
     void Game::draw() {
-        Texture2D texture_2d = Texture2D::FromFile("background/forest.png");
-        SpriteRenderer::Instance().DrawSprite(this, texture_2d,
-            glm::vec2(0.0f, 0.0f), glm::vec2(1920/1.5, 1080/1.5), 0.0f);
-        //glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-        //glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        SpriteRenderer::Instance().DrawSprite(this, ResourceManager::GetTexture("background"),
+            glm::vec2(0.0f, 0.0f), glm::vec2(1920/1.5, 1080/1.5), 0.0f, glm::vec4(1, 1, 1, 1));
+
         for(auto &entity: entities) {
             entity->draw(this);
         }
@@ -150,6 +153,6 @@ namespace gl3 {
 
     Game::~Game() {
         glfwTerminate();
-    };
+    }
 }
 

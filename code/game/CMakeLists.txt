@@ -27,6 +27,8 @@ set(SOURCE_FILES src/main.cpp
         src/rendering/Texture2D.cpp
         src/rendering/Texture2D.h
         src/stb_image.h
+        src/rendering/ResourceManager.cpp
+        src/rendering/ResourceManager.h
 )
 
 # set executable name
