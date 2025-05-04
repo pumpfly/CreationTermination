@@ -6,6 +6,7 @@
 #include "Missiles.h"
 #include <soloud.h>
 #include <soloud_wav.h>
+#include <vector>
 
 #include "Shield.h"
 

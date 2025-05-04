@@ -11,7 +11,6 @@ namespace gl3 {
 SpriteRenderer::SpriteRenderer() :
     defaultShader(gl3::Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag")),
     shader(&defaultShader) {
-
     // configure VAO/VBO
     unsigned int VBO;
     float vertices[] = {

@@ -9,9 +9,11 @@
 #include <stdexcept>
 
 #include "Assets.h"
+#include "SpatialGridManager.h"
 #include "entities/Creature.h"
 #include "entities/bats.h"
 #include "input/Input.h"
+#include "rendering/GeometryRenderer.h"
 #include "rendering/ResourceManager.h"
 
 namespace gl3 {
@@ -138,10 +140,11 @@ namespace gl3 {
         SpriteRenderer::Instance().DrawSprite(this, ResourceManager::GetTexture("background"),
             glm::vec2(0.0f, 0.0f), glm::vec2(1920/1.5, 1080/1.5), 0.0f, glm::vec4(1, 1, 1, 1));
 
-        for(auto &entity: entities) {
+         for(auto &entity: entities) {
             entity->draw(this);
         }
 
+        SpatialGridManager::drawGrid(this, 100, 1280, 720);
         glfwSwapBuffers(window);
     };
 

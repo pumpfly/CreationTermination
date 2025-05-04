@@ -23,14 +23,16 @@ namespace gl3 {
     public:
 
         Game(int width, int height, const std::string &title);
-        virtual ~Game();
         void init();
         void run();
         static glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
-        glm::mat4 projection() const;
+        [[nodiscard]] glm::mat4 projection() const;
 
-        Witch *getWitch() { return w; }
-        GLFWwindow *getWindow() { return window; }
+        virtual ~Game();
+
+        [[nodiscard]] Witch *getWitch() const { return w; }
+        [[nodiscard]] GLFWwindow *getWindow() const { return window; }
+        [[nodiscard]] glm::mat4 getProjectionMatrix() const { return projectionMatrix; }
         [[nodiscard]] std::vector<std::unique_ptr<Entity>> &getEntities() { return entities; }
 
 

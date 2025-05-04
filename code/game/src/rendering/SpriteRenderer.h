@@ -21,25 +21,24 @@ public:
         return instance;
     }
 
-    // SetShader sets the sprite renderers shader to a new shader.
+    // Set the sprite renderers shader to a new shader.
     void SetShader(gl3::Shader& shader);
 
-    // SetDefaultShader resets the sprite renderers shader to the default shader.
+    // Reset the sprite renderers shader to the default shader.
     void SetDefaultShader();
 
-    // DrawSprite renders a defined quad textured with given sprite
+    // Renders a defined quad textured with given sprite
     void DrawSprite(gl3::Game* game, Texture2D &texture, glm::vec2 position, glm::vec2 size = glm::vec2(10.0f, 10.0f), float rotate = 0.0f, glm::vec4 color = glm::vec4(1.0f));
 private:
     SpriteRenderer();
     ~SpriteRenderer();
 
     // Copying the instance must be prevented.
-    SpriteRenderer(SpriteRenderer const&); // Do not impl copy constructor.
-    void operator=(SpriteRenderer const&); // Do not impl assignment operator.
+    SpriteRenderer(SpriteRenderer const&); // Do not implement copy constructor.
+    void operator=(SpriteRenderer const&); // Do not implement assignment operator.
 
-    // state
     gl3::Shader* shader; // The currently active shader.
-    gl3::Shader defaultShader; // Stores a copy of the default shader, to quickly restore it.
+    gl3::Shader defaultShader;
     unsigned int baseQuadVAO{};
 
 };
