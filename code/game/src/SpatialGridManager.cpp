@@ -19,17 +19,19 @@ SpatialGridManager::SpatialGridManager(int cellSize, int screenWidth, int screen
 }
 
 void SpatialGridManager::cellAssignment(gl3::Entity *entity) {
+    //TODO: Entities need IDs for putting them inside the grid cells.
 
     if(entity->getPosition().x < 0 || entity->getPosition().y < 0) return;
 
     //Mapping world position
 
-    int column = std::floor(entity->getPosition().x / cellSize);
-    int row = std::floor(entity->getPosition().y / cellSize);
+    int column = static_cast<int>(std::floor(entity->getPosition().x / cellSize));
+    int row = static_cast<int>(std::floor(entity->getPosition().y / cellSize));
+    int ID = entity->getID();
 
-    //TODO: Entities need IDs for putting them inside the grid cells. 
-
-
+    if(column < 1280 && row < 720) {
+        spatialGrid [column][row].push_back(ID);
+    }
 }
 
 // Debuging

@@ -7,12 +7,15 @@
 
 namespace gl3 {
     Shield::Shield(gl3::Game *game, glm::vec2 position, float zRotation, glm::vec2 scale, float radius,
-        Texture2D texture, TYPE type) : Entity(
+        Texture2D texture, TYPE type, int ID) : Entity(
                 position,
                 zRotation,
                 scale,
                 radius,
-                {1.0f, 1.0f, 1.0f, 0.5f}) {
+                {1.0f, 1.0f, 1.0f, 0.5f},
+                texture,
+                type,
+                ID) {
     }
 
     void Shield::update(gl3::Game *game, float deltaTime) {

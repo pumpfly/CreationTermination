@@ -21,7 +21,8 @@ namespace gl3{
                float radius = 1.0f,
                glm::vec4 color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
                Texture2D texture = Texture2D::FromFile("sprites/a.png"),
-               TYPE type = witch);
+               TYPE type = witch,
+               int ID = 0);
 
         virtual ~Entity() = default;
 
@@ -37,11 +38,13 @@ namespace gl3{
         [[nodiscard]] const float &getRadius() const { return radius; }
         [[nodiscard]] const TYPE &getType() const { return type; }
         [[nodiscard]] const glm::vec4 &getColor() const { return color; }
+        [[nodiscard]] const int &getID() const { return ID; }
         void setPosition(const glm::vec2 &position) { Entity::position = position; }
         void setZRotation(float zRotation) { Entity::zRotation = zRotation; }
         void setScale(const glm::vec2 &scale) { Entity::scale = scale; }
         void setRadius(const float &radius) { Entity::radius = radius; }
         void setColor(const glm::vec4 &color) { Entity::color = color; }
+        void setID(const int ID) { Entity::ID = ID; }
 
 
     protected:
@@ -52,6 +55,7 @@ namespace gl3{
         glm::vec4 color;
         Texture2D texture;
         TYPE type;
+        int ID;
     };
 }
 

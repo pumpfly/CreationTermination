@@ -13,8 +13,8 @@
 
 namespace gl3{
     Witch::Witch(Game* game, glm::vec2 position, float zRotation, glm::vec2 scale, float radius, glm::vec4 color,
-        Texture2D texture, TYPE type)
-    : Entity(position,zRotation,scale, radius, color,texture, type){
+        Texture2D texture, TYPE type, int ID)
+    : Entity(position,zRotation,scale, radius, color,texture, type, ID){
 
         /*audio.init();
         audio.setGlobalVolume(0.1f);

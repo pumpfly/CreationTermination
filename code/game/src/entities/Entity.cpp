@@ -4,14 +4,15 @@
 
 namespace gl3 {
     Entity::Entity(glm::vec2 position, float zRotation, glm::vec2 scale, float radius, glm::vec4 color,
-        Texture2D texture, TYPE type):
+        Texture2D texture, TYPE type, int ID):
             position(position),
             zRotation(zRotation),
             scale(scale),
             radius(radius),
             color(color),
             texture(texture),
-            type(type){
+            type(type),
+            ID(ID){
     }
 
     bool Entity::checkCollision(Entity &other) {

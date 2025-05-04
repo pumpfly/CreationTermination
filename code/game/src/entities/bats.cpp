@@ -8,14 +8,15 @@
 #include "../Game.h"
 
 namespace gl3 {
-    bats::bats(glm::vec2 position, float zRotation, glm::vec2 scale, float radius, Texture2D texture, TYPE type) : Entity(
+    bats::bats(glm::vec2 position, float zRotation, glm::vec2 scale, float radius, Texture2D texture, TYPE type, int ID) : Entity(
             position,
             zRotation,
             scale,
             radius,
             glm::vec4(0.35f, 0.35f, 0.35f, 1.0f),
             texture,
-            type)
+            type,
+            ID)
     {}
 
     float lerp2(float a, float b, float f)
