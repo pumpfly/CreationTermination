@@ -19,19 +19,33 @@ SpatialGridManager::SpatialGridManager(int cellSize, int screenWidth, int screen
 }
 
 void SpatialGridManager::cellAssignment(gl3::Entity *entity) {
-    //TODO: Entities need IDs for putting them inside the grid cells.
 
-    if(entity->getPosition().x < 0 || entity->getPosition().y < 0) return;
+    int entityPosX = static_cast<int>(entity->getPosition().x);
+    int entityPosY = static_cast<int>(entity->getPosition().y);
+
+    int entitySizeX = entity->getScale().x;
+    int entitySizeY = entity->getScale().y;
+
+    // if entity is outside the grid than it should not be added to a spatialGrid cell
+    if(entityPosX < 0 || entityPosY < 0
+        || entityPosX > screenWidth || entityPosY > screenHeight) return;
 
     //Mapping world position
+    int entityMinXcell = static_cast<int>(std::floor(entityPosX / cellSize));
+    int entityMaxXcell = static_cast<int>(std::floor((entityPosX + entitySizeX) / cellSize));
 
-    int column = static_cast<int>(std::floor(entity->getPosition().x / cellSize));
-    int row = static_cast<int>(std::floor(entity->getPosition().y / cellSize));
+    int entityMinYcell = static_cast<int>(std::floor(entityPosY / cellSize));
+    int entityMaxYcell = static_cast<int>(std::floor((entityPosY + entitySizeY) / cellSize));
+
     int ID = entity->getID();
 
-    if(column < 1280 && row < 720) {
-        spatialGrid [column][row].push_back(ID);
+    for(int cX = entityMinXcell; cX <= entityMaxXcell; cX++) {
+        for(int cY = entityMinYcell; cY <= entityMaxYcell; cY++) {
+            //TODO: If condition 
+            spatialGrid[cX][cY].push_back(ID);
+        }
     }
+
 }
 
 // Debuging
