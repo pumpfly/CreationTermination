@@ -22,6 +22,7 @@ public:
 
     //Debug
     static void drawGrid(gl3::Game* game, int cellSize, int screenWidth, int screenHeight);
+    void querryForCollisionPairs();
 
 
 private:

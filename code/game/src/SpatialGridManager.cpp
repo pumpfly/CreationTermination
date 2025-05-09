@@ -41,14 +41,45 @@ void SpatialGridManager::cellAssignment(gl3::Entity *entity) {
 
     for(int cX = entityMinXcell; cX <= entityMaxXcell; cX++) {
         for(int cY = entityMinYcell; cY <= entityMaxYcell; cY++) {
-            //TODO: If condition 
             spatialGrid[cX][cY].push_back(ID);
         }
     }
 
 }
 
-// Debuging
+void SpatialGridManager::querryForCollisionPairs() {
+
+
+    std::vector<int> collisionPairs(2);
+
+    int entityA;
+    int entityB;
+
+    std::vector<std::vector<int>> gridColl;
+    std::vector<int> gridCell;
+
+    //Debugging
+    int collisions = 0;
+
+    for(int i = 0; i < spatialGrid.max_size(); i++) {
+
+        gridColl = spatialGrid[i];
+
+        if(gridColl.empty()){continue;}
+
+        for(int j = 0; j < gridColl.size(); j++) {
+            gridCell = gridColl[j];
+
+            if(gridCell.empty()) {continue;}
+
+            for(int k = 0; k < gridCell.size(); k++) {
+
+            }
+        }
+    }
+}
+
+// Debugging
 
 void SpatialGridManager::drawGrid(gl3::Game* game, int cellSize, int screenWidth, int screenHeight) {
     for (int i = 0; i < screenWidth; i = i + cellSize) {
