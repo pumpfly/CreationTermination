@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 #include "glm/vec3.hpp"
 #include "../rendering/Texture2D.h"
 #include "../rendering/SpriteRenderer.h"
@@ -21,36 +23,36 @@ namespace gl3{
                float radius = 1.0f,
                glm::vec4 color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
                Texture2D texture = Texture2D::FromFile("sprites/a.png"),
-               TYPE type = witch,
-               int ID = 0);
+               TYPE type = witch);
 
         virtual ~Entity() = default;
 
         virtual void update(Game *game, float deltaTime) {};
 
         bool checkCollision(Entity& other);
+        void handleCollision(std::array <gl3::Entity, 2> collisionPair);
 
         virtual void draw(Game *game);
 
         [[nodiscard]] const glm::vec2 &getPosition() const {return position; }
         [[nodiscard]] float getZRotation() const { return zRotation; }
-        [[nodiscard]] const glm::vec2 &getScale() const { return scale; }
+        [[nodiscard]] const glm::vec2 &getSize() const { return size; }
         [[nodiscard]] const float &getRadius() const { return radius; }
         [[nodiscard]] const TYPE &getType() const { return type; }
         [[nodiscard]] const glm::vec4 &getColor() const { return color; }
-        [[nodiscard]] const int &getID() const { return ID; }
         void setPosition(const glm::vec2 &position) { Entity::position = position; }
         void setZRotation(float zRotation) { Entity::zRotation = zRotation; }
-        void setScale(const glm::vec2 &scale) { Entity::scale = scale; }
+        void setSize(const glm::vec2 &scale) { Entity::size = scale; }
         void setRadius(const float &radius) { Entity::radius = radius; }
         void setColor(const glm::vec4 &color) { Entity::color = color; }
-        void setID(const int ID) { Entity::ID = ID; }
 
+    private:
+        bool gotHit = false;
 
     protected:
         glm::vec2 position;
         float zRotation;
-        glm::vec2 scale;
+        glm::vec2 size;
         float radius;
         glm::vec4 color;
         Texture2D texture;

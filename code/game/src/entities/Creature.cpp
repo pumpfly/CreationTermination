@@ -12,8 +12,8 @@
 
 namespace gl3 {
     Creature::Creature(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale, float radius,
-        glm::vec4 color, Texture2D texture, TYPE type, int ID)
-    : Entity(position, zRotation, scale, radius, color, texture, type, ID){
+        glm::vec4 color, Texture2D texture, TYPE type)
+    : Entity(position, zRotation, scale, radius, color, texture, type){
 
         /*audio.init();
         audio.setGlobalVolume(0.1f);

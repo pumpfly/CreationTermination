@@ -4,13 +4,15 @@
 
 #pragma once
 
+#include <map>
 #include <vector>
 
 #include "entities/Entity.h"
 
+
 class SpatialGridManager {
 public:
-    explicit SpatialGridManager(int cellSize = 100, int screenWidth = 1280, int screenHeight = 720);
+    explicit SpatialGridManager(int cellSize = 150, int screenWidth = 1280, int screenHeight = 720);
     virtual ~SpatialGridManager() = default;
 
     // Getter and Setter
@@ -18,15 +20,17 @@ public:
     [[nodiscard]] const int &getScreenWidth() const {return screenWidth; }
     [[nodiscard]] const int &getScreenHeight() const {return screenHeight; }
 
-    void cellAssignment (gl3::Entity *entity);
+    void clearIDs();
+    std::vector<int> boundingBox(int entityMinX, int entityMaxX, int entityMinY, int entityMaxY);
+    void cellAssignment (int entityMinX, int entityMaxX, int entityMinY, int entityMaxY,size_t ID);
+    std::vector<size_t> queryForCollisionCandidates(int entityMinX, int entityMaxX, int entityMinY, int entityMaxY);
+
 
     //Debug
     static void drawGrid(gl3::Game* game, int cellSize, int screenWidth, int screenHeight);
-    void querryForCollisionPairs();
 
-
-private:
-    std::vector<std::vector<std::vector<int>>> spatialGrid;
+    std::vector<std::vector<std::vector<size_t>>> spatialGrid;
+    int spatialGridSize = spatialGrid[0].size();
 
 protected:
     int cellSize;

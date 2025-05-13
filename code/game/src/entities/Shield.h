@@ -7,7 +7,7 @@ namespace gl3 {
     public:
         explicit Shield(gl3::Game *game, glm::vec2 position, float zRotation,
             glm::vec2 scale, float radius, Texture2D texture = Texture2D::FromFile("sprites/a.png"),
-            TYPE type = witch, int ID = 0);
+            TYPE type = witch);
         void update(gl3::Game *game, float deltaTime) override;
 
         bool gotHit = false;

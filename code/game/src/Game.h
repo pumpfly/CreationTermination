@@ -10,6 +10,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "SpatialGridManager.h"
 #include "entities/Witch.h"
 
 namespace gl3 {
@@ -22,7 +24,7 @@ namespace gl3 {
     class Game {
     public:
 
-        Game(int width, int height, const std::string &title);
+        Game(int width = 1280, int height = 720, const std::string &title = "Creation Termination");
         void init();
         void run();
         static glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
@@ -35,6 +37,8 @@ namespace gl3 {
         [[nodiscard]] glm::mat4 getProjectionMatrix() const { return projectionMatrix; }
         [[nodiscard]] std::vector<std::unique_ptr<Entity>> &getEntities() { return entities; }
 
+        SpatialGridManager tempSpatialGrid;
+
 
     private:
         static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
@@ -46,6 +50,9 @@ namespace gl3 {
         std::unique_ptr<SoLoud::Wav> backgroundMusic;
 
         GLFWwindow *window = nullptr;
+        int width;
+        int height;
+
         Witch* w = nullptr;
         glm::mat4 mvpMatrix{};
 

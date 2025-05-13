@@ -3,6 +3,11 @@
 //
 
 #include "SpatialGridManager.h"
+
+#include <array>
+#include <iostream>
+#include <map>
+
 #include "rendering/GeometryRenderer.h"
 
 SpatialGridManager::SpatialGridManager(int cellSize, int screenWidth, int screenHeight):
@@ -10,73 +15,79 @@ SpatialGridManager::SpatialGridManager(int cellSize, int screenWidth, int screen
     screenWidth(screenWidth),
     screenHeight(screenHeight) {
 
-    spatialGrid = std::vector<std::vector<std::vector<int>>>(1 + ((screenWidth-1)/cellSize));
+    spatialGrid = std::vector<std::vector<std::vector<size_t>>>(1 + ((screenWidth-1)/cellSize));
 
     for (auto & i : spatialGrid) {
-        i = std::vector<std::vector<int>>(1 + ((screenHeight-1)/cellSize), std::vector<int>());
+        i = std::vector<std::vector<size_t>>(1 + ((screenHeight-1)/cellSize), std::vector<size_t>());
     }
 
 }
 
-void SpatialGridManager::cellAssignment(gl3::Entity *entity) {
+void SpatialGridManager::clearIDs() {
+    for(auto& row : spatialGrid) {
+        for(auto& cell : row) {
+            cell.clear();
+        }
+    }
+}
 
-    int entityPosX = static_cast<int>(entity->getPosition().x);
-    int entityPosY = static_cast<int>(entity->getPosition().y);
-
-    int entitySizeX = entity->getScale().x;
-    int entitySizeY = entity->getScale().y;
-
-    // if entity is outside the grid than it should not be added to a spatialGrid cell
-    if(entityPosX < 0 || entityPosY < 0
-        || entityPosX > screenWidth || entityPosY > screenHeight) return;
-
+std::vector<int> SpatialGridManager::boundingBox(int entityMinX, int entityMaxX, int entityMinY, int entityMaxY) {
     //Mapping world position
-    int entityMinXcell = static_cast<int>(std::floor(entityPosX / cellSize));
-    int entityMaxXcell = static_cast<int>(std::floor((entityPosX + entitySizeX) / cellSize));
+    int entityMinXcell = std::max<int>(0, static_cast<int>(std::floor(entityMinX / cellSize)));
+    int entityMaxXcell = std::min<int>(static_cast<int>(spatialGrid[0].size() - 1),
+                                 static_cast<int>(std::floor(entityMaxX/ cellSize)));
 
-    int entityMinYcell = static_cast<int>(std::floor(entityPosY / cellSize));
-    int entityMaxYcell = static_cast<int>(std::floor((entityPosY + entitySizeY) / cellSize));
+    int entityMinYcell = std::max<int>(0, static_cast<int>(std::floor(entityMinY / cellSize)));
+    int entityMaxYcell = std::min<int>(static_cast<int>(spatialGrid[0].size() - 1),
+                                 static_cast<int>(std::floor(entityMaxY / cellSize)));
 
-    int ID = entity->getID();
+    std::vector<int> boundingBox = {entityMinXcell, entityMaxXcell, entityMinYcell, entityMaxYcell};
 
+    return boundingBox;
+}
+
+
+void SpatialGridManager::cellAssignment(int entityMinX, int entityMaxX, int entityMinY,
+    int entityMaxY, size_t ID) {
+
+    std::vector<int> boundingBox = SpatialGridManager::boundingBox(entityMinX, entityMaxX, entityMinY, entityMaxY);
+    int entityMinXcell = boundingBox[0];
+    int entityMaxXcell = boundingBox[1];
+    int entityMinYcell = boundingBox[2];
+    int entityMaxYcell = boundingBox[3];
+
+    //Assigning entity IDs to corresponding cells
     for(int cX = entityMinXcell; cX <= entityMaxXcell; cX++) {
         for(int cY = entityMinYcell; cY <= entityMaxYcell; cY++) {
             spatialGrid[cX][cY].push_back(ID);
+            //Debugging:
+            /*for (auto currEntity: spatialGrid[cX][cY]) {
+                std::cout << "Row Number: " << cX << " Column Number: " << cY << " Cell content: " << currEntity << std::endl;
+            }*/
         }
     }
 
 }
 
-void SpatialGridManager::querryForCollisionPairs() {
+std::vector<size_t> SpatialGridManager::queryForCollisionCandidates(int entityMinX, int entityMaxX, int entityMinY,
+    int entityMaxY) {
 
+    std::vector<int> boundingBox = SpatialGridManager::boundingBox(entityMinX, entityMaxX, entityMinY, entityMaxY);
+    int entityMinXcell = boundingBox[0];
+    int entityMaxXcell = boundingBox[1];
+    int entityMinYcell = boundingBox[2];
+    int entityMaxYcell = boundingBox[3];
 
-    std::vector<int> collisionPairs(2);
+    std::vector<size_t> collisionCandidates;
 
-    int entityA;
-    int entityB;
-
-    std::vector<std::vector<int>> gridColl;
-    std::vector<int> gridCell;
-
-    //Debugging
-    int collisions = 0;
-
-    for(int i = 0; i < spatialGrid.max_size(); i++) {
-
-        gridColl = spatialGrid[i];
-
-        if(gridColl.empty()){continue;}
-
-        for(int j = 0; j < gridColl.size(); j++) {
-            gridCell = gridColl[j];
-
-            if(gridCell.empty()) {continue;}
-
-            for(int k = 0; k < gridCell.size(); k++) {
-
-            }
+    for(int cX = entityMinXcell; cX <= entityMaxXcell; cX++) {
+        for(int cY = entityMinYcell; cY <= entityMaxYcell; cY++) {
+            if(spatialGrid[cX][cY].empty()) {continue;}
+            collisionCandidates = spatialGrid[cX][cY];
         }
     }
+
+    return collisionCandidates;
 }
 
 // Debugging

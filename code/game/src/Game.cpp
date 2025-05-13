@@ -3,11 +3,11 @@
 //
 #include "Game.h"
 
+#include <array>
 #include <iostream>
 
 #include <random>
 #include <stdexcept>
-
 #include "Assets.h"
 #include "SpatialGridManager.h"
 #include "entities/Creature.h"
@@ -23,7 +23,9 @@ namespace gl3 {
     }
 
     Game::Game(int width, int height, const std::string &title) :
-        projectionMatrix(glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f))
+        projectionMatrix(glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f)),
+        width(width),
+        height(height)
     {
         if(!glfwInit()) {
             throw std::runtime_error("Failed to initialize glfw");
@@ -123,14 +125,36 @@ namespace gl3 {
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, true);
         }
-        for(auto &entity: entities) {
-            for(auto &other: entities) {
-                if(entity != other && entity->checkCollision(*other)) {
-                    std::cout << entity->checkCollision(*other) << std::endl;
-                    entity->setColor({1, 0, 0, 1});
-                }
-            }
-            entity->update(this, deltaTime);
+
+        SpatialGridManager currentGrid(150, 1280, 720);
+        tempSpatialGrid = currentGrid;
+
+        tempSpatialGrid.clearIDs();
+        int cellSize = tempSpatialGrid.getCellSize();
+
+        for(size_t i = 0; i < entities.size(); i++) {
+            Entity entity = *entities[i];
+
+            //Bounding Box calculation:
+
+            int entitySizeX = static_cast<int>(entity.getSize().x);
+            int entitySizeY = static_cast<int>(entity.getSize().y);
+
+            int entityMinX = static_cast<int>(entity.getPosition().x);
+            int entityMinY = static_cast<int>(entity.getPosition().y);
+
+            int entityMaxX = static_cast<int>(entity.getPosition().x) + entitySizeX;
+            int entityMaxY = static_cast<int>(entity.getPosition().y) + entitySizeY;
+
+            //Collision checking
+            // if entity is outside the grid than it should not be added to a spatialGrid cell
+            if(entityMinX < 0 || entityMinY < 0
+                || entityMinX > width || entityMinY > height) continue;
+
+            tempSpatialGrid.cellAssignment(entityMinX, entityMaxX, entityMinY, entityMaxY, i);
+
+            //TODO: Where should I call queryForCollisionCandidates
+            entities[i]->update(this, deltaTime);
         }
     };
 
@@ -144,7 +168,7 @@ namespace gl3 {
             entity->draw(this);
         }
 
-        SpatialGridManager::drawGrid(this, 100, 1280, 720);
+        SpatialGridManager::drawGrid(this, 150, 1280, 720);
         glfwSwapBuffers(window);
     };
 

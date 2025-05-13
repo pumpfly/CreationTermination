@@ -28,7 +28,7 @@ public:
     void SetDefaultShader();
 
     // Renders a defined quad textured with given sprite
-    void DrawSprite(gl3::Game* game, Texture2D &texture, glm::vec2 position, glm::vec2 size = glm::vec2(10.0f, 10.0f), float rotate = 0.0f, glm::vec4 color = glm::vec4(1.0f));
+    void DrawSprite(gl3::Game* game, Texture2D &texture, glm::vec2 position, glm::vec2 size = glm::vec2(1.0f, 1.0f), float rotate = 0.0f, glm::vec4 color = glm::vec4(1.0f));
 private:
     SpriteRenderer();
     ~SpriteRenderer();
