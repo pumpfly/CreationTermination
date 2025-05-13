@@ -6,6 +6,8 @@
 #include "../rendering/Texture2D.h"
 #include "../rendering/SpriteRenderer.h"
 
+class SpatialGridManager;
+
 namespace gl3{
     class Game;
 
@@ -29,8 +31,9 @@ namespace gl3{
 
         virtual void update(Game *game, float deltaTime) {};
 
-        bool checkCollision(Entity& other);
-        void handleCollision(std::array <gl3::Entity, 2> collisionPair);
+        bool hasCollisionWith(Entity& other);
+        void handleCollision(const std::vector<size_t>& collisionPair);
+        void collisionEffect();
 
         virtual void draw(Game *game);
 

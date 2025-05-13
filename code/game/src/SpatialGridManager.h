@@ -30,7 +30,6 @@ public:
     static void drawGrid(gl3::Game* game, int cellSize, int screenWidth, int screenHeight);
 
     std::vector<std::vector<std::vector<size_t>>> spatialGrid;
-    int spatialGridSize = spatialGrid[0].size();
 
 protected:
     int cellSize;

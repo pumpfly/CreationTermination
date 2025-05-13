@@ -126,6 +126,8 @@ namespace gl3 {
             glfwSetWindowShouldClose(window, true);
         }
 
+        // Updating the spatial Grid for collision detection:
+
         SpatialGridManager currentGrid(150, 1280, 720);
         tempSpatialGrid = currentGrid;
 
@@ -136,7 +138,6 @@ namespace gl3 {
             Entity entity = *entities[i];
 
             //Bounding Box calculation:
-
             int entitySizeX = static_cast<int>(entity.getSize().x);
             int entitySizeY = static_cast<int>(entity.getSize().y);
 
@@ -146,16 +147,42 @@ namespace gl3 {
             int entityMaxX = static_cast<int>(entity.getPosition().x) + entitySizeX;
             int entityMaxY = static_cast<int>(entity.getPosition().y) + entitySizeY;
 
-            //Collision checking
+            //Cell Assignment
             // if entity is outside the grid than it should not be added to a spatialGrid cell
-            if(entityMinX < 0 || entityMinY < 0
-                || entityMinX > width || entityMinY > height) continue;
-
-            tempSpatialGrid.cellAssignment(entityMinX, entityMaxX, entityMinY, entityMaxY, i);
-
+            if(entityMinX > 0 || entityMinY > 0
+                || entityMinX < width || entityMinY < height)
+            {
+                tempSpatialGrid.cellAssignment(entityMinX, entityMaxX, entityMinY, entityMaxY, i);
+            }
             //TODO: Where should I call queryForCollisionCandidates
-            entities[i]->update(this, deltaTime);
         }
+
+        //After assigning all entities to their corresponding cells, now every entity has to be checked for collisions
+        //with other entities that share their cell.
+        for (const auto & entity : entities)
+        {
+            //Bounding Box calculation:
+            int entitySizeX = static_cast<int>(entity->getSize().x);
+            int entitySizeY = static_cast<int>(entity->getSize().y);
+
+            int entityMinX = static_cast<int>(entity->getPosition().x);
+            int entityMinY = static_cast<int>(entity->getPosition().y);
+
+            int entityMaxX = static_cast<int>(entity->getPosition().x) + entitySizeX;
+            int entityMaxY = static_cast<int>(entity->getPosition().y) + entitySizeY;
+
+
+            std::vector<size_t> collisionCandidates = currentGrid.queryForCollisionCandidates(entityMinX, entityMaxX,
+                                                                                                entityMinY, entityMaxY);
+
+            for (size_t j = 0; j < collisionCandidates.size(); j++)
+            {
+                //TODO
+            }
+
+            entity->update(this, deltaTime);
+        }
+
     };
 
     void Game::draw() {

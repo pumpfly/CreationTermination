@@ -66,7 +66,6 @@ void SpatialGridManager::cellAssignment(int entityMinX, int entityMaxX, int enti
             }*/
         }
     }
-
 }
 
 std::vector<size_t> SpatialGridManager::queryForCollisionCandidates(int entityMinX, int entityMaxX, int entityMinY,

@@ -17,7 +17,8 @@ namespace gl3 {
             type(type){
     }
 
-    bool Entity::checkCollision(Entity &other) {
+    bool Entity::hasCollisionWith(Entity& other)
+    {
         glm::vec2 center1(this->getPosition() + this->getRadius());
         glm::vec2 center2(other.getPosition() + other.getRadius());
 
@@ -31,21 +32,14 @@ namespace gl3 {
         return false;
     }
 
-    void Entity::handleCollision(std::array<gl3::Entity, 2> collisionPair) {
+    void Entity::handleCollision(const std::vector<size_t>& collisionPair) {
         gotHit = !gotHit;
-
+        //TODO:
         if(gotHit) {
-            collisionPair[0].setColor({1.0, 0.0, 0.0, 1.0});
-            collisionPair[1].setColor({1.0, 0.0, 0.0, 1.0});
 
-            //Debugging
-            std::cout << "got Hit" << std::endl;
-            std::cout << collisionPair[0].type << std::endl;
-            std::cout << collisionPair[1].type << std::endl;
         }
         if(!gotHit) {
-            collisionPair[0].setColor({1, 1, 1, 1.0f});
-            collisionPair[1].setColor({1, 1, 1, 1.0f});
+
         }
     }
 
