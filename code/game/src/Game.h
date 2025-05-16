@@ -68,7 +68,6 @@ namespace gl3 {
         float deltaTime = 1.0f/60;
 
         std::vector<std::unique_ptr<Entity>> entities;
-
         };
 
     };

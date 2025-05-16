@@ -7,8 +7,7 @@
 ** option) any later version.
 ******************************************************************/
 
-#ifndef RESOURCEMANAGER_H
-#define RESOURCEMANAGER_H
+#pragma once
 #include <map>
 
 #include "Shader.h"
@@ -40,7 +39,3 @@ private:
     static Texture2D loadTextureFromFile(const char *file, bool alpha);
 
 };
-
-
-
-#endif //RESOURCEMANAGER_H

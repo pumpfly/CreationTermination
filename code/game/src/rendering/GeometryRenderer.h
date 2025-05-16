@@ -4,10 +4,7 @@
 
 #pragma once
 
-#include <vector>
-
 #include "Shader.h"
-#include "glm/vec2.hpp"
 
 
 namespace gl3 {

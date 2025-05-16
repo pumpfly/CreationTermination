@@ -60,7 +60,6 @@ namespace gl3{
         glm::vec4 color;
         Texture2D texture;
         TYPE type;
-        int ID;
     };
 }
 

@@ -33,6 +33,8 @@ set(SOURCE_FILES src/main.cpp
         src/SpatialGridManager.cpp
         src/rendering/GeometryRenderer.h
         src/rendering/GeometryRenderer.cpp
+        src/BackgroundManager.cpp
+        src/BackgroundManager.h
 )
 
 # set executable name

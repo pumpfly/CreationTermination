@@ -77,7 +77,7 @@ namespace gl3 {
     }
 
     void Game::init() {
-        ResourceManager::LoadTexture("background/forest.png", true, "background");
+        ResourceManager::LoadTexture("background/CreationTermination_background.png", true, "background");
     };
 
     void Game::run() {
@@ -87,6 +87,9 @@ namespace gl3 {
         glBindVertexArray(VAO);
 
         glEnable(GL_BLEND);
+
+        BackgroundManager b(glm::vec3(0.0f, 0.0f, 0.0f), 0.0f, glm::vec2(1920/1.5, 1080/1.5));
+        background = b;
 
         auto witch = std::make_unique<Witch>(nullptr);
         w = witch.get();
@@ -121,6 +124,7 @@ namespace gl3 {
     };
 
     void Game::update() {
+        background.update(deltaTime);
         draw();
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, true);
@@ -154,43 +158,17 @@ namespace gl3 {
             {
                 tempSpatialGrid.cellAssignment(entityMinX, entityMaxX, entityMinY, entityMaxY, i);
             }
-            //TODO: Where should I call queryForCollisionCandidates
-        }
-
-        //After assigning all entities to their corresponding cells, now every entity has to be checked for collisions
-        //with other entities that share their cell.
-        for (const auto & entity : entities)
-        {
-            //Bounding Box calculation:
-            int entitySizeX = static_cast<int>(entity->getSize().x);
-            int entitySizeY = static_cast<int>(entity->getSize().y);
-
-            int entityMinX = static_cast<int>(entity->getPosition().x);
-            int entityMinY = static_cast<int>(entity->getPosition().y);
-
-            int entityMaxX = static_cast<int>(entity->getPosition().x) + entitySizeX;
-            int entityMaxY = static_cast<int>(entity->getPosition().y) + entitySizeY;
-
-
-            std::vector<size_t> collisionCandidates = currentGrid.queryForCollisionCandidates(entityMinX, entityMaxX,
-                                                                                                entityMinY, entityMaxY);
-
-            for (size_t j = 0; j < collisionCandidates.size(); j++)
-            {
-                //TODO
-            }
-
-            entity->update(this, deltaTime);
+            entities[i]->update(this, deltaTime);
         }
 
     };
 
     void Game::draw() {
-        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-        SpriteRenderer::Instance().DrawSprite(this, ResourceManager::GetTexture("background"),
-            glm::vec2(0.0f, 0.0f), glm::vec2(1920/1.5, 1080/1.5), 0.0f, glm::vec4(1, 1, 1, 1));
-
+        //glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        //glClear(GL_COLOR_BUFFER_BIT);
+        //SpriteRenderer::Instance().DrawSprite(this, ResourceManager::GetTexture("background"),
+        //    glm::vec2(0.0f, 0.0f), glm::vec2(1920/1.5, 1080/1.5), 0.0f, glm::vec4(1, 1, 1, 1));
+        background.draw(this);
          for(auto &entity: entities) {
             entity->draw(this);
         }
