@@ -23,7 +23,6 @@ namespace gl3 {
     }
 
     Game::Game(int width, int height, const std::string &title) :
-        projectionMatrix(glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f)),
         width(width),
         height(height)
     {
@@ -55,29 +54,13 @@ namespace gl3 {
 
     };
 
-    glm::mat4 Game::calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale) {
-
-        // View Transform
-        glm::mat4 view = glm::lookAt(glm::vec3(0.0, 0.0, 90.0f),
-                                     glm::vec3(0.0f, 0.0f, 0.0),
-                                     glm::vec3(0.0, 1.0, 0.0));
-        // Projection Transform
-        glm::mat4 projection = glm::perspective(glm::radians(2.0f), 1000.0f/600.0f, 0.1f, 100.0f);
-
-        auto model = glm::mat4(1.0f);
-        model = translate(model, position);
-        model = glm::scale(model, scale);
-        model = rotate(model, glm::radians(zRotationInDegrees), glm::vec3(0.0f, 0.0f, 1.0f));
-
-        return projection * view * model;
-    }
-
-    glm::mat4 Game::projection() const {
-        return projectionMatrix;
-    }
-
     void Game::init() {
-        ResourceManager::LoadTexture("background/CreationTermination_background.png", true, "background");
+        //First Layer
+        ResourceManager::LoadTexture("background/forest_1stLayer.png", true, "firstLayer");
+        //Second Layer
+        ResourceManager::LoadTexture("background/forest_2dLayer.png", true, "secondLayer");
+        //Third Layer
+        ResourceManager::LoadTexture("background/forest_3dLayer.png", true, "thirdLayer");
     };
 
     void Game::run() {
@@ -88,9 +71,16 @@ namespace gl3 {
 
         glEnable(GL_BLEND);
 
-        BackgroundManager b(glm::vec3(0.0f, 0.0f, 0.0f), 0.0f, glm::vec2(1920/1.5, 1080/1.5));
-        background = b;
+        ////Background Layers
+        BackgroundManager bg1("firstLayer");
+        BackgroundManager bg2("secondLayer");
+        BackgroundManager bg3("thirdLayer");
 
+        layer1 = bg1;
+        layer2 = bg2;
+        layer3 = bg3;
+
+        ////Entities
         auto witch = std::make_unique<Witch>(nullptr);
         w = witch.get();
         entities.push_back(std::move(witch));
@@ -124,11 +114,15 @@ namespace gl3 {
     };
 
     void Game::update() {
-        background.update(deltaTime);
         draw();
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, true);
         }
+
+        //Update Backgrounds
+        layer1.update(deltaTime);
+        layer2.update(deltaTime);
+        layer3.update(deltaTime);
 
         // Updating the spatial Grid for collision detection:
 
@@ -164,16 +158,24 @@ namespace gl3 {
     };
 
     void Game::draw() {
-        //glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-        //glClear(GL_COLOR_BUFFER_BIT);
-        //SpriteRenderer::Instance().DrawSprite(this, ResourceManager::GetTexture("background"),
+        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        //SpriteRenderer::Instance().DrawSprite(ResourceManager::GetTexture("background"),
         //    glm::vec2(0.0f, 0.0f), glm::vec2(1920/1.5, 1080/1.5), 0.0f, glm::vec4(1, 1, 1, 1));
-        background.draw(this);
+
+        //Drawing Background
+        layer3.draw();
+        layer2.draw();
+        layer1.draw();
+
+        // Drawing Entities
          for(auto &entity: entities) {
-            entity->draw(this);
+            entity->draw();
         }
 
-        SpatialGridManager::drawGrid(this, 150, 1280, 720);
+        //For Debugging:
+        //SpatialGridManager::drawGrid(this, 150, 1280, 720);
+
         glfwSwapBuffers(window);
     };
 

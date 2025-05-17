@@ -59,12 +59,12 @@ namespace gl3 {
 
     }
 
-    void Creature::draw(Game* game)
+    void Creature::draw()
     {
-        Entity::draw(game);
+        Entity::draw();
         for (auto& m: missiles)
         {
-            m->draw(game);
+            m->draw();
         }
     }
 

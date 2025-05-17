@@ -6,28 +6,24 @@
 
 #include "Shader.h"
 
-
 namespace gl3 {
-    class Game;
-}
+    class GeometryRenderer {
+    public:
+        static GeometryRenderer &Instance() {
+            static GeometryRenderer instance = GeometryRenderer();
+            return instance;
+        }
 
-class GeometryRenderer {
-public:
+        void drawLine(glm::vec2 p1, glm::vec2 p2);
 
-    static GeometryRenderer& Instance() {
-        static GeometryRenderer instance = GeometryRenderer();
-        return instance;
-    }
+    private:
+        GeometryRenderer();
 
-    void drawLine(gl3::Game* game,glm::vec2 p1, glm::vec2 p2);
+        ~GeometryRenderer();
 
-private:
-    GeometryRenderer();
-    ~GeometryRenderer();
+        Shader *shader;
+        Shader tempS;
 
-    gl3::Shader *shader;
-    gl3::Shader tempS;
-
-    unsigned int VAO{}, VBO{};
+        unsigned int VAO{}, VBO{};
+    };
 };
-

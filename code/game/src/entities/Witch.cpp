@@ -151,17 +151,17 @@ namespace gl3{
         // Shield
         if(shield) shield->update(game, deltaTime);
     }
-    void Witch::draw(Game *game) {
-        Entity::draw(game);
+    void Witch::draw() {
+        Entity::draw();
         for (auto &m: missiles) {
-            m->draw(game);
+            m->draw();
         }
         for(auto &b: bigMissiles) {
-            b->draw(game);
+            b->draw();
         }
         for(auto &w : waveMissiles) {
-            w->draw(game);
+            w->draw();
         }
-        if(shield) shield->draw(game);
+        if(shield) shield->draw();
     }
 }

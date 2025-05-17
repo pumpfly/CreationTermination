@@ -17,7 +17,7 @@ namespace gl3 {
             Texture2D texture = Texture2D::FromFile("sprites/creature.png"), TYPE type = enemy);
 
         void update(Game *game, float deltaTime) override;
-        void draw(Game *game) override;
+        void draw() override;
 
 
     private:

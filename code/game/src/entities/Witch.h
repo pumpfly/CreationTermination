@@ -20,7 +20,7 @@ namespace gl3 {
              TYPE type = witch);
 
         void update(Game *game, float deltaTime) override;
-        void draw(Game *game) override;
+        void draw() override;
 
     private:
         float translationSpeed = 1.0f;

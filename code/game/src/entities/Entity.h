@@ -35,7 +35,7 @@ namespace gl3{
         void handleCollision(const std::vector<size_t>& collisionPair);
         void collisionEffect();
 
-        virtual void draw(Game *game);
+        virtual void draw();
 
         [[nodiscard]] const glm::vec2 &getPosition() const {return position; }
         [[nodiscard]] float getZRotation() const { return zRotation; }

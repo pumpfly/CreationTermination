@@ -1,11 +1,16 @@
 #include <iostream>
 
 #include "Game.h"
+#include "Config.h"
 
 int main() {
 
     try {
-        gl3::Game creationTermination(1280, 720, "Space Battle");
+        gl3::Game creationTermination(
+            gl3::config::ScreenSize.x,
+            gl3::config::ScreenSize.y,
+            "Space Battle"
+        );
         creationTermination.init();
         creationTermination.run();
     }
