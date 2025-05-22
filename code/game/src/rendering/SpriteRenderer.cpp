@@ -68,5 +68,6 @@ namespace gl3 {
         glBindVertexArray(this->baseQuadVAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
+
     }
 }

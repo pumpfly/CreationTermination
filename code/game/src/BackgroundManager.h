@@ -19,8 +19,8 @@ namespace gl3 {
         [[nodiscard]] const std::string &getLayerName() const { return layerName; }
 
     private:
-        float layer1speed = 1000.0f;
-        float layer2speed = 700.0f;
+        float layer1speed = 800.0f;
+        float layer2speed = 600.0f;
         float layer3speed = 400.0f;
 
         glm::vec2 layer1_position = glm::vec2(0.0f, 0.0f);
