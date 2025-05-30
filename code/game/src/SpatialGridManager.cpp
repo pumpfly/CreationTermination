@@ -63,7 +63,7 @@ namespace gl3 {
                 spatialGrid[cX][cY].push_back(ID);
                 //Debugging:
                 for (auto currEntity: spatialGrid[cX][cY]) {
-                    std::cout << "Row Number: " << cX << " Column Number: " << cY << " Cell content: " << currEntity << std::endl;
+                    //std::cout << "Row Number: " << cX << " Column Number: " << cY << " Cell content: " << currEntity << std::endl;
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace gl3 {
         for(int cX = entityMinXcell; cX <= entityMaxXcell; cX++) {
             for(int cY = entityMinYcell; cY <= entityMaxYcell; cY++) {
                 if(spatialGrid[cX][cY].empty()) {continue;}
-                collisionCandidates = spatialGrid[cX][cY];
+                collisionCandidates.insert(collisionCandidates.end(), spatialGrid[cX][cY].begin() ,spatialGrid[cX][cY].end());
             }
         }
 

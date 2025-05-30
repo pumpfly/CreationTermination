@@ -91,6 +91,7 @@ namespace gl3 {
         auto miniEnemy = std::make_unique<bats>();
         entities.push_back(std::move(miniEnemy));
 
+        tempSpatialGrid = SpatialGridManager(150, 1280, 720);
 
         /*backgroundMusic = std::make_unique<SoLoud::Wav>();
         backgroundMusic->load(resolveAssetPath("audio/electronic-wave.mp3").string().c_str());
@@ -149,7 +150,9 @@ namespace gl3 {
             {
                 tempSpatialGrid.cellAssignment(entityMinX, entityMaxX, entityMinY, entityMaxY, i);
             }
-            entities[i]->update(this, deltaTime);
+        }
+        for(const auto & entitie : entities) {
+            entitie->update(this, deltaTime);
         }
 
     };
@@ -157,7 +160,7 @@ namespace gl3 {
     void Game::draw() {
         glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        /*
+
         //Drawing Background
         layer3.draw();
         layer2.draw();
@@ -166,7 +169,7 @@ namespace gl3 {
          for(auto &entity: entities) {
             entity->draw();
         }
-        */
+
         //For Debugging:
         SpatialGridManager::drawGrid(150, 1280, 720);
 

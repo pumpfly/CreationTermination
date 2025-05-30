@@ -10,18 +10,15 @@
 #include "Missiles.h"
 #include "../Game.h"
 #include "../Assets.h"
-#include "../SpatialGridManager.h"
 
 namespace gl3{
     Witch::Witch(Game* game, glm::vec2 position, float zRotation, glm::vec2 size, float radius, glm::vec4 color,
-        Texture2D texture, TYPE type)
-    : Entity(position,zRotation,size, radius, color,texture, type){
-
+        Texture2D texture, int health, TYPE type)
+        : Entity(position, zRotation, size, radius, color, texture, health, type){
         /*audio.init();
         audio.setGlobalVolume(0.1f);
         firingSound.load(resolveAssetPath("audio/shot.mp3").string().c_str());
         firingSound.setSingleInstance(true);*/
-
     }
 
     void Witch::update(Game *game, float deltaTime) {
@@ -153,41 +150,40 @@ namespace gl3{
         if(shield) shield->update(game, deltaTime);
 
         // COLLISION
-        /*collsionCandidatesIDs = game->getSpatialGrid().queryForCollisionCandidates(MinX, MaxX, MinY, MaxY);
-        for (const auto ID: collsionCandidatesIDs) {
-            collsionCandidates.push_back(game->getEntities()[ID].get()); // All entities inside the same cell
-        }
-        for (const auto candidate: collsionCandidates) {
-            if(candidate->getType() != type) {
-                if(this->hasCollisionWith(*candidate)) {
-                    health--;
-                    std::cout << health << std::endl;
-                }
-            }
-        }*/
-        std::vector<gl3::Entity*> collsionCandidates; // Change container type
+        countdownTilNextDamage -= deltaTime;
+        collsionCandidatesIDs = game->tempSpatialGrid.queryForCollisionCandidates(MinX, MaxX, MinY, MaxY);
 
-        collsionCandidatesIDs = game->getSpatialGrid().queryForCollisionCandidates(MinX, MaxX, MinY, MaxY);
-        collsionCandidates.reserve(collsionCandidatesIDs.size());
-        for (auto ID: collsionCandidatesIDs) {
-            collsionCandidates.push_back(game->getEntities()[ID].get()); // Use .get() to get raw pointer
-            //std::cout << ID << std::endl;
-        }
-        for (auto candidate: collsionCandidates) { // No & needed since it's just a pointer copy
-            if(candidate->getType() != type) {
-                if(this->hasCollisionWith(*candidate)) {
-                    health--;
-                    //std::cout << health << std::endl;
+        for (const auto candidate: collsionCandidatesIDs){
+
+            if(game->getEntities()[candidate]->getType() != type) {
+
+                std::cout << "countdown: " << countdownTilNextDamage << std::endl;
+
+                if(this->hasCollisionWith(*game->getEntities()[candidate])) {
+
+                    if(isInvulnerable == true) continue;
+
+                    if(health == 0) {
+                        std::cout << "game over" << std::endl;
+                        break;
+                    }
+                    std::cout << "health: " << health << std::endl;
+                    --health;
                 }
+
+                if(countdownTilNextDamage <= 0.0f) isInvulnerable = false;
+                else isInvulnerable = true;
+
+                countdownTilNextDamage = timeBetweenDamage;
             }
         }
 
         // ANIMATION
-        /*this->spriteAnimTimer += deltaTime;
+        this->spriteAnimTimer += deltaTime;
         if (this->spriteAnimTimer >= 0.1f) {
             this->spriteAnimIndex = (this->spriteAnimIndex + 1) % 4;
             this->spriteAnimTimer = 0.0f;
-        }*/
+        }
     }
     void Witch::draw() {
         SpriteRenderer::Instance().DrawSpritePro(texture, glm::vec4(this->spriteFrameSize.x*this->spriteAnimIndex, 0, this->spriteFrameSize),

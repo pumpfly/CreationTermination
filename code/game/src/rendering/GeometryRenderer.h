@@ -21,8 +21,7 @@ namespace gl3 {
 
         ~GeometryRenderer();
 
-        Shader *shader;
-        Shader tempS;
+        gl3::Shader shader;
 
         unsigned int VAO{}, VBO{};
     };

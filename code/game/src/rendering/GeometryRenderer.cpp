@@ -11,8 +11,7 @@
 
 namespace gl3 {
     GeometryRenderer::GeometryRenderer():
-        tempS(gl3::Shader("shaders/vertexShader.vert", "shaders/fragmentShader.frag")),
-        shader(&tempS){}
+        shader(gl3::Shader("shaders/vertexShader.vert", "shaders/solid_color.frag")){}
 
     GeometryRenderer::~GeometryRenderer() {
         glDeleteVertexArrays(1, &this->VAO);
@@ -36,14 +35,13 @@ namespace gl3 {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
 
-        this->shader->use();
+        this->shader.use();
 
+        auto model = glm::identity<glm::mat4>();
 
-        auto model = glm::mat4(1.0f);
-
-        this->shader->setMatrix("model", model);
-        this->shader->setMatrix("projection", ProjectionMatrix);
-        this->shader->setVector("color", color);
+        this->shader.setMatrix("model", model);
+        this->shader.setMatrix("projection", ProjectionMatrix);
+        this->shader.setVector("color", color);
 
         glBindVertexArray(this->VAO);
         glDrawArrays(GL_LINES, 0, 2);

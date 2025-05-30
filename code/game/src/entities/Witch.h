@@ -17,6 +17,7 @@ namespace gl3 {
              float zRotation = 0.0f, glm::vec2 size = glm::vec2(120*1.6, 120),
              float radius = 50, glm::vec4 color = glm::vec4(1, 1, 1, 1.0f),
              Texture2D texture = Texture2D::FromFile("sprites/witch_idleSprites.png"),
+             int health = 5,
              TYPE type = witch);
 
         void update(Game *game, float deltaTime) override;
@@ -40,17 +41,20 @@ namespace gl3 {
         int MaxX = static_cast<int>(position.x) + entitySizeX;
         int MaxY = static_cast<int>(position.y) + entitySizeY;
 
+        //Collision
+        const float timeBetweenDamage = 0.5f;
+        float countdownTilNextDamage = timeBetweenDamage;
         std::vector<size_t> collsionCandidatesIDs;
-        std::vector<std::unique_ptr<Entity>> collsionCandidates;
-        SpatialGridManager *spatialGrid;
+        SpatialGridManager *spatialGrid{};
 
         bool charging = false;
         bool onlySingleMissile = false;
         float missileTempSize = 1.0f;
 
         //Missiles
-        const float timeBetweenShots = 0.1;
+        const float timeBetweenShots = 0.1f;
         float countdownUntilNextShot = timeBetweenShots;
+        bool isInvulnerable = false;
         std::vector<std::unique_ptr<Missiles>> missiles;
         std::vector<std::unique_ptr<Missiles>> bigMissiles;
         std::vector<std::unique_ptr<Missiles>> waveMissiles;
