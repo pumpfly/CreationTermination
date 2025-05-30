@@ -25,6 +25,7 @@ namespace gl3{
                float radius = 1.0f,
                glm::vec4 color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
                Texture2D texture = Texture2D::FromFile("sprites/a.png"),
+               int health = 5,
                TYPE type = witch);
 
         virtual ~Entity() = default;
@@ -32,8 +33,6 @@ namespace gl3{
         virtual void update(Game *game, float deltaTime) {};
 
         bool hasCollisionWith(Entity& other);
-        void handleCollision(const std::vector<size_t>& collisionPair);
-        void collisionEffect();
 
         virtual void draw();
 
@@ -59,6 +58,7 @@ namespace gl3{
         float radius;
         glm::vec4 color;
         Texture2D texture;
+        int health;
         TYPE type;
     };
 }

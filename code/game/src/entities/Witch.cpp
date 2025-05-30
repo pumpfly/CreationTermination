@@ -10,6 +10,7 @@
 #include "Missiles.h"
 #include "../Game.h"
 #include "../Assets.h"
+#include "../SpatialGridManager.h"
 
 namespace gl3{
     Witch::Witch(Game* game, glm::vec2 position, float zRotation, glm::vec2 size, float radius, glm::vec4 color,
@@ -150,9 +151,47 @@ namespace gl3{
 
         // Shield
         if(shield) shield->update(game, deltaTime);
+
+        // COLLISION
+        /*collsionCandidatesIDs = game->getSpatialGrid().queryForCollisionCandidates(MinX, MaxX, MinY, MaxY);
+        for (const auto ID: collsionCandidatesIDs) {
+            collsionCandidates.push_back(game->getEntities()[ID].get()); // All entities inside the same cell
+        }
+        for (const auto candidate: collsionCandidates) {
+            if(candidate->getType() != type) {
+                if(this->hasCollisionWith(*candidate)) {
+                    health--;
+                    std::cout << health << std::endl;
+                }
+            }
+        }*/
+        std::vector<gl3::Entity*> collsionCandidates; // Change container type
+
+        collsionCandidatesIDs = game->getSpatialGrid().queryForCollisionCandidates(MinX, MaxX, MinY, MaxY);
+        collsionCandidates.reserve(collsionCandidatesIDs.size());
+        for (auto ID: collsionCandidatesIDs) {
+            collsionCandidates.push_back(game->getEntities()[ID].get()); // Use .get() to get raw pointer
+            //std::cout << ID << std::endl;
+        }
+        for (auto candidate: collsionCandidates) { // No & needed since it's just a pointer copy
+            if(candidate->getType() != type) {
+                if(this->hasCollisionWith(*candidate)) {
+                    health--;
+                    //std::cout << health << std::endl;
+                }
+            }
+        }
+
+        // ANIMATION
+        this->spriteAnimTimer += deltaTime;
+        if (this->spriteAnimTimer >= 0.1f) {
+            this->spriteAnimIndex = (this->spriteAnimIndex + 1) % 4;
+            this->spriteAnimTimer = 0.0f;
+        }
     }
     void Witch::draw() {
-        Entity::draw();
+        SpriteRenderer::Instance().DrawSpritePro(texture, glm::vec4(this->spriteFrameSize.x*this->spriteAnimIndex, 0, this->spriteFrameSize),
+                                                 glm::vec4(this->position, this->size), zRotation, this->color);
         for (auto &m: missiles) {
             m->draw();
         }

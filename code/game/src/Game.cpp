@@ -126,9 +126,6 @@ namespace gl3 {
 
         // Updating the spatial Grid for collision detection:
 
-        SpatialGridManager currentGrid(150, 1280, 720);
-        tempSpatialGrid = currentGrid;
-
         tempSpatialGrid.clearIDs();
         int cellSize = tempSpatialGrid.getCellSize();
 
@@ -158,23 +155,22 @@ namespace gl3 {
     };
 
     void Game::draw() {
-        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        //SpriteRenderer::Instance().DrawSprite(ResourceManager::GetTexture("background"),
-        //    glm::vec2(0.0f, 0.0f), glm::vec2(1920/1.5, 1080/1.5), 0.0f, glm::vec4(1, 1, 1, 1));
 
         //Drawing Background
+        /*
         layer3.draw();
         layer2.draw();
         layer1.draw();
-
+        */
         // Drawing Entities
          for(auto &entity: entities) {
             entity->draw();
         }
 
         //For Debugging:
-        //SpatialGridManager::drawGrid(this, 150, 1280, 720);
+        SpatialGridManager::drawGrid(this, 150, 1280, 720);
 
         glfwSwapBuffers(window);
     };

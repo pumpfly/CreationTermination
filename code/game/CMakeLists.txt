@@ -37,6 +37,8 @@ set(SOURCE_FILES src/main.cpp
         src/BackgroundManager.h
         src/Config.h
         src/rendering/projection/Projection.h
+        src/UI/Healthbar.cpp
+        src/UI/Healthbar.h
 )
 
 # set executable name

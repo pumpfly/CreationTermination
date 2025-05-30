@@ -7,13 +7,14 @@
 
 namespace gl3 {
     Entity::Entity(glm::vec2 position, float zRotation, glm::vec2 scale, float radius, glm::vec4 color,
-        Texture2D texture, TYPE type):
+        Texture2D texture, int health, TYPE type):
             position(position),
             zRotation(zRotation),
             size(scale),
             radius(radius),
             color(color),
             texture(texture),
+            health(health),
             type(type){
     }
 
@@ -32,19 +33,7 @@ namespace gl3 {
         return false;
     }
 
-    void Entity::handleCollision(const std::vector<size_t>& collisionPair) {
-        gotHit = !gotHit;
-        //TODO:
-        if(gotHit) {
-
-        }
-        if(!gotHit) {
-
-        }
-    }
-
     void Entity::draw() {
-        SpriteRenderer::Instance().DrawSprite(texture, position,
-            size, zRotation, color);
+        SpriteRenderer::Instance().DrawSprite(texture, position, size, zRotation, color);
     }
 }

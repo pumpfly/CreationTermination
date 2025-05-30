@@ -12,8 +12,8 @@
 
 namespace gl3 {
     Creature::Creature(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale, float radius,
-        glm::vec4 color, Texture2D texture, TYPE type)
-    : Entity(position, zRotation, scale, radius, color, texture, type){
+        glm::vec4 color, Texture2D texture, int health, TYPE type)
+    : Entity(position, zRotation, scale, radius, color, texture, health, type){
 
         /*audio.init();
         audio.setGlobalVolume(0.1f);
@@ -30,10 +30,6 @@ namespace gl3 {
     {
         std::time_t elapsedTime = std::time(nullptr);
         const auto witchPosition = game->getWitch()->getPosition();
-        auto distanceToShip = glm::distance(position, witchPosition);
-        /*float delta_x = this->getPosition().x - witchPosition.x;
-        float delta_y = this->getPosition().y - witchPosition.y;
-        float theta_radians = atan2(delta_y, delta_x);*/
 
         //zRotation = glm::degrees(theta_radians) - 90.0f;
 

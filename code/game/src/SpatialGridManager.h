@@ -12,7 +12,7 @@
 namespace gl3 {
     class SpatialGridManager {
     public:
-        explicit SpatialGridManager(int cellSize = 150, int screenWidth = 1280, int screenHeight = 720);
+        explicit SpatialGridManager (int cellSize = 150, int screenWidth = 1280, int screenHeight = 720);
         virtual ~SpatialGridManager() = default;
 
         // Getter and Setter

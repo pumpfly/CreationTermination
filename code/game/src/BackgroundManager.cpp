@@ -32,14 +32,11 @@ namespace gl3 {
         if(layerName == "secondLayer") {
             layer2_position.x -= backward.x * layer2speed;
             layer2copy_position.x -= backward.x * layer2speed;
-            std::cout << "og " << layer2_position.x << std::endl;
             if(layer2_position.x <= -scale.x) {
                 layer2_position.x = layer2copy_position.x + scale.x;
-                std::cout << "og " << layer2_position.x << std::endl;
             }
             if(layer2copy_position.x <= -scale.x) {
                 layer2copy_position.x = layer2_position.x + scale.x;
-                std::cout << "copy " << layer2copy_position.x << std::endl;
             }
         }
         if(layerName == "thirdLayer") {

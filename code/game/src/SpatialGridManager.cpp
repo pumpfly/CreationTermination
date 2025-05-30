@@ -62,9 +62,9 @@ namespace gl3 {
             for(int cY = entityMinYcell; cY <= entityMaxYcell; cY++) {
                 spatialGrid[cX][cY].push_back(ID);
                 //Debugging:
-                /*for (auto currEntity: spatialGrid[cX][cY]) {
+                for (auto currEntity: spatialGrid[cX][cY]) {
                     std::cout << "Row Number: " << cX << " Column Number: " << cY << " Cell content: " << currEntity << std::endl;
-                }*/
+                }
             }
         }
     }

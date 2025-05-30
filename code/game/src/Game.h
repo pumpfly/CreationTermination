@@ -34,8 +34,9 @@ namespace gl3 {
         [[nodiscard]] Witch *getWitch() const { return w; }
         [[nodiscard]] GLFWwindow *getWindow() const { return window; }
         [[nodiscard]] std::vector<std::unique_ptr<Entity>> &getEntities() { return entities; }
+        [[nodiscard]] SpatialGridManager &getSpatialGrid() { return tempSpatialGrid; }
 
-        SpatialGridManager tempSpatialGrid;
+        SpatialGridManager tempSpatialGrid = SpatialGridManager(150, 1280, 720);
 
         //// Background
         BackgroundManager layer1;
