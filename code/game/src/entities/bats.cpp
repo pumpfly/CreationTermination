@@ -34,16 +34,17 @@ namespace gl3 {
             position.y = lerp2(position.y, shipPosition.y, deltaTime * speed);
         }
 
-        this->spriteAnimTimer += deltaTime;
+        /*this->spriteAnimTimer += deltaTime;
         if (this->spriteAnimTimer >= 0.1f) {
             this->spriteAnimIndex = (this->spriteAnimIndex + 1) % 2;
             this->spriteAnimTimer = 0.0f;
-        }
+        }*/
 
     }
 
     void bats::draw() {
-        SpriteRenderer::Instance().DrawSpritePro(texture, glm::vec4(this->spriteFrameSize.x*this->spriteAnimIndex, 0, this->spriteFrameSize),
+        SpriteRenderer::Instance().DrawSpritePro(
+            texture, glm::vec4(this->spriteFrameSize.x * this->spriteAnimIndex, 0, this->spriteFrameSize),
                                                  glm::vec4(this->position, this->size), zRotation, this->color);
     }
 }

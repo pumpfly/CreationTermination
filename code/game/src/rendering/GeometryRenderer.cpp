@@ -19,10 +19,8 @@ namespace gl3 {
         glDeleteBuffers(1, &this->VBO);
     }
 
-    void GeometryRenderer::drawLine(glm::vec2 p1, glm::vec2 p2) {
+    void GeometryRenderer::drawLine(glm::vec4 color, glm::vec2 p1, glm::vec2 p2) {
         float vertices[4] = {p1.x, p1.y, p2.x, p2.y};
-        glm::vec4 color ={1.0, 0.0, 0.0, 1.0};
-        glm::vec2 size = {10.0, 10.0};
 
         glGenVertexArrays(1, &this->VAO);
         glGenBuffers(1, &this->VBO);

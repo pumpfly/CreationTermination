@@ -157,20 +157,18 @@ namespace gl3 {
     void Game::draw() {
         glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        //Drawing Background
         /*
+        //Drawing Background
         layer3.draw();
         layer2.draw();
         layer1.draw();
-        */
         // Drawing Entities
          for(auto &entity: entities) {
             entity->draw();
         }
-
+        */
         //For Debugging:
-        SpatialGridManager::drawGrid(this, 150, 1280, 720);
+        SpatialGridManager::drawGrid(150, 1280, 720);
 
         glfwSwapBuffers(window);
     };

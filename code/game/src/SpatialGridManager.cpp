@@ -92,12 +92,12 @@ namespace gl3 {
 
     // Debugging
 
-    void SpatialGridManager::drawGrid(gl3::Game* game, int cellSize, int screenWidth, int screenHeight) {
+    void SpatialGridManager::drawGrid(int cellSize, int screenWidth, int screenHeight) {
         for (int i = 0; i < screenWidth; i = i + cellSize) {
-            GeometryRenderer::Instance().drawLine({i, 0.0}, {i, screenHeight});
+            GeometryRenderer::Instance().drawLine(glm::vec4(1.0, 0.0, 0.0, 1.0), {i, 0.0}, {i, screenHeight});
         }
         for (int j = 0; j < screenHeight; j = j + cellSize) {
-            GeometryRenderer::Instance().drawLine( {0.0, j}, {screenWidth, j});
+            GeometryRenderer::Instance().drawLine(glm::vec4(1.0, 0.0, 0.0, 1.0), {0.0, j}, {screenWidth, j});
         }
     }
 }

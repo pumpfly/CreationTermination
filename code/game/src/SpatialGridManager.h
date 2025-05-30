@@ -27,7 +27,7 @@ namespace gl3 {
 
 
         //Debug
-        static void drawGrid(gl3::Game* game, int cellSize, int screenWidth, int screenHeight);
+        static void drawGrid(int cellSize, int screenWidth, int screenHeight);
 
         std::vector<std::vector<std::vector<size_t>>> spatialGrid;
 

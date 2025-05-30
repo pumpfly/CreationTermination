@@ -14,7 +14,7 @@ namespace gl3 {
             return instance;
         }
 
-        void drawLine(glm::vec2 p1, glm::vec2 p2);
+        void drawLine(glm::vec4 color, glm::vec2 p1, glm::vec2 p2);
 
     private:
         GeometryRenderer();

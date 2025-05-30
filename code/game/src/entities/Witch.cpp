@@ -183,11 +183,11 @@ namespace gl3{
         }
 
         // ANIMATION
-        this->spriteAnimTimer += deltaTime;
+        /*this->spriteAnimTimer += deltaTime;
         if (this->spriteAnimTimer >= 0.1f) {
             this->spriteAnimIndex = (this->spriteAnimIndex + 1) % 4;
             this->spriteAnimTimer = 0.0f;
-        }
+        }*/
     }
     void Witch::draw() {
         SpriteRenderer::Instance().DrawSpritePro(texture, glm::vec4(this->spriteFrameSize.x*this->spriteAnimIndex, 0, this->spriteFrameSize),
