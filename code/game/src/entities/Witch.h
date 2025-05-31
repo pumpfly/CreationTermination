@@ -42,8 +42,8 @@ namespace gl3 {
         int MaxY = static_cast<int>(position.y) + entitySizeY;
 
         //Collision
-        const float timeBetweenDamage = 0.5f;
-        float countdownTilNextDamage = timeBetweenDamage;
+        const float timeBetweenDamage = 5.0f;
+        float invulnerabilityTimer = timeBetweenDamage;
         std::vector<size_t> collsionCandidatesIDs;
         SpatialGridManager *spatialGrid{};
 

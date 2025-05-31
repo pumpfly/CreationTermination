@@ -10,6 +10,8 @@
 #include "Missiles.h"
 #include "../Game.h"
 #include "../Assets.h"
+#include "../rendering/GeometryRenderer.h"
+#include "../UI/Healthbar.h"
 
 namespace gl3{
     Witch::Witch(Game* game, glm::vec2 position, float zRotation, glm::vec2 size, float radius, glm::vec4 color,
@@ -150,31 +152,31 @@ namespace gl3{
         if(shield) shield->update(game, deltaTime);
 
         // COLLISION
-        countdownTilNextDamage -= deltaTime;
-        collsionCandidatesIDs = game->tempSpatialGrid.queryForCollisionCandidates(MinX, MaxX, MinY, MaxY);
+        if (isInvulnerable) {
+            invulnerabilityTimer -= deltaTime;
+            std::cout << "invuln for: " << invulnerabilityTimer << std::endl;
+            if (invulnerabilityTimer <= 0) isInvulnerable = false;
+        } else {
+            invulnerabilityTimer = 0;
+            collsionCandidatesIDs = game->tempSpatialGrid.queryForCollisionCandidates(MinX, MaxX, MinY, MaxY);
 
-        for (const auto candidate: collsionCandidatesIDs){
+            for (const auto candidate: collsionCandidatesIDs){
 
-            if(game->getEntities()[candidate]->getType() != type) {
+                if(game->getEntities()[candidate]->getType() != type) {
 
-                std::cout << "countdown: " << countdownTilNextDamage << std::endl;
+                    if(this->hasCollisionWith(*game->getEntities()[candidate])) {
 
-                if(this->hasCollisionWith(*game->getEntities()[candidate])) {
-
-                    if(isInvulnerable == true) continue;
-
-                    if(health == 0) {
-                        std::cout << "game over" << std::endl;
+                        if(health == 0) {
+                            std::cout << "game over" << std::endl;
+                            break;
+                        }
+                        std::cout << "health: " << health << std::endl;
+                        --health;
+                        invulnerabilityTimer = timeBetweenDamage;
+                        isInvulnerable = true;
                         break;
                     }
-                    std::cout << "health: " << health << std::endl;
-                    --health;
                 }
-
-                if(countdownTilNextDamage <= 0.0f) isInvulnerable = false;
-                else isInvulnerable = true;
-
-                countdownTilNextDamage = timeBetweenDamage;
             }
         }
 
@@ -197,6 +199,7 @@ namespace gl3{
         for(auto &w : waveMissiles) {
             w->draw();
         }
+
         if(shield) shield->draw();
     }
 }

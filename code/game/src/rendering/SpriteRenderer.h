@@ -9,7 +9,6 @@
 namespace gl3 {
     class SpriteRenderer {
     public:
-
         // Instance returns the current global instance of the SpriteRenderer.
         // The SpriteRenderer must be accessed through this method.
         static SpriteRenderer& Instance() {
@@ -24,9 +23,13 @@ namespace gl3 {
         void SetDefaultShader();
 
         // Renders a defined quad textured with given sprite
-        // TODO: fix game import
-        void DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec2 size = glm::vec2(1.0f, 1.0f), float rotate = 0.0f, glm::vec4 color = glm::vec4(1.0f));
-        void DrawSpritePro(Texture2D &texture, glm::vec4 source, glm::vec4 dest, float rotate = 0.0f, glm::vec4 color = glm::vec4(1.0f));
+        void DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec2 size = glm::vec2(1.0f, 1.0f),
+            float rotate = 0.0f, glm::vec4 color = glm::vec4(1.0f));
+
+        // Relevant for Sprite Sheet reading (Animation)
+        void DrawSpritePro(Texture2D &texture, glm::vec4 source, glm::vec4 dest, float rotate = 0.0f,
+            glm::vec4 color = glm::vec4(1.0f));
+
     private:
         SpriteRenderer();
         ~SpriteRenderer();

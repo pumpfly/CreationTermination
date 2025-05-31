@@ -42,6 +42,7 @@ namespace gl3{
         [[nodiscard]] const float &getRadius() const { return radius; }
         [[nodiscard]] const TYPE &getType() const { return type; }
         [[nodiscard]] const glm::vec4 &getColor() const { return color; }
+        [[nodiscard]] const int &getHealth() const { return health; }
         void setPosition(const glm::vec2 &position) { Entity::position = position; }
         void setZRotation(float zRotation) { Entity::zRotation = zRotation; }
         void setSize(const glm::vec2 &scale) { Entity::size = scale; }
