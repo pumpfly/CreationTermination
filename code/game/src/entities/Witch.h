@@ -32,16 +32,7 @@ namespace gl3 {
         float translationSpeed = 1.0f;
         float rotationSpeed = 120.0f;
 
-        // bounding boxes for collision grid calculations
-        int MinX = static_cast<int>(position.x);
-        int MinY = static_cast<int>(position.y);
-        int MaxX = static_cast<int>(position.x) + static_cast<int>(size.x);
-        int MaxY = static_cast<int>(position.y) + static_cast<int>(size.y);
-
         //Collision
-        const float timeBetweenDamage = 1.0f;
-        float invulnerabilityTimer = timeBetweenDamage;
-        std::vector<size_t> collsionCandidatesIDs;
 
         bool charging = false;
         bool onlySingleMissile = false;
@@ -50,7 +41,6 @@ namespace gl3 {
         //Missiles
         const float timeBetweenShots = 0.1f;
         float countdownUntilNextShot = timeBetweenShots;
-        bool isInvulnerable = false;
         std::vector<std::unique_ptr<Missiles>> missiles;
         std::vector<std::unique_ptr<Missiles>> bigMissiles;
         std::vector<std::unique_ptr<Missiles>> waveMissiles;

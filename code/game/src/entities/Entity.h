@@ -30,9 +30,8 @@ namespace gl3{
         virtual ~Entity() = default;
 
         virtual void update(Game *game, float deltaTime) {};
-
         bool hasCollisionWith(Entity& other);
-        void handleCollision();
+        void handleCollision(Game* game, float deltaTime);
 
         virtual void draw();
 
@@ -51,9 +50,17 @@ namespace gl3{
 
     private:
         bool gotHit = false;
-
+        bool isInvulnerable = false;
         const float timeBetweenDamage = 1.0f;
         float invulnerabilityTimer = timeBetweenDamage;
+        std::vector<size_t> collsionCandidatesIDs;
+
+        // bounding boxes for collision grid calculations
+        int MinX = static_cast<int>(position.x);
+        int MinY = static_cast<int>(position.y);
+        int MaxX = static_cast<int>(position.x) + static_cast<int>(size.x);
+        int MaxY = static_cast<int>(position.y) + static_cast<int>(size.y);
+
 
     protected:
         glm::vec2 position;

@@ -33,7 +33,7 @@ namespace gl3 {
         return false;
     }
 
-    void Entity::handleCollision() {
+    void Entity::handleCollision(Game* game, float deltaTime) {
         // COLLISION
         if (isInvulnerable) {
             invulnerabilityTimer -= deltaTime;
