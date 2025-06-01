@@ -47,10 +47,10 @@ namespace gl3 {
         return boundingBox;
     }
 
-
     void SpatialGridManager::cellAssignment(int entityMinX, int entityMaxX, int entityMinY,
-        int entityMaxY, size_t ID) {
+                                            int entityMaxY, size_t ID) {
 
+        // calculate which cells the entity touches
         std::vector<int> boundingBox = SpatialGridManager::boundingBox(entityMinX, entityMaxX, entityMinY, entityMaxY);
         int entityMinXcell = boundingBox[0];
         int entityMaxXcell = boundingBox[1];

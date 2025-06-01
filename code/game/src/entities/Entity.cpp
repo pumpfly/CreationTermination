@@ -33,6 +33,34 @@ namespace gl3 {
         return false;
     }
 
+    void Entity::handleCollision() {
+        // COLLISION
+        if (isInvulnerable) {
+            invulnerabilityTimer -= deltaTime;
+            if (invulnerabilityTimer <= 0) isInvulnerable = false;
+        } else {
+            invulnerabilityTimer = 0;
+            collsionCandidatesIDs = game->tempSpatialGrid.queryForCollisionCandidates(MinX, MaxX, MinY, MaxY);
+
+            for (const auto candidate: collsionCandidatesIDs){
+
+                if(game->getEntities()[candidate]->getType() != type) {
+
+                    if(this->hasCollisionWith(*game->getEntities()[candidate])) {
+
+                        if(health == 0) {
+                            break;
+                        }
+                        --health;
+                        invulnerabilityTimer = timeBetweenDamage;
+                        isInvulnerable = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     void Entity::draw() {
         SpriteRenderer::Instance().DrawSprite(texture, position, size, zRotation, color);
     }

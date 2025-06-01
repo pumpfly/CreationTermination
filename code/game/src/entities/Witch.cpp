@@ -10,7 +10,6 @@
 #include "Missiles.h"
 #include "../Game.h"
 #include "../Assets.h"
-#include "../rendering/GeometryRenderer.h"
 #include "../UI/Healthbar.h"
 
 namespace gl3{
@@ -55,7 +54,7 @@ namespace gl3{
             auto angle = glm::radians(zRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
             glm::vec2 offset {forwardVec.x * getSize().x, getSize().y / 2};
-            // - 90 because mesh up is +y
+            // - 90 because mesh up is +y (the missiles will fly to the ground otherwise)
             auto missile =
                 std::make_unique<Missiles>(game->getWitch()->position + offset, zRotation - 90, glm::vec2(10, 10), 10);
             missiles.push_back(std::move(missile));
@@ -112,7 +111,6 @@ namespace gl3{
 
         // Normal Missiles
         for (auto &m: missiles) {
-            //m->setID();
             m->update(game, deltaTime);
         }
         if (missiles.size() >= 100) {
@@ -122,12 +120,6 @@ namespace gl3{
         // Big Missiles
         for(auto &b: bigMissiles) {
             b->update(game, deltaTime);
-            /*for(auto &other: game->getEntities()) {
-                if(b != other && b->checkCollision(*other)) {
-                    std::cout << b->checkCollision(*other) << std::endl;
-                    b->setColor({1, 0, 0, 1});
-                }
-            }*/
         }
         if (bigMissiles.size() >= 20) {
             bigMissiles.erase(bigMissiles.begin());
@@ -136,12 +128,6 @@ namespace gl3{
         // Wave Missiles
         for(auto &w: waveMissiles) {
             w->update(game, deltaTime);
-            /*for(auto &other: game->getEntities()) {
-                if(w != other && w->checkCollision(*other)) {
-                    std::cout << w->checkCollision(*other) << std::endl;
-                    w->setColor({1, 0, 0, 1});
-                }
-            }*/
 
         }
         if (waveMissiles.size() >= 150) {
@@ -154,7 +140,6 @@ namespace gl3{
         // COLLISION
         if (isInvulnerable) {
             invulnerabilityTimer -= deltaTime;
-            std::cout << "invuln for: " << invulnerabilityTimer << std::endl;
             if (invulnerabilityTimer <= 0) isInvulnerable = false;
         } else {
             invulnerabilityTimer = 0;
@@ -167,10 +152,8 @@ namespace gl3{
                     if(this->hasCollisionWith(*game->getEntities()[candidate])) {
 
                         if(health == 0) {
-                            std::cout << "game over" << std::endl;
                             break;
                         }
-                        std::cout << "health: " << health << std::endl;
                         --health;
                         invulnerabilityTimer = timeBetweenDamage;
                         isInvulnerable = true;
@@ -199,7 +182,8 @@ namespace gl3{
         for(auto &w : waveMissiles) {
             w->draw();
         }
-
+        Healthbar::Instance().backgroundPosition = glm::vec2(20.0f, 20.0f);
+        Healthbar::Instance().drawHealthbar(health, 0, glm::vec4(1,1,1,1));
         if(shield) shield->draw();
     }
 }

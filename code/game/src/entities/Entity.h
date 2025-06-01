@@ -14,7 +14,6 @@ namespace gl3{
     enum TYPE {
         enemy,
         witch,
-        missile
     };
 
     class Entity {
@@ -33,6 +32,7 @@ namespace gl3{
         virtual void update(Game *game, float deltaTime) {};
 
         bool hasCollisionWith(Entity& other);
+        void handleCollision();
 
         virtual void draw();
 
@@ -51,6 +51,9 @@ namespace gl3{
 
     private:
         bool gotHit = false;
+
+        const float timeBetweenDamage = 1.0f;
+        float invulnerabilityTimer = timeBetweenDamage;
 
     protected:
         glm::vec2 position;

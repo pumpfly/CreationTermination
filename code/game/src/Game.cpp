@@ -134,19 +134,15 @@ namespace gl3 {
             Entity entity = *entities[i];
 
             //Bounding Box calculation:
-            int entitySizeX = static_cast<int>(entity.getSize().x);
-            int entitySizeY = static_cast<int>(entity.getSize().y);
-
             int entityMinX = static_cast<int>(entity.getPosition().x);
             int entityMinY = static_cast<int>(entity.getPosition().y);
-
-            int entityMaxX = static_cast<int>(entity.getPosition().x) + entitySizeX;
-            int entityMaxY = static_cast<int>(entity.getPosition().y) + entitySizeY;
+            int entityMaxX = static_cast<int>(entity.getPosition().x) + entity.getSize().x;
+            int entityMaxY = static_cast<int>(entity.getPosition().y) + entity.getSize().y;
 
             //Cell Assignment
             // if entity is outside the grid than it should not be added to a spatialGrid cell
             if(entityMinX > 0 || entityMinY > 0
-                || entityMinX < width || entityMinY < height)
+                || entityMaxX < width || entityMaxY < height)
             {
                 tempSpatialGrid.cellAssignment(entityMinX, entityMaxX, entityMinY, entityMaxY, i);
             }

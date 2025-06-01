@@ -21,7 +21,9 @@ namespace gl3 {
         [[nodiscard]] const int &getScreenHeight() const {return screenHeight; }
 
         void clearIDs();
+
         std::vector<int> boundingBox(int entityMinX, int entityMaxX, int entityMinY, int entityMaxY);
+
         void cellAssignment (int entityMinX, int entityMaxX, int entityMinY, int entityMaxY,size_t ID);
         std::vector<size_t> queryForCollisionCandidates(int entityMinX, int entityMaxX, int entityMinY, int entityMaxY);
 

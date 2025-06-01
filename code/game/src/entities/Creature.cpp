@@ -8,7 +8,7 @@
 #include <random>
 #include "../Assets.h"
 #include "../Game.h"
-
+#include "../UI/Healthbar.h"
 
 namespace gl3 {
     Creature::Creature(Game * game, glm::vec2 position, float zRotation, glm::vec2 scale, float radius,
@@ -62,6 +62,9 @@ namespace gl3 {
         {
             m->draw();
         }
+        Healthbar::Instance().backgroundPosition =
+            glm::vec2(1280 - Healthbar::Instance().backgroundSize.x - 20, 20.0f);
+        Healthbar::Instance().drawHealthbar(health, 0, glm::vec4(1,1,1,1));
     }
 
 }

@@ -11,8 +11,15 @@ namespace gl3 {
         void update(Game *game, float deltaTime) override;
 
         bool gotHit = false;
+
     private:
+        int MinX = static_cast<int>(position.x);
+        int MinY = static_cast<int>(position.y);
+        int MaxX = static_cast<int>(position.x) + static_cast<int>(size.x);
+        int MaxY = static_cast<int>(position.y) + static_cast<int>(size.y);
+
         float speed = 400.0f;
+        bool hitTarget = false;
     };
 }
 

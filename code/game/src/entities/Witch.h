@@ -32,20 +32,16 @@ namespace gl3 {
         float translationSpeed = 1.0f;
         float rotationSpeed = 120.0f;
 
-        int entitySizeX = static_cast<int>(size.x);
-        int entitySizeY = static_cast<int>(size.y);
-
         // bounding boxes for collision grid calculations
         int MinX = static_cast<int>(position.x);
         int MinY = static_cast<int>(position.y);
-        int MaxX = static_cast<int>(position.x) + entitySizeX;
-        int MaxY = static_cast<int>(position.y) + entitySizeY;
+        int MaxX = static_cast<int>(position.x) + static_cast<int>(size.x);
+        int MaxY = static_cast<int>(position.y) + static_cast<int>(size.y);
 
         //Collision
-        const float timeBetweenDamage = 5.0f;
+        const float timeBetweenDamage = 1.0f;
         float invulnerabilityTimer = timeBetweenDamage;
         std::vector<size_t> collsionCandidatesIDs;
-        SpatialGridManager *spatialGrid{};
 
         bool charging = false;
         bool onlySingleMissile = false;
