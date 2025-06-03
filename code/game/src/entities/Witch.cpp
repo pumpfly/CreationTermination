@@ -10,17 +10,16 @@
 #include "Missiles.h"
 #include "../Game.h"
 #include "../Assets.h"
+#include "../UI/Healthbar.h"
 
 namespace gl3{
     Witch::Witch(Game* game, glm::vec2 position, float zRotation, glm::vec2 size, float radius, glm::vec4 color,
-        Texture2D texture, TYPE type)
-    : Entity(position,zRotation,size, radius, color,texture, type){
-
+        Texture2D texture, int health, TYPE type)
+        : Entity(position, zRotation, size, radius, color, texture, health, type){
         /*audio.init();
         audio.setGlobalVolume(0.1f);
         firingSound.load(resolveAssetPath("audio/shot.mp3").string().c_str());
         firingSound.setSingleInstance(true);*/
-
     }
 
     void Witch::update(Game *game, float deltaTime) {
@@ -55,7 +54,7 @@ namespace gl3{
             auto angle = glm::radians(zRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
             glm::vec2 offset {forwardVec.x * getSize().x, getSize().y / 2};
-            // - 90 because mesh up is +y
+            // - 90 because mesh up is +y (the missiles will fly to the ground otherwise)
             auto missile =
                 std::make_unique<Missiles>(game->getWitch()->position + offset, zRotation - 90, glm::vec2(10, 10), 10);
             missiles.push_back(std::move(missile));
@@ -112,7 +111,6 @@ namespace gl3{
 
         // Normal Missiles
         for (auto &m: missiles) {
-            //m->setID();
             m->update(game, deltaTime);
         }
         if (missiles.size() >= 100) {
@@ -122,12 +120,6 @@ namespace gl3{
         // Big Missiles
         for(auto &b: bigMissiles) {
             b->update(game, deltaTime);
-            /*for(auto &other: game->getEntities()) {
-                if(b != other && b->checkCollision(*other)) {
-                    std::cout << b->checkCollision(*other) << std::endl;
-                    b->setColor({1, 0, 0, 1});
-                }
-            }*/
         }
         if (bigMissiles.size() >= 20) {
             bigMissiles.erase(bigMissiles.begin());
@@ -136,12 +128,6 @@ namespace gl3{
         // Wave Missiles
         for(auto &w: waveMissiles) {
             w->update(game, deltaTime);
-            /*for(auto &other: game->getEntities()) {
-                if(w != other && w->checkCollision(*other)) {
-                    std::cout << w->checkCollision(*other) << std::endl;
-                    w->setColor({1, 0, 0, 1});
-                }
-            }*/
 
         }
         if (waveMissiles.size() >= 150) {
@@ -150,18 +136,31 @@ namespace gl3{
 
         // Shield
         if(shield) shield->update(game, deltaTime);
+
+        // COLLISION
+        this->handleCollision(game, deltaTime);
+
+        // ANIMATION
+        this->spriteAnimTimer += deltaTime;
+        if (this->spriteAnimTimer >= 0.1f) {
+            this->spriteAnimIndex = (this->spriteAnimIndex + 1) % 4;
+            this->spriteAnimTimer = 0.0f;
+        }
     }
-    void Witch::draw(Game *game) {
-        Entity::draw(game);
+    void Witch::draw() {
+        SpriteRenderer::Instance().DrawSpritePro(texture, glm::vec4(this->spriteFrameSize.x*this->spriteAnimIndex, 0, this->spriteFrameSize),
+                                                 glm::vec4(this->position, this->size), zRotation, this->color);
         for (auto &m: missiles) {
-            m->draw(game);
+            m->draw();
         }
         for(auto &b: bigMissiles) {
-            b->draw(game);
+            b->draw();
         }
         for(auto &w : waveMissiles) {
-            w->draw(game);
+            w->draw();
         }
-        if(shield) shield->draw(game);
+        Healthbar::Instance().backgroundPosition = glm::vec2(20.0f, 20.0f);
+        Healthbar::Instance().drawHealthbar(health, 0, glm::vec4(1,1,1,1));
+        if(shield) shield->draw();
     }
 }

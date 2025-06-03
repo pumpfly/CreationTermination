@@ -14,24 +14,32 @@ namespace gl3 {
     class Witch : public Entity{
     public:
         explicit Witch(Game* game, glm::vec2 position = glm::vec2(100.0f, 100.0f),
-             float zRotation = 0.0f, glm::vec2 size = glm::vec2(100, 100),
+             float zRotation = 0.0f, glm::vec2 size = glm::vec2(120*1.6, 120),
              float radius = 50, glm::vec4 color = glm::vec4(1, 1, 1, 1.0f),
-             Texture2D texture = Texture2D::FromFile("sprites/witch.png"),
+             Texture2D texture = Texture2D::FromFile("sprites/witch_idleSprites.png"),
+             int health = 5,
              TYPE type = witch);
 
         void update(Game *game, float deltaTime) override;
-        void draw(Game *game) override;
+        void draw() override;
 
     private:
+        float spriteAnimTimer = 0.0f;
+        int spriteAnimIndex = 0;
+
+        glm::vec2 spriteFrameSize = glm::vec2(680, 415);
+
         float translationSpeed = 1.0f;
         float rotationSpeed = 120.0f;
+
+        //Collision
 
         bool charging = false;
         bool onlySingleMissile = false;
         float missileTempSize = 1.0f;
 
         //Missiles
-        const float timeBetweenShots = 0.1;
+        const float timeBetweenShots = 0.1f;
         float countdownUntilNextShot = timeBetweenShots;
         std::vector<std::unique_ptr<Missiles>> missiles;
         std::vector<std::unique_ptr<Missiles>> bigMissiles;

@@ -7,13 +7,14 @@
 
 namespace gl3 {
     Missiles::Missiles(glm::vec2 position, float zRotation, glm::vec2 size, float radius,
-        glm::vec4 color, Texture2D texture, TYPE type) : Entity(
+        glm::vec4 color, Texture2D texture, int health, TYPE type) : Entity(
             position,
             zRotation,
             size,
             radius,
             color,
             texture,
+            health,
             type) {
     }
     void Missiles::update(gl3::Game *game, float deltaTime) {

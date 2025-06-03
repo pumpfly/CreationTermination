@@ -23,7 +23,6 @@ namespace gl3 {
     }
 
     Game::Game(int width, int height, const std::string &title) :
-        projectionMatrix(glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f)),
         width(width),
         height(height)
     {
@@ -55,29 +54,13 @@ namespace gl3 {
 
     };
 
-    glm::mat4 Game::calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale) {
-
-        // View Transform
-        glm::mat4 view = glm::lookAt(glm::vec3(0.0, 0.0, 90.0f),
-                                     glm::vec3(0.0f, 0.0f, 0.0),
-                                     glm::vec3(0.0, 1.0, 0.0));
-        // Projection Transform
-        glm::mat4 projection = glm::perspective(glm::radians(2.0f), 1000.0f/600.0f, 0.1f, 100.0f);
-
-        auto model = glm::mat4(1.0f);
-        model = translate(model, position);
-        model = glm::scale(model, scale);
-        model = rotate(model, glm::radians(zRotationInDegrees), glm::vec3(0.0f, 0.0f, 1.0f));
-
-        return projection * view * model;
-    }
-
-    glm::mat4 Game::projection() const {
-        return projectionMatrix;
-    }
-
     void Game::init() {
-        ResourceManager::LoadTexture("background/forest.png", true, "background");
+        //First Layer
+        ResourceManager::LoadTexture("background/forest_1stLayer.png", true, "firstLayer");
+        //Second Layer
+        ResourceManager::LoadTexture("background/forest_2dLayer.png", true, "secondLayer");
+        //Third Layer
+        ResourceManager::LoadTexture("background/forest_3dLayer.png", true, "thirdLayer");
     };
 
     void Game::run() {
@@ -88,6 +71,16 @@ namespace gl3 {
 
         glEnable(GL_BLEND);
 
+        ////Background Layers
+        BackgroundManager bg1("firstLayer");
+        BackgroundManager bg2("secondLayer");
+        BackgroundManager bg3("thirdLayer");
+
+        layer1 = bg1;
+        layer2 = bg2;
+        layer3 = bg3;
+
+        ////Entities
         auto witch = std::make_unique<Witch>(nullptr);
         w = witch.get();
         entities.push_back(std::move(witch));
@@ -98,6 +91,7 @@ namespace gl3 {
         auto miniEnemy = std::make_unique<bats>();
         entities.push_back(std::move(miniEnemy));
 
+        tempSpatialGrid = SpatialGridManager(150, 1280, 720);
 
         /*backgroundMusic = std::make_unique<SoLoud::Wav>();
         backgroundMusic->load(resolveAssetPath("audio/electronic-wave.mp3").string().c_str());
@@ -126,10 +120,12 @@ namespace gl3 {
             glfwSetWindowShouldClose(window, true);
         }
 
-        // Updating the spatial Grid for collision detection:
+        //Update Backgrounds
+        layer1.update(deltaTime);
+        layer2.update(deltaTime);
+        layer3.update(deltaTime);
 
-        SpatialGridManager currentGrid(150, 1280, 720);
-        tempSpatialGrid = currentGrid;
+        // Updating the spatial Grid for collision detection:
 
         tempSpatialGrid.clearIDs();
         int cellSize = tempSpatialGrid.getCellSize();
@@ -138,64 +134,41 @@ namespace gl3 {
             Entity entity = *entities[i];
 
             //Bounding Box calculation:
-            int entitySizeX = static_cast<int>(entity.getSize().x);
-            int entitySizeY = static_cast<int>(entity.getSize().y);
-
             int entityMinX = static_cast<int>(entity.getPosition().x);
             int entityMinY = static_cast<int>(entity.getPosition().y);
-
-            int entityMaxX = static_cast<int>(entity.getPosition().x) + entitySizeX;
-            int entityMaxY = static_cast<int>(entity.getPosition().y) + entitySizeY;
+            int entityMaxX = static_cast<int>(entity.getPosition().x) + entity.getSize().x;
+            int entityMaxY = static_cast<int>(entity.getPosition().y) + entity.getSize().y;
 
             //Cell Assignment
             // if entity is outside the grid than it should not be added to a spatialGrid cell
             if(entityMinX > 0 || entityMinY > 0
-                || entityMinX < width || entityMinY < height)
+                || entityMaxX < width || entityMaxY < height)
             {
                 tempSpatialGrid.cellAssignment(entityMinX, entityMaxX, entityMinY, entityMaxY, i);
             }
-            //TODO: Where should I call queryForCollisionCandidates
         }
-
-        //After assigning all entities to their corresponding cells, now every entity has to be checked for collisions
-        //with other entities that share their cell.
-        for (const auto & entity : entities)
-        {
-            //Bounding Box calculation:
-            int entitySizeX = static_cast<int>(entity->getSize().x);
-            int entitySizeY = static_cast<int>(entity->getSize().y);
-
-            int entityMinX = static_cast<int>(entity->getPosition().x);
-            int entityMinY = static_cast<int>(entity->getPosition().y);
-
-            int entityMaxX = static_cast<int>(entity->getPosition().x) + entitySizeX;
-            int entityMaxY = static_cast<int>(entity->getPosition().y) + entitySizeY;
-
-
-            std::vector<size_t> collisionCandidates = currentGrid.queryForCollisionCandidates(entityMinX, entityMaxX,
-                                                                                                entityMinY, entityMaxY);
-
-            for (size_t j = 0; j < collisionCandidates.size(); j++)
-            {
-                //TODO
-            }
-
-            entity->update(this, deltaTime);
+        for(const auto & entitie : entities) {
+            entitie->update(this, deltaTime);
         }
 
     };
 
     void Game::draw() {
-        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        SpriteRenderer::Instance().DrawSprite(this, ResourceManager::GetTexture("background"),
-            glm::vec2(0.0f, 0.0f), glm::vec2(1920/1.5, 1080/1.5), 0.0f, glm::vec4(1, 1, 1, 1));
 
+        //Drawing Background
+        layer3.draw();
+        layer2.draw();
+        layer1.draw();
+        // Drawing Entities
          for(auto &entity: entities) {
-            entity->draw(this);
+            entity->draw();
         }
 
-        SpatialGridManager::drawGrid(this, 150, 1280, 720);
+        //For Debugging:
+        SpatialGridManager::drawGrid(150, 1280, 720);
+
         glfwSwapBuffers(window);
     };
 

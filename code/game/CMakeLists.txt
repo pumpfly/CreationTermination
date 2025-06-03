@@ -33,6 +33,12 @@ set(SOURCE_FILES src/main.cpp
         src/SpatialGridManager.cpp
         src/rendering/GeometryRenderer.h
         src/rendering/GeometryRenderer.cpp
+        src/BackgroundManager.cpp
+        src/BackgroundManager.h
+        src/Config.h
+        src/rendering/projection/Projection.h
+        src/UI/Healthbar.cpp
+        src/UI/Healthbar.h
 )
 
 # set executable name
@@ -46,6 +52,10 @@ target_compile_features(${EXE_FILE} PRIVATE cxx_std_17)
 
 # link with dependencies
 target_link_libraries(${EXE_FILE} PRIVATE glad glfw glm soloud)
+
+if(WIN32)
+    target_link_libraries(${EXE_FILE} PRIVATE winmm)
+endif()
 
 target_compile_definitions(${EXE_FILE} PRIVATE ASSET_ROOT=./assets/)
 
