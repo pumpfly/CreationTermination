@@ -20,8 +20,10 @@ namespace gl3 {
     enum GameState {
         GAME_ACTIVE,
         GAME_MENU,
-        GAME_WIN
+        GAME_WIN,
+        GAME_OVER
     };
+
     class Game {
     public:
 
@@ -31,7 +33,6 @@ namespace gl3 {
 
         virtual ~Game();
 
-        [[nodiscard]] Witch *getWitch() const { return w; }
         [[nodiscard]] GLFWwindow *getWindow() const { return window; }
         [[nodiscard]] std::vector<std::unique_ptr<Entity>> &getEntities() { return entities; }
         //[[nodiscard]] SpatialGridManager &getSpatialGrid() { return tempSpatialGrid; }
@@ -53,16 +54,8 @@ namespace gl3 {
         std::unique_ptr<SoLoud::Wav> backgroundMusic;
 
         GLFWwindow *window = nullptr;
-        int width;
-        int height;
-
-        Witch* w = nullptr;
-
-        float zRotation = 0.0f;
-        float rotationSpeed = 120.0f;
-        float xTranslate = 0.0f;
-        float yTranslate = 0.0f;
-        float translationSpeed = 1.0f;
+        int windowWidth;
+        int windowHeight;
 
         float lastFrameTime = 1.0f/60;
         float deltaTime = 1.0f/60;

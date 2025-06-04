@@ -40,7 +40,7 @@ set(SOURCE_FILES src/main.cpp
         src/UI/Healthbar.cpp
         src/UI/Healthbar.h
         ../BrewEngine/src/HelloWorld.cpp
-        ../BrewEngine/src/HelloWorld.h
+        ../BrewEngine/include/brewEngine/HelloWorld.h
 )
 
 # set executable name
@@ -53,7 +53,7 @@ add_executable(${EXE_FILE} ${SOURCE_FILES})
 target_compile_features(${EXE_FILE} PRIVATE cxx_std_17)
 
 # link with dependencies
-target_link_libraries(${EXE_FILE} PRIVATE glad glfw glm soloud BrewEngine)
+target_link_libraries(${EXE_FILE} PRIVATE BrewEngine)
 
 if(WIN32)
     target_link_libraries(${EXE_FILE} PRIVATE winmm)

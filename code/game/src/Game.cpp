@@ -23,8 +23,8 @@ namespace gl3 {
     }
 
     Game::Game(int width, int height, const std::string &title) :
-        width(width),
-        height(height)
+        windowWidth(width),
+        windowHeight(height)
     {
         if(!glfwInit()) {
             throw std::runtime_error("Failed to initialize glfw");
@@ -82,7 +82,7 @@ namespace gl3 {
 
         ////Entities
         auto witch = std::make_unique<Witch>(nullptr);
-        w = witch.get();
+        //Witch* w = witch.get();
         entities.push_back(std::move(witch));
 
         auto creature = std::make_unique<Creature>(nullptr);
@@ -142,7 +142,7 @@ namespace gl3 {
             //Cell Assignment
             // if entity is outside the grid than it should not be added to a spatialGrid cell
             if(entityMinX > 0 || entityMinY > 0
-                || entityMaxX < width || entityMaxY < height)
+                || entityMaxX < windowWidth || entityMaxY < windowHeight)
             {
                 tempSpatialGrid.cellAssignment(entityMinX, entityMaxX, entityMinY, entityMaxY, i);
             }

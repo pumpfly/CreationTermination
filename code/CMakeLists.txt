@@ -13,7 +13,6 @@ add_subdirectory(extern/glm)
 
 add_subdirectory(extern/soloud)
 
-
 add_subdirectory(game)
 
 

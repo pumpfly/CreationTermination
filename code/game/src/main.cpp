@@ -2,7 +2,7 @@
 
 #include "Game.h"
 #include "Config.h"
-#include "../../BrewEngine/src/HelloWorld.h"
+#include "../../BrewEngine/include/brewEngine/HelloWorld.h"
 
 int main() {
 
