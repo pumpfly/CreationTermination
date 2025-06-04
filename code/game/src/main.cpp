@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "Config.h"
+#include "../../BrewEngine/src/HelloWorld.h"
 
 int main() {
 
@@ -17,6 +18,8 @@ int main() {
     catch(const std::exception &e) {
         std::cerr << "Unhandled exception: " << e.what() << std::endl;
     }
+
+    HelloWorld().print();
 
     return 0;
 }
