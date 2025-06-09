@@ -1,10 +1,9 @@
 #pragma once
 
-#include <array>
-
-#include "glm/vec3.hpp"
-#include "../rendering/Texture2D.h"
 #include "../rendering/SpriteRenderer.h"
+#include "../rendering/Texture2D.h"
+
+
 
 class SpatialGridManager;
 

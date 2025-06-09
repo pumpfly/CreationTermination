@@ -4,16 +4,12 @@
 
 #pragma once
 
-#include <glad/glad.h>
-#include <memory>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
+//#include <memory>
 #include "BackgroundManager.h"
 #include "SpatialGridManager.h"
 #include "entities/Witch.h"
+#include "brewEngine/Game.h"
 
 namespace gl3 {
     // Represents the current state of the game

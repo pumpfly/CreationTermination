@@ -29,7 +29,6 @@ namespace gl3 {
     void Creature::update(Game* game, float deltaTime)
     {
         std::time_t elapsedTime = std::time(nullptr);
-        const auto witchPosition = game->getWitch()->getPosition();
 
         //zRotation = glm::degrees(theta_radians) - 90.0f;
 

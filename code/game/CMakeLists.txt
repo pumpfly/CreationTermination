@@ -39,8 +39,7 @@ set(SOURCE_FILES src/main.cpp
         src/rendering/projection/Projection.h
         src/UI/Healthbar.cpp
         src/UI/Healthbar.h
-        ../BrewEngine/src/HelloWorld.cpp
-        ../BrewEngine/include/brewEngine/HelloWorld.h
+        src/RenderSystem.h
 )
 
 # set executable name
@@ -54,10 +53,6 @@ target_compile_features(${EXE_FILE} PRIVATE cxx_std_17)
 
 # link with dependencies
 target_link_libraries(${EXE_FILE} PRIVATE BrewEngine)
-
-if(WIN32)
-    target_link_libraries(${EXE_FILE} PRIVATE winmm)
-endif()
 
 target_compile_definitions(${EXE_FILE} PRIVATE ASSET_ROOT=./assets/)
 

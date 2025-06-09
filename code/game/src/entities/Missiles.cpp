@@ -3,7 +3,6 @@
 #include <iostream>
 
 #include "Entity.h"
-#include "../Game.h"
 
 namespace gl3 {
     Missiles::Missiles(glm::vec2 position, float zRotation, glm::vec2 size, float radius,

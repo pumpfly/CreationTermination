@@ -4,8 +4,6 @@
 
 #include "BackgroundManager.h"
 
-#include <iostream>
-
 #include "rendering/ResourceManager.h"
 #include "rendering/SpriteRenderer.h"
 

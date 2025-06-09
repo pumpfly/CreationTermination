@@ -1,22 +1,14 @@
 
 #include "glad/glad.h"
 #include <stdexcept>
-#include "brewEngine/Game.h"
+#include "brewEngine/Context.h"
 
-
-namespace gl3::brewEngine {
-    // TODO: make lambda or static member function
+namespace gl3::brewEngine::context {
     void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
         glViewport(0, 0, width, height);
     }
-    using Context = brewEngine::context::Context;
-    using ecs::ComponentManager;
-    using ecs::EntityManager;
 
-    Game::Game(int width, int height, const std::string &title) :
-            context(width, height, title),
-            componentManager(*this),
-            entityManager(componentManager, *this) {
+    Context::Context(int width, int height, const std::string &title) {
         if(!glfwInit()) {
             throw std::runtime_error("Failed to initialize glfw");
         }
@@ -38,30 +30,20 @@ namespace gl3::brewEngine {
         if(glGetError() != GL_NO_ERROR) {
             throw std::runtime_error("gl error");
         }
-
-        //audio.init();
-        //audio.setGlobalVolume(0.1f);
     }
 
-    void Game::run() {
-        onStartup.invoke(*this);
-        start();
-        onAfterStartup.invoke(*this);
-        onBeforeShutdown.invoke(*this);
-        onShutdown.invoke(*this);
+    void Context::run(const Context::Callback& update) {
+        glfwSetTime(1.0 / 60);
+        while(!glfwWindowShouldClose(window)) {
+            glClearColor(0.172f, 0.243f, 0.313f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            update(*this);
+            glfwPollEvents();
+            glfwSwapBuffers(window);
+        }
     }
 
-    void Game::updateDeltaTime() {
-        float frameTime = glfwGetTime();
-        deltaTime = frameTime - lastFrameTime;
-        lastFrameTime = frameTime;
-    }
-
-    Game::~Game() {
-        context.~Context();
-    }
-
-    void Game::init()
-    {
+    Context::~Context() {
+        glfwTerminate();
     }
 }

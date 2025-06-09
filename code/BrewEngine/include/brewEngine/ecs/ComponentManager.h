@@ -1,0 +1,64 @@
+#pragma once
+#include <map>
+#include <vector>
+#include <memory>
+#include <typeinfo>
+#include <utility>
+#include <functional>
+
+#include "brewEngine/ecs/Component.h"
+
+namespace gl3::brewEngine {
+    class Game;
+}
+
+namespace gl3::brewEngine::ecs {
+    class ComponentManager {
+        using ComponentContainer = std::map<guid_t, std::unique_ptr<Component>>;
+    public:
+        explicit ComponentManager(Game &engine);
+
+        template<typename C, typename ...Args>
+        [[nodiscard]] C &addComponent(guid_t owner, Args ...args) {
+            C component(owner, args...);
+            containers[typeid(C).hash_code()][owner] = std::make_unique<C>(std::move(component));
+            return getComponent<C>(owner);
+        }
+
+        template<typename C>
+        C &getComponent(guid_t owner) {
+            return *reinterpret_cast<C*>(containers.at(typeid(C).hash_code()).at(owner).get());
+        }
+
+        template<typename C>
+        bool hasComponent(const guid_t &owner) {
+            auto &container = containers.at(typeid(C).hash_code());
+            return container.find(owner) != container.end();
+        }
+
+        template<typename C>
+            ComponentContainer &getContainer() {
+            return containers[typeid(C).hash_code()];
+        }
+
+        template<typename C>
+        void forEachComponent(std::function<void(C&)> f) {
+            for(const auto &[_, component]: containers.at(typeid(C).hash_code())) {
+                f(*reinterpret_cast<C*>(component.get()));
+            }
+        }
+
+        template<typename C>
+        void removeComponent(guid_t entityID) {
+            deleteList.emplace_back( typeid(C).hash_code(), entityID);
+        }
+
+        void removeComponents(guid_t entityID);
+
+    private:
+        void purgeComponents();
+
+        std::map<size_t, ComponentContainer> containers;
+        std::vector<std::pair<size_t, guid_t>> deleteList;
+    };
+}

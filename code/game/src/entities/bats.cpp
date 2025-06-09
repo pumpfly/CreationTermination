@@ -6,6 +6,7 @@
 
 #include "Creature.h"
 #include "../Game.h"
+#include "glm/geometric.hpp"
 
 namespace gl3 {
     bats::bats(glm::vec2 position, float zRotation, glm::vec2 scale, float radius, Texture2D texture, int health, TYPE type)
@@ -26,12 +27,12 @@ namespace gl3 {
     }
 
     void bats::update(Game *game, float deltaTime) {
-        const auto shipPosition = game->getWitch()->getPosition();
-        auto distanceToWitch = glm::distance(position, shipPosition);
+        const auto playerPosition = game->getEntities()[0]->getPosition();
+        auto distanceToWitch = glm::distance(position, playerPosition);
 
         if (distanceToWitch >= 0.5f) {
-            position.x = lerp2(position.x, shipPosition.x, deltaTime * speed);
-            position.y = lerp2(position.y, shipPosition.y, deltaTime * speed);
+            position.x = lerp2(position.x, playerPosition.x, deltaTime * speed);
+            position.y = lerp2(position.y, playerPosition.y, deltaTime * speed);
         }
 
         /*this->spriteAnimTimer += deltaTime;

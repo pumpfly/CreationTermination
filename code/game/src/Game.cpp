@@ -3,9 +3,7 @@
 //
 #include "Game.h"
 
-#include <array>
 #include <iostream>
-
 #include <random>
 #include <stdexcept>
 #include "Assets.h"

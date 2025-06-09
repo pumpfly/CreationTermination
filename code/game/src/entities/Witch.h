@@ -2,6 +2,8 @@
 // Created by pumf on 24/10/2024.
 //
 #pragma once
+#include <memory>
+
 #include "Entity.h"
 #include "Missiles.h"
 #include <soloud.h>

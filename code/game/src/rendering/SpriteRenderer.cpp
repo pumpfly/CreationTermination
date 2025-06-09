@@ -1,6 +1,9 @@
+#define GLM_ENABLE_EXPERIMENTAL
 #include "SpriteRenderer.h"
 #include "Shader.h"
 #include "Texture2D.h"
+#include "glm/ext/matrix_transform.hpp"
+
 #include "projection/Projection.h"
 
 

@@ -3,10 +3,8 @@
 //
 
 #pragma once
-#include <soloud_wav.h>
 
 #include "Entity.h"
-#include "Missiles.h"
 
 namespace gl3 {
     class bats : public Entity {
