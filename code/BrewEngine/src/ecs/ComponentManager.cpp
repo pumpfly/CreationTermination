@@ -4,7 +4,7 @@
 namespace gl3::brewEngine::ecs {
     ComponentManager::ComponentManager(brewEngine::Game &engine) {
         engine.onAfterUpdate.addListener([&](Game &) {
-           purgeComponents();
+           purgeDeletedComponents();
         });
     }
 
@@ -17,7 +17,7 @@ namespace gl3::brewEngine::ecs {
         }
     }
 
-    void ComponentManager::purgeComponents() {
+    void ComponentManager::purgeDeletedComponents() {
         for(const auto &[componentTypeID, ownerID]: deleteList) {
             containers.at(componentTypeID).erase(ownerID);
         }

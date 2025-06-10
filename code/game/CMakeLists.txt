@@ -40,10 +40,16 @@ set(SOURCE_FILES src/main.cpp
         src/UI/Healthbar.cpp
         src/UI/Healthbar.h
         src/RenderSystem.h
+        ../ExampleGame2/src/ExampleGame.h
+        ../ExampleGame2/src/GameOverScreen.h
+        ../ExampleGame2/src/Health.h
+        ../ExampleGame2/src/main.cpp
+        ../ExampleGame2/src/Position.h
+        ../ExampleGame2/src/RenderSystem.h
 )
 
 # set executable name
-set(EXE_FILE Game)
+set(EXE_FILE game)
 
 # add the executable target
 add_executable(${EXE_FILE} ${SOURCE_FILES})

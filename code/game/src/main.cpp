@@ -9,7 +9,7 @@ int main() {
         gl3::Game creationTermination(
             gl3::config::ScreenSize.x,
             gl3::config::ScreenSize.y,
-            "Space Battle"
+            "Creation Termination"
         );
         creationTermination.init();
         creationTermination.run();

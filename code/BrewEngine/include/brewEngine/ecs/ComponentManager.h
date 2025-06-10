@@ -37,7 +37,7 @@ namespace gl3::brewEngine::ecs {
         }
 
         template<typename C>
-            ComponentContainer &getContainer() {
+        ComponentContainer &getContainer() {
             return containers[typeid(C).hash_code()];
         }
 
@@ -56,7 +56,7 @@ namespace gl3::brewEngine::ecs {
         void removeComponents(guid_t entityID);
 
     private:
-        void purgeComponents();
+        void purgeDeletedComponents();
 
         std::map<size_t, ComponentContainer> containers;
         std::vector<std::pair<size_t, guid_t>> deleteList;
