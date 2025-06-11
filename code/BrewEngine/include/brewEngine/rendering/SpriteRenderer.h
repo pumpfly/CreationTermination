@@ -4,7 +4,7 @@
 #include "Texture2D.h"
 
 
-namespace gl3 {
+namespace gl3::brewEngine::rendering {
     class SpriteRenderer {
     public:
         // Instance returns the current global instance of the SpriteRenderer.
@@ -15,7 +15,7 @@ namespace gl3 {
         }
 
         // Set the sprite renderers shader to a new shader.
-        void SetShader(gl3::Shader& shader);
+        void SetShader(Shader& shader);
 
         // Reset the sprite renderers shader to the default shader.
         void SetDefaultShader();

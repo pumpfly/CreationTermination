@@ -16,6 +16,12 @@ public:
     }
 
     void visitTransform(Transform &transform, glm::mat4 parentLocalToWorld = glm::identity<glm::mat4>()) {
-
+        if(transform.isDeleted()) return;
+        auto localToWorld = transform.modelMatrix * parentLocalToWorld;
+        auto worldPos = localToWorld * glm::vec4(0, 0, 0, 1);
+        std::cout << "Entity " << transform.entity() << " is at (" << worldPos.x << ", " << worldPos.y << ")" << std::endl;
+        for(auto child: transform.getChildTransforms()) {
+            visitTransform(*child, localToWorld);
+        }
     }
 };

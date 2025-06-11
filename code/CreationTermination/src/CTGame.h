@@ -17,16 +17,17 @@ public:
 private:
     void start() override {
         renderSystem = std::make_unique<RenderSystem>(*this);
-        t1 = &entityManager.createEntity().addComponent<Transform>(origin, glm::vec3(1, 1, 1));
+        Witch = &entityManager.createEntity().addComponent<Transform>(origin, glm::vec3(1, 1, 1));
+        Creature = &entityManager.createEntity().addComponent<Transform>(origin, glm::vec3(1, 1, 1));
     }
 
     void update(GLFWwindow *window) override {
 
     }
 
-private:
     std::unique_ptr<RenderSystem> renderSystem;
-    Transform *t1 = nullptr;
-    Transform *t2 = nullptr;
-    Transform *t3 = nullptr;
+    Transform *Witch = nullptr;
+    Transform *Creature = nullptr;
+    std::vector<Transform> bats;
+
 };

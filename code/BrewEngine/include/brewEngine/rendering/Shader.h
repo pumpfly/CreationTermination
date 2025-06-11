@@ -11,7 +11,7 @@
 
 namespace fs = std::filesystem;
 
-namespace gl3 {
+namespace gl3::brewEngine::rendering {
     class Shader {
 
     public:

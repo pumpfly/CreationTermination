@@ -6,7 +6,7 @@
 
 #include "Shader.h"
 
-namespace gl3 {
+namespace gl3::brewEngine::rendering {
     class GeometryRenderer {
     public:
         static GeometryRenderer &Instance() {
@@ -21,7 +21,7 @@ namespace gl3 {
 
         ~GeometryRenderer();
 
-        gl3::Shader shader;
+        Shader shader{};
 
         unsigned int VAO{}, VBO{};
     };

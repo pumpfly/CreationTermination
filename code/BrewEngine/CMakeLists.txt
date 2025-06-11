@@ -21,6 +21,11 @@ add_library(${ENGINE_NAME} ${HEADER_LIST} ${PRIVATE_HEADER_LIST} ${SOURCE_LIST}
         src/sceneGraph/Transform.cpp
         include/brewEngine/sceneGraph/SceneGraphPruner.h
         include/brewEngine/sceneGraph/SceneGraphUpdater.h
+        include/brewEngine/input/Bitmanipulation.h
+        src/rendering/GeometryRenderer.cpp
+        include/brewEngine/Config.h
+        include/brewEngine/Assets.h
+        include/brewEngine/stb_image.h
 )
 
 target_compile_features(${ENGINE_NAME} PRIVATE cxx_std_17)
