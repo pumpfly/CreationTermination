@@ -1,13 +1,13 @@
 #pragma once
 #include <iostream>
+#include "glm/vec3.hpp"
 #include "brewEngine/Game.h"
-#include "Health.h"
+#include "brewEngine/sceneGraph/Transform.h"
 #include "RenderSystem.h"
-#include "GameOverScreen.h"
-#include "Position.h"
 
 using gl3::brewEngine::Game;
 using gl3::brewEngine::ecs::Entity;
+using gl3::brewEngine::sceneGraph::Transform;
 
 class ExampleGame : public Game {
 public:
@@ -16,19 +16,38 @@ public:
 
 private:
     void start() override {
-        RenderSystem renderSystem(*this);
-        GameOverScreen gameOverScreen(*this);
-        auto &player = entityManager.createEntity();
-        auto &health = player.addComponent<Health>(200);
-        auto &position = player.addComponent<Position>(5, 5);
-        playerHealth = &health;
+        renderSystem = std::make_unique<RenderSystem>(*this);
+        t1 = &entityManager.createEntity().addComponent<Transform>(origin, glm::vec3(1, 1, 1));
+        t2 = &entityManager.createEntity().addComponent<Transform>(origin, glm::vec3(2, 2, 2));
+        t3 = &entityManager.createEntity().addComponent<Transform>(t1, glm::vec3(3, 3, 3));
     }
 
     void update(GLFWwindow *window) override {
-        playerHealth->value -= 10;
-        std::cout << "hallo" << std::endl;
+        static int frameCount = 0;
+
+        switch(frameCount) {
+        case 0:
+            break;
+        case 1:
+            t1->localPosition = {5, 5, 5};
+            break;
+        case 2:
+            t3->localPosition = {4, 4, 4};
+            break;
+        case 3:
+            entityManager.deleteEntity(entityManager.getEntity(t1->entity()));
+            break;
+        default:
+            glfwSetWindowShouldClose(window, true);
+            break;
+        }
+
+        ++frameCount;
     }
 
 private:
-    Health *playerHealth = nullptr;
+    std::unique_ptr<RenderSystem> renderSystem;
+    Transform *t1 = nullptr;
+    Transform *t2 = nullptr;
+    Transform *t3 = nullptr;
 };

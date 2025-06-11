@@ -1,6 +1,4 @@
 #pragma once
-
-#pragma once
 #include <memory>
 #include <string>
 #include <glm/glm.hpp>
@@ -14,22 +12,21 @@
 #include "brewEngine/ecs/EntityManager.h"
 #include "brewEngine/sceneGraph/Transform.h"
 
-namespace gl3::brewEngine {
+using gl3::brewEngine::sceneGraph::Transform;
 
-    enum GameState {
-        GAME_ACTIVE,
-        GAME_MENU,
-        GAME_WIN,
-        GAME_OVER
-    };
+namespace gl3::brewEngine {
+    namespace ecs {
+        class EntityManager;
+        class ComponentManager;
+    }
 
     class Game {
     public:
-        glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
-        using event_t = brewEngine::events::Events<Game, Game&>;
+        using event_t = events::Events<Game, Game&>;
 
         void run();
-        GLFWwindow *getWindow() { return window; }
+        glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
+        GLFWwindow *getWindow() { return context.getWindow(); }
 
         event_t onStartup;
         event_t onAfterStartup;
@@ -41,23 +38,22 @@ namespace gl3::brewEngine {
 
         ecs::ComponentManager componentManager;
         ecs::EntityManager entityManager;
-
-    private:
-        float lastFrameTime = 1.0f / 60;
-        void updateDeltaTime();
-
-        context::Context context;
+        Transform *origin = nullptr;
 
     protected:
         Game(int width, int height, const std::string &title);
-        virtual void start(){}
-        void init();
-        virtual void update(GLFWwindow * window) {}
+        virtual void start() {}
+        virtual void update(GLFWwindow *window) {}
         virtual void draw() {}
         virtual ~Game();
 
-        GLFWwindow *window = nullptr;
-        //SoLoud::Soloud audio;
+        SoLoud::Soloud audio;
         float deltaTime = 1.0f / 60;
+
+    private:
+        void updateDeltaTime();
+
+        context::Context context;
+        float lastFrameTime = 1.0f / 60;
     };
 }

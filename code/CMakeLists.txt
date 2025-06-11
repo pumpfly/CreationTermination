@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.18)
 project(gl3_wp5)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -12,6 +12,7 @@ add_subdirectory(BrewEngine)
 add_subdirectory(game)
 add_subdirectory(ExampleGame1)
 add_subdirectory(ExampleGame2)
+add_subdirectory(CreationTermination)
 
 
 

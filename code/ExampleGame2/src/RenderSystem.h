@@ -6,25 +6,24 @@
 
 using gl3::brewEngine::ecs::System;
 using gl3::brewEngine::Game;
+using gl3::brewEngine::sceneGraph::Transform;
 
 class RenderSystem : public System {
 public:
     explicit RenderSystem(Game &game) : System(game) {
-        engine.onBeforeUpdate.addListener([&](Game &game) {
-            renderPlayer(game);
+        game.onAfterUpdate.addListener([&](Game&) {
+            visitTransform(*game.origin);
+            std::cout << "---" <<std::endl;
         });
     }
 
-private:
-    void renderPlayer(Game &game) {
-        auto &healthContainer = game.componentManager.getContainer<Health>();
-        auto &positionContainer = game.componentManager.getContainer<Position>();
-        for(auto &[owner, _] : healthContainer) {
-            if(game.componentManager.hasComponent<Position>(owner)) {
-                auto &health = game.componentManager.getComponent<Health>(owner);
-                auto &position = game.componentManager.getComponent<Position>(owner);
-                std::cout << "Player is at (" << position.x << ", " << position.y << ") and has " << health.value << " HP" << std::endl;
-            }
+    void visitTransform(Transform &transform, glm::mat4 parentLocalToWorld = glm::identity<glm::mat4>()) {
+        if(transform.isDeleted()) return;
+        auto localToWorld = transform.modelMatrix * parentLocalToWorld;
+        auto worldPos = localToWorld * glm::vec4(0, 0, 0, 1);
+        std::cout << "Entity " << transform.entity() << " is at (" << worldPos.x << ", " << worldPos.y << ")" << std::endl;
+        for(auto child: transform.getChildTransforms()) {
+            visitTransform(*child, localToWorld);
         }
     }
 };

@@ -39,7 +39,6 @@ set(SOURCE_FILES src/main.cpp
         src/rendering/projection/Projection.h
         src/UI/Healthbar.cpp
         src/UI/Healthbar.h
-        src/RenderSystem.h
         ../ExampleGame2/src/ExampleGame.h
         ../ExampleGame2/src/GameOverScreen.h
         ../ExampleGame2/src/Health.h

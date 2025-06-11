@@ -26,9 +26,9 @@ namespace gl3::brewEngine::sceneGraph {
     private:
         static glm::mat4 calculateModelMatrix(Transform &transform) {
             glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, transform.position);
-            model = glm::scale(model, transform.scale);
-            model = glm::rotate(model, glm::radians(transform.rotation.x), glm::vec3(0, 0, 1));
+            model = glm::translate(model, transform.localPosition);
+            model = glm::scale(model, transform.localScale);
+            model = glm::rotate(model, glm::radians(transform.localZRotation), glm::vec3(0, 0, 1));
             return model;
         }
     };
