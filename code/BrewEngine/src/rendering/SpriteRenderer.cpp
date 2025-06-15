@@ -97,7 +97,7 @@ namespace gl3::brewEngine::rendering {
     }
 
     // DrawSpritePro can handle Sprite sheets and is important for animation
-    void SpriteRenderer::DrawSpritePro(Texture2D &texture, glm::vec4 source, glm::vec4 dest, float rotate,
+    void SpriteRenderer::DrawSpriteSheet(Texture2D &texture, glm::vec4 source, glm::vec4 dest, float rotate,
         glm::vec4 color) {
 
         glm::vec2 topLeft = glm::vec2(source.x/texture.Width, (source.y + source.w)/texture.Height);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Shader.h"
+#include "brewEngine/rendering/Shader.h"
 #include "Texture2D.h"
 
 
@@ -25,7 +25,7 @@ namespace gl3::brewEngine::rendering {
             float rotate = 0.0f, glm::vec4 color = glm::vec4(1.0f));
 
         // Relevant for Sprite Sheet reading (Animation)
-        void DrawSpritePro(Texture2D &texture, glm::vec4 source, glm::vec4 dest, float rotate = 0.0f,
+        void DrawSpriteSheet(Texture2D &texture, glm::vec4 source, glm::vec4 dest, float rotate = 0.0f,
             glm::vec4 color = glm::vec4(1.0f));
 
     private:
@@ -38,8 +38,8 @@ namespace gl3::brewEngine::rendering {
         SpriteRenderer(SpriteRenderer const&); // Do not implement copy constructor.
         void operator=(SpriteRenderer const&); // Do not implement assignment operator.
 
-        gl3::Shader* shader; // The currently active shader.
-        gl3::Shader defaultShader;
+        Shader* shader; // The currently active shader.
+        Shader defaultShader;
         unsigned int baseQuadVAO{};
         unsigned int baseQuadVBO{};
 

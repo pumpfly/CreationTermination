@@ -38,7 +38,7 @@ private:
             entityManager.deleteEntity(entityManager.getEntity(t1->entity()));
             break;
         default:
-            glfwSetWindowShouldClose(window, true);
+            //glfwSetWindowShouldClose(window, true);
             break;
         }
 

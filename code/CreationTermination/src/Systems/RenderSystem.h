@@ -24,4 +24,12 @@ public:
             visitTransform(*child, localToWorld);
         }
     }
+
+    void drawSprite() {
+
+    }
+
+    void drawSpriteAnimation() {
+
+    }
 };

@@ -21,7 +21,7 @@ namespace gl3::brewEngine::rendering {
 
         ~GeometryRenderer();
 
-        Shader shader{};
+        Shader shader;
 
         unsigned int VAO{}, VBO{};
     };

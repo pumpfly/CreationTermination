@@ -22,7 +22,15 @@ private:
     }
 
     void update(GLFWwindow *window) override {
+        draw();
+        if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+            glfwSetWindowShouldClose(window, true);
+        }
+    }
 
+    void draw() override {
+        glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
     }
 
     std::unique_ptr<RenderSystem> renderSystem;
