@@ -2,6 +2,6 @@
 
 
 int main() {
-    CTGame exampleGame(1280, 720, "Creation Termination");
-    exampleGame.run();
+    CTGame creationTermination(1280, 720, "Creation Termination");
+    creationTermination.run();
 }

@@ -1,11 +1,13 @@
 #pragma once
 #include <iostream>
 #include "brewEngine/ecs/System.h"
+#include "brewEngine/rendering/ResourceManager.h"
 
 
 using gl3::brewEngine::ecs::System;
 using gl3::brewEngine::Game;
-using gl3::brewEngine::sceneGraph::Transform;
+using gl3::brewEngine::sceneGraph::TransformComponent;
+
 
 class RenderSystem : public System {
 public:
@@ -15,7 +17,7 @@ public:
         });
     }
 
-    void visitTransform(Transform &transform, glm::mat4 parentLocalToWorld = glm::identity<glm::mat4>()) {
+    void visitTransform(TransformComponent &transform, glm::mat4 parentLocalToWorld = glm::identity<glm::mat4>()) {
         if(transform.isDeleted()) return;
         auto localToWorld = transform.modelMatrix * parentLocalToWorld;
         auto worldPos = localToWorld * glm::vec4(0, 0, 0, 1);
@@ -24,12 +26,5 @@ public:
             visitTransform(*child, localToWorld);
         }
     }
-
-    void drawSprite() {
-
-    }
-
-    void drawSpriteAnimation() {
-
-    }
 };
+

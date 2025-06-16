@@ -9,15 +9,6 @@ public:
     event_t onPlayerDeath;
 
     void getDamage(int value) {
-        health -= value;
 
-        if(health <= 0) {
-            onPlayerDeath.invoke();
-        }
     }
-
-private:
-    int health = 100;
 };
-
-

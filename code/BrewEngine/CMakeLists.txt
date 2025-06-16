@@ -17,8 +17,8 @@ add_library(${ENGINE_NAME} ${HEADER_LIST} ${PRIVATE_HEADER_LIST} ${SOURCE_LIST}
         src/ecs/EntityManager.cpp
         include/brewEngine/Context.h
         src/Context.cpp
-        include/brewEngine/sceneGraph/Transform.h
-        src/sceneGraph/Transform.cpp
+        include/brewEngine/sceneGraph/TransformComponent.h
+        src/sceneGraph/TransformComponent.cpp
         include/brewEngine/sceneGraph/SceneGraphPruner.h
         include/brewEngine/sceneGraph/SceneGraphUpdater.h
         include/brewEngine/input/Bitmanipulation.h
@@ -26,6 +26,7 @@ add_library(${ENGINE_NAME} ${HEADER_LIST} ${PRIVATE_HEADER_LIST} ${SOURCE_LIST}
         include/brewEngine/Config.h
         include/brewEngine/Assets.h
         include/brewEngine/stb_image.h
+        include/brewEngine/rendering/SpriteComponent.h
 )
 
 target_compile_features(${ENGINE_NAME} PRIVATE cxx_std_17)
@@ -38,3 +39,5 @@ if(WIN32)
 endif()
 
 target_include_directories(${ENGINE_NAME} PUBLIC include/)
+
+target_compile_definitions(${ENGINE_NAME} PRIVATE ASSET_ROOT=./assets/)

@@ -10,8 +10,6 @@ add_subdirectory(extern/soloud)
 add_subdirectory(BrewEngine)
 
 add_subdirectory(game)
-add_subdirectory(ExampleGame1)
-add_subdirectory(ExampleGame2)
 add_subdirectory(CreationTermination)
 
 

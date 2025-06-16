@@ -7,7 +7,11 @@ set(SOURCE_FILES
         src/main.cpp
         src/CTGame.h
         src/Systems/RenderSystem.h
-        src/Components/Health.h)
+        src/Components/HealthComponent.h
+        src/Player.h
+        src/Systems/InputSystem.h
+        src/Systems/AnimationSystem.h
+)
 
 # set executable name
 set(EXE_FILE CreationTermination)
@@ -23,5 +27,5 @@ target_link_libraries(${EXE_FILE} PRIVATE BrewEngine)
 
 target_compile_definitions(${EXE_FILE} PRIVATE ASSET_ROOT=./assets/)
 
-#add_custom_target(copy_assets COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/assets ${CMAKE_BINARY_DIR}/CreationTermination/assets)
-#add_dependencies(${EXE_FILE} copy_assets)
+add_custom_target(copy_dir_assets COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/assets ${CMAKE_BINARY_DIR}/CreationTermination/assets)
+add_dependencies(${EXE_FILE} copy_dir_assets)

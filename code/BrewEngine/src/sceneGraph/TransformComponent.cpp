@@ -1,8 +1,8 @@
-#include "brewEngine/sceneGraph/Transform.h"
+#include "brewEngine/sceneGraph/TransformComponent.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace gl3::brewEngine::sceneGraph {
-    Transform::Transform(guid_t owner, Transform* parentTransform, glm::vec3 position, float zRotation, glm::vec3 scale)
+    TransformComponent::TransformComponent(guid_t owner, TransformComponent* parentTransform, glm::vec2 position, float zRotation, glm::vec2 scale)
             : Component(owner),
             localPosition(position),
             localZRotation(zRotation),
@@ -11,7 +11,7 @@ namespace gl3::brewEngine::sceneGraph {
         setParent(parentTransform);
     }
 
-    Transform::Transform(Transform &&other) noexcept
+    TransformComponent::TransformComponent(TransformComponent &&other) noexcept
             : localPosition(other.localPosition),
             localZRotation(other.localZRotation),
             localScale(other.localScale),
@@ -21,30 +21,30 @@ namespace gl3::brewEngine::sceneGraph {
         setParent(other.parent);
     }
 
-    Transform *Transform::getParent() {
+    TransformComponent *TransformComponent::getParent() {
         return parent;
     }
 
-    void Transform::setParent(Transform *parentTransform) {
+    void TransformComponent::setParent(TransformComponent *parentTransform) {
         parent = parentTransform;
         if(parent != nullptr) {
             parent->addChild(this);
         }
     }
 
-    void Transform::addChild(Transform *transform) {
+    void TransformComponent::addChild(TransformComponent *transform) {
         children.insert(transform);
     }
 
-    void Transform::removeChild(Transform *transform) {
+    void TransformComponent::removeChild(TransformComponent *transform) {
         children.erase(transform);
     }
 
-    std::set<Transform *> Transform::getChildTransforms() {
+    std::set<TransformComponent *> TransformComponent::getChildTransforms() {
         return children;
     }
 
-    void Transform::invalidate() {
+    void TransformComponent::invalidate() {
         deleted = true;
         parent = nullptr;
         for (auto child: children) {
@@ -53,7 +53,7 @@ namespace gl3::brewEngine::sceneGraph {
         children.clear();
     }
 
-    Transform::~Transform() {
+    TransformComponent::~TransformComponent() {
         if(parent != nullptr) {
             parent->removeChild(this);
         }

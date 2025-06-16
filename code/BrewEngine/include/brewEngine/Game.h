@@ -10,9 +10,9 @@
 #include "brewEngine/Events.h"
 #include "brewEngine/ecs/ComponentManager.h"
 #include "brewEngine/ecs/EntityManager.h"
-#include "brewEngine/sceneGraph/Transform.h"
+#include "brewEngine/sceneGraph/TransformComponent.h"
 
-using gl3::brewEngine::sceneGraph::Transform;
+using gl3::brewEngine::sceneGraph::TransformComponent;
 
 namespace gl3::brewEngine {
     namespace ecs {
@@ -27,6 +27,7 @@ namespace gl3::brewEngine {
         void run();
         glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
         GLFWwindow *getWindow() { return context.getWindow(); }
+        [[nodiscard]] float getDeltaTime() const { return deltaTime;}
 
         event_t onStartup;
         event_t onAfterStartup;
@@ -38,7 +39,7 @@ namespace gl3::brewEngine {
 
         ecs::ComponentManager componentManager;
         ecs::EntityManager entityManager;
-        Transform *origin = nullptr;
+        TransformComponent *origin = nullptr;
 
     protected:
         Game(int width, int height, const std::string &title);

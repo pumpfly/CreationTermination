@@ -19,7 +19,7 @@ namespace gl3::brewEngine {
             entityManager(componentManager, *this) {
         //audio.init();
         //audio.setGlobalVolume(0.1f);
-        origin = &entityManager.createEntity().addComponent<Transform>();
+        origin = &entityManager.createEntity().addComponent<TransformComponent>();
     }
 
     void Game::run() {
@@ -28,7 +28,7 @@ namespace gl3::brewEngine {
         onStartup.invoke(*this);
         start();
         onAfterStartup.invoke(*this);
-        sceneGraphUpdater.updateTransforms(*this);
+        gl3::brewEngine::sceneGraph::SceneGraphUpdater::updateTransforms(*this);
         context.run([&](Context &ctx){
             onBeforeUpdate.invoke(*this);
             update(getWindow());

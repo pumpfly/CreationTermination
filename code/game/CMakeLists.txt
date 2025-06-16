@@ -39,12 +39,6 @@ set(SOURCE_FILES src/main.cpp
         src/rendering/projection/Projection.h
         src/UI/Healthbar.cpp
         src/UI/Healthbar.h
-        ../ExampleGame2/src/ExampleGame.h
-        ../ExampleGame2/src/GameOverScreen.h
-        ../ExampleGame2/src/Health.h
-        ../ExampleGame2/src/main.cpp
-        ../ExampleGame2/src/Position.h
-        ../ExampleGame2/src/RenderSystem.h
 )
 
 # set executable name
