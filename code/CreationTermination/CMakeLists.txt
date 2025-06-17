@@ -6,11 +6,11 @@ project(CreationTermination)
 set(SOURCE_FILES
         src/main.cpp
         src/CTGame.h
-        src/Systems/RenderSystem.h
         src/Components/HealthComponent.h
         src/Player.h
         src/Systems/InputSystem.h
         src/Systems/AnimationSystem.h
+        src/CTGame.cpp
 )
 
 # set executable name

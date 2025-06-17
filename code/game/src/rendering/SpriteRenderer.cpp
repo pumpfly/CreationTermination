@@ -100,10 +100,10 @@ namespace gl3 {
     void SpriteRenderer::DrawSpritePro(Texture2D &texture, glm::vec4 source, glm::vec4 dest, float rotate,
         glm::vec4 color) {
 
-        glm::vec2 topLeft = glm::vec2(source.x/texture.Width, (source.y + source.w)/texture.Height);
-        glm::vec2 bottomLeft = glm::vec2(source.x/texture.Width, source.y/texture.Height);
-        glm::vec2 bottomRight = glm::vec2((source.x + source.z)/texture.Width, source.y/texture.Height);
-        glm::vec2 topRight = glm::vec2((source.x + source.z)/texture.Width, (source.y + source.w)/texture.Height);
+        glm::vec2 topLeft = glm::vec2(source.x/texture.Width, (0 + source.w)/texture.Height);
+        glm::vec2 bottomLeft = glm::vec2(source.x/texture.Width, 0/texture.Height);
+        glm::vec2 bottomRight = glm::vec2((source.x + source.z)/texture.Width, 0/texture.Height);
+        glm::vec2 topRight = glm::vec2((source.x + source.z)/texture.Width, (0 + source.w)/texture.Height);
 
         generateQuad(topLeft, bottomLeft, bottomRight, topRight);
 
@@ -112,9 +112,9 @@ namespace gl3 {
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(dest.x, dest.y, 0.0f));
 
-        model = glm::translate(model, glm::vec3(0.5f * dest.z, 0.5f * dest.w, 0.0f));
+        //model = glm::translate(model, glm::vec3(0.5f * dest.z, 0.5f * dest.w, 0.0f));
         model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-        model = glm::translate(model, glm::vec3(-0.5f * dest.z, -0.5f * dest.w, 0.0f));
+        //model = glm::translate(model, glm::vec3(-0.5f * dest.z, -0.5f * dest.w, 0.0f));
 
         model = glm::scale(model, glm::vec3(dest.z, dest.w, 1.0f));
 

@@ -14,12 +14,12 @@ public:
         });
     }
 
-    glm::vec4 animateSpriteSheet(SpriteComponent entitiesSprite, float deltaTime) {
-        entitiesSprite.spriteAnimTimer += deltaTime;
-        if(entitiesSprite.spriteAnimTimer >= 0.1f) {
-            entitiesSprite.spriteAnimIndex = (entitiesSprite.spriteAnimIndex + 1) % entitiesSprite.frameCount;
+    glm::vec4 animateSpriteSheet(SpriteComponent* entitiesSprite, float deltaTime) {
+        entitiesSprite->spriteAnimTimer += deltaTime;
+        if(entitiesSprite->spriteAnimTimer >= 0.1f) {
+            entitiesSprite->spriteAnimIndex = (entitiesSprite->spriteAnimIndex + 1) % entitiesSprite->frameCount;
+            entitiesSprite->spriteAnimTimer = 0;
         }
-        return {entitiesSprite.spriteFrameSize.x * entitiesSprite.spriteAnimIndex, 0, entitiesSprite.spriteFrameSize};
+        return {entitiesSprite->spriteFrameSize.x * entitiesSprite->spriteAnimIndex, 0, entitiesSprite->spriteFrameSize};
     };
-
 };
