@@ -8,9 +8,11 @@ set(SOURCE_FILES
         src/CTGame.h
         src/Components/HealthComponent.h
         src/Player.h
-        src/Systems/InputSystem.h
-        src/Systems/AnimationSystem.h
         src/CTGame.cpp
+        src/Systems/RenderingSystem.cpp
+        src/Systems/RenderingSystem.h
+        src/Systems/InputSystem.cpp
+        src/Systems/InputSystem.h
 )
 
 # set executable name

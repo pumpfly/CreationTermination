@@ -5,7 +5,6 @@
 #pragma once
 
 #include "glad/glad.h"
-#include <string>
 #include <filesystem>
 #include "glm/glm.hpp"
 

@@ -12,12 +12,13 @@ namespace gl3::brewEngine::rendering{
         frameCount = frames;
     }
 
-    void SpriteComponent::SetBackgroundLayerSpeed(int layerNumber, float layerSpeed) {
-
-    }
-
-    void SpriteComponent::scrollBackgroundSprite() {
-
+    glm::vec4 SpriteComponent::animateSpriteSheet(SpriteComponent *entitiesSprite, float deltaTime) {
+        entitiesSprite->spriteAnimTimer += deltaTime;
+        if(entitiesSprite->spriteAnimTimer >= 0.1f) {
+            entitiesSprite->spriteAnimIndex = (entitiesSprite->spriteAnimIndex + 1) % entitiesSprite->frameCount;
+            entitiesSprite->spriteAnimTimer = 0;
+        }
+        return {entitiesSprite->spriteFrameSize.x * entitiesSprite->spriteAnimIndex, 0, entitiesSprite->spriteFrameSize};
     }
 }
 
