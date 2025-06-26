@@ -38,10 +38,15 @@ namespace gl3::brewEngine {
         event_t onAfterUpdate;
         event_t onBeforeShutdown;
         event_t onShutdown;
+        event_t onKeyPress;
 
         ecs::ComponentManager componentManager;
         ecs::EntityManager entityManager;
         TransformComponent *origin = nullptr;
+
+        //timer/countdown
+        const float countdownReset = 0.1f;
+        float countdown = countdownReset;
 
     protected:
         Game(int width, int height, const std::string &title);

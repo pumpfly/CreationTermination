@@ -17,8 +17,8 @@ namespace gl3 {
             type) {
     }
     void Missiles::update(gl3::Game *game, float deltaTime) {
-        position.y = getPosition().y - sin(glm::radians(zRotation - 90.0f)) * speed * deltaTime;
-        position.x = getPosition().x - cos(glm::radians(zRotation - 90.0f)) * speed * deltaTime;
+        position.y = position.y - sin(glm::radians(zRotation - 90.0f)) * speed * deltaTime;
+        position.x = position.x - cos(glm::radians(zRotation - 90.0f)) * speed * deltaTime;
 
     }
 

@@ -3,6 +3,10 @@
 #include "brewEngine/Game.h"
 #include "brewEngine/rendering/BackgroundComponent.h"
 #include "brewEngine/rendering/SpriteComponent.h"
+#include "Components/PlayerComponent.h"
+#include "Systems/MissileSystem.h"
+#include "Systems/PlayerSystem.h"
+#include "Systems/RenderingSystem.h"
 
 
 using gl3::brewEngine::Game;
@@ -22,7 +26,14 @@ private:
 
     void draw() override;
 
+    //Systems
+    std::unique_ptr<RenderingSystem> renderSystem;
+    std::unique_ptr<PlayerSystem> playerSystem;
+    std::unique_ptr<MissileSystem> missileSystem;
+
+    // Entities and their componenets
     Entity* Witch = nullptr;
+    PlayerComponent* WitchPlayer = nullptr;
     TransformComponent *WitchTransform = nullptr;
     SpriteComponent *WitchSprite = nullptr;
 
@@ -34,6 +45,14 @@ private:
     Entity* Background_Layer1 = nullptr;
     SpriteComponent* BackgroundSprite_Layer1 = nullptr;
     BackgroundComponent* BackgroundComponents_Layer1 = nullptr;
+
+    Entity* Background_Layer2 = nullptr;
+    SpriteComponent* BackgroundSprite_Layer2 = nullptr;
+    BackgroundComponent* BackgroundComponents_Layer2 = nullptr;
+
+    Entity* Background_Layer3 = nullptr;
+    SpriteComponent* BackgroundSprite_Layer3 = nullptr;
+    BackgroundComponent* BackgroundComponents_Layer3 = nullptr;
 
     std::vector<TransformComponent> bats;
 

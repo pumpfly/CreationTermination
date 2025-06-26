@@ -1,10 +1,10 @@
-#include <stdexcept>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "brewEngine/Game.h"
+
+#include "brewEngine/input/Input.h"
 #include "brewEngine/sceneGraph/SceneGraphUpdater.h"
 #include "brewEngine/sceneGraph/SceneGraphPruner.h"
-
 
 namespace gl3::brewEngine {
     using Context = brewEngine::context::Context;
@@ -25,11 +25,13 @@ namespace gl3::brewEngine {
     void Game::run() {
         SceneGraphUpdater sceneGraphUpdater(*this);
         SceneGraphPruner sceneGraphPruner(*this);
+        glfwSetKeyCallback(getWindow(), input::Input::key_callback);
         onStartup.invoke(*this);
         start();
         onAfterStartup.invoke(*this);
         gl3::brewEngine::sceneGraph::SceneGraphUpdater::updateTransforms(*this);
         context.run([&](Context &ctx){
+            input::Input::inputUpdate();
             onBeforeUpdate.invoke(*this);
             update(getWindow());
             onUpdate.invoke(*this);

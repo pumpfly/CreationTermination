@@ -1,12 +1,7 @@
-//
-// Created by pumf on 22/06/2025.
-//
-
 #include "RenderingSystem.h"
 
-#include "brewEngine/rendering/BackgroundComponent.h"
 
-void scrollBackgroundSprite(gl3::brewEngine::rendering::BackgroundComponent* background, bool isScrollingSideways, bool goesLeftOrUp, float deltaTime) {
+void RenderingSystem::scrollBackgroundSprite(gl3::brewEngine::rendering::BackgroundComponent* background, bool isScrollingSideways, bool goesLeftOrUp, float deltaTime) {
     // If isScrollingSideways and goesLeftOrDown is true then the background will scroll to the left
     // If isScrollingSideways is true but goesLeftOrDown is false then the background will scroll to the right
     // If isScrollingSideways is false but goesLeftOrDown is true the background will move up along the y axis

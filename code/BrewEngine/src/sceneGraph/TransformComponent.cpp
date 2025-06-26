@@ -2,11 +2,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace gl3::brewEngine::sceneGraph {
-    TransformComponent::TransformComponent(guid_t owner, TransformComponent* parentTransform, glm::vec2 position, float zRotation, glm::vec2 scale)
+    TransformComponent::TransformComponent(guid_t owner, TransformComponent* parentTransform,
+        glm::vec2 position, float zRotation, glm::vec2 scale, float radius)
             : Component(owner),
             localPosition(position),
             localZRotation(zRotation),
             localScale(scale),
+            radius(radius),
             modelMatrix(glm::identity<glm::mat4>()) {
         setParent(parentTransform);
     }

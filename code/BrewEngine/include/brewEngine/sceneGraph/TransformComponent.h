@@ -36,6 +36,7 @@ namespace gl3::brewEngine::sceneGraph {
         glm::vec2 localPosition;
         float localZRotation;
         glm::vec2 localScale;
+        float radius;
         glm::mat4 modelMatrix;
 
 
@@ -48,7 +49,8 @@ namespace gl3::brewEngine::sceneGraph {
                            TransformComponent *parentTransform = nullptr,
                            glm::vec2 position = {0, 0},
                            float zRotation = 0,
-                           glm::vec2 scale = {1, 1});
+                           glm::vec2 scale = {1, 1},
+                           float radius = 1.0f);
 
         TransformComponent *parent = nullptr;
         std::set<TransformComponent *> children;

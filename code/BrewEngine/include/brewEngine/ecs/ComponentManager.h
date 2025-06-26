@@ -43,6 +43,9 @@ namespace gl3::brewEngine::ecs {
 
         template<typename C>
         void forEachComponent(std::function<void(C&)> f) {
+            if(containers.count(typeid(C).hash_code()) == 0) {
+                return;
+            }
             for(const auto &[_, component]: containers.at(typeid(C).hash_code())) {
                 f(*reinterpret_cast<C*>(component.get()));
             }

@@ -2,8 +2,9 @@
 
 #include "brewEngine/ecs/Component.h"
 #include "Texture2D.h"
-#include "brewEngine/sceneGraph/TransformComponent.h"
+
 #include "glm/vec2.hpp"
+#include "glm/vec4.hpp"
 
 namespace gl3::brewEngine::ecs {
     class ComponentManager;
@@ -12,7 +13,7 @@ namespace gl3::brewEngine::ecs {
 
 using gl3::brewEngine::ecs::ComponentManager;
 using gl3::brewEngine::ecs::Entity;
-using gl3::brewEngine::sceneGraph::TransformComponent;
+
 
 namespace gl3::brewEngine::rendering {
     class SpriteComponent final : public ecs::Component {
