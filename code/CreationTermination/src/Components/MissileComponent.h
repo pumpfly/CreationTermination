@@ -25,4 +25,5 @@ class MissileComponent : public Component {
 
     MissileType type;
     float speed = 200.0f;
+    bool charging = false;
 };

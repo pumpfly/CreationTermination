@@ -12,7 +12,7 @@ using gl3::brewEngine::rendering::SpriteComponent;
 class MissileSystem : public System{
     public:
     explicit MissileSystem(Game &game): System(game) {
-        game.onUpdate.addListener([&] (Game&) {
+        game.onAfterUpdate.addListener([&] (Game&) {
             game.componentManager.forEachComponent<MissileComponent>([&](MissileComponent& component) {
                 Entity* Missile;
                 TransformComponent* missileTransform;

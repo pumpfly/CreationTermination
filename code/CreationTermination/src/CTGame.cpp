@@ -23,15 +23,15 @@ void CTGame::start() {
 
     //Background
     Background_Layer1 = &entityManager.createEntity();
-    BackgroundComponents_Layer1 = &Background_Layer1->addComponent<BackgroundComponent>(glm::vec2(0, 0), 800.0f, glm::vec2(1280*3, 720));
+    BackgroundComponents_Layer1 = &Background_Layer1->addComponent<BackgroundComponent>(glm::vec2(0, 0), glm::vec2(1280*3, 0), 800.0f, glm::vec2(1280*3, 720));
     BackgroundSprite_Layer1 = &Background_Layer1->addComponent<SpriteComponent>("background/forest_1stLayer.png");
 
     Background_Layer2 = &entityManager.createEntity();
-    BackgroundComponents_Layer2 = &Background_Layer2->addComponent<BackgroundComponent>(glm::vec2(0, 0), 600.0f, glm::vec2(1280*3, 720));
+    BackgroundComponents_Layer2 = &Background_Layer2->addComponent<BackgroundComponent>(glm::vec2(0, 0), glm::vec2(1280*3, 0), 600.0f, glm::vec2(1280*3, 720));
     BackgroundSprite_Layer2 = &Background_Layer2->addComponent<SpriteComponent>("background/forest_2dLayer.png");
 
     Background_Layer3 = &entityManager.createEntity();
-    BackgroundComponents_Layer3 = &Background_Layer3->addComponent<BackgroundComponent>(glm::vec2(0, 0), 400.0f, glm::vec2(1280*3, 720));
+    BackgroundComponents_Layer3 = &Background_Layer3->addComponent<BackgroundComponent>(glm::vec2(0, 0), glm::vec2(1280*3, 0), 400.0f, glm::vec2(1280*3, 720));
     BackgroundSprite_Layer3 = &Background_Layer3->addComponent<SpriteComponent>("background/forest_3dLayer.png");
 
 }
@@ -48,6 +48,48 @@ void CTGame::update(GLFWwindow *window) {
 }
 
 void CTGame::draw() {
+    //Background
+    //The 3d layer is the furthest away which is why it has to be rendered first
+    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
+        BackgroundSprite_Layer3->sprite,
+        BackgroundComponents_Layer3->position,
+        BackgroundComponents_Layer3->scale,
+        0,
+        glm::vec4(1,1,1,1));
+    //Copy
+     gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
+         BackgroundSprite_Layer3->sprite,
+         BackgroundComponents_Layer3->copyPosition,
+         BackgroundComponents_Layer3->scale,
+         0,
+         glm::vec4(1,1,1,1));
+    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
+        BackgroundSprite_Layer2->sprite,
+        BackgroundComponents_Layer2->position,
+        BackgroundComponents_Layer2->scale,
+        0,
+        glm::vec4(1,1,1,1));
+    //Copy
+     gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
+         BackgroundSprite_Layer2->sprite,
+         BackgroundComponents_Layer2->copyPosition,
+         BackgroundComponents_Layer2->scale,
+         0,
+         glm::vec4(1,1,1,1));
+    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
+        BackgroundSprite_Layer1->sprite,
+        BackgroundComponents_Layer1->position,
+        BackgroundComponents_Layer1->scale,
+        0,
+        glm::vec4(1,1,1,1));
+    //Copy
+     gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
+         BackgroundSprite_Layer1->sprite,
+         BackgroundComponents_Layer1->copyPosition,
+         BackgroundComponents_Layer1->scale,
+         0,
+         glm::vec4(1,1,1,1));
+
     //Animating Witch
     gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSpriteSheet(
             WitchSprite->sprite,
@@ -65,48 +107,4 @@ void CTGame::draw() {
         0,
         glm::vec4(1,1,1,1)
         );
-
-    //Background
-    //The 3d layer is the furthest away which is why it has to be rendered first
-    /*
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        BackgroundSprite_Layer3->sprite,
-        BackgroundComponents_Layer3->position,
-        BackgroundComponents_Layer3->scale,
-        0,
-        glm::vec4(1,1,1,1));
-    //Copy
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        BackgroundSprite_Layer3->sprite,
-        BackgroundComponents_Layer3->copysPosition,
-        BackgroundComponents_Layer3->scale,
-        0,
-        glm::vec4(1,1,1,1));
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        BackgroundSprite_Layer2->sprite,
-        BackgroundComponents_Layer2->position,
-        BackgroundComponents_Layer2->scale,
-        0,
-        glm::vec4(1,1,1,1));
-    //Copy
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        BackgroundSprite_Layer2->sprite,
-        BackgroundComponents_Layer2->copysPosition,
-        BackgroundComponents_Layer2->scale,
-        0,
-        glm::vec4(1,1,1,1));
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        BackgroundSprite_Layer1->sprite,
-        BackgroundComponents_Layer1->position,
-        BackgroundComponents_Layer1->scale,
-        0,
-        glm::vec4(1,1,1,1));
-    //Copy
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        BackgroundSprite_Layer1->sprite,
-        BackgroundComponents_Layer1->copysPosition,
-        BackgroundComponents_Layer1->scale,
-        0,
-        glm::vec4(1,1,1,1));
-        */
 }

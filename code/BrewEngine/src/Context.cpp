@@ -26,7 +26,7 @@ namespace gl3::brewEngine::context {
         glfwMakeContextCurrent(window);
         glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
         gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
-        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_DEPTH_TEST);
         if(glGetError() != GL_NO_ERROR) {
             throw std::runtime_error("gl error");
         }

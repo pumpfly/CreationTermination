@@ -30,6 +30,7 @@ add_library(${ENGINE_NAME} ${HEADER_LIST} ${PRIVATE_HEADER_LIST} ${SOURCE_LIST}
         src/rendering/SpriteComponent.cpp
         include/brewEngine/rendering/BackgroundComponent.h
         src/rendering/BackgroundComponent.cpp
+        include/brewEngine/rendering/RenderingSystem.h
 )
 
 target_compile_features(${ENGINE_NAME} PRIVATE cxx_std_17)

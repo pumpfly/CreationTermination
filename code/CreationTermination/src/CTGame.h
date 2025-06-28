@@ -7,7 +7,7 @@
 #include "Components/PlayerComponent.h"
 #include "Systems/MissileSystem.h"
 #include "Systems/PlayerSystem.h"
-#include "Systems/RenderingSystem.h"
+#include "brewEngine/rendering/RenderingSystem.h"
 
 
 using gl3::brewEngine::Game;
@@ -15,6 +15,7 @@ using gl3::brewEngine::ecs::Entity;
 using gl3::brewEngine::sceneGraph::TransformComponent;
 using gl3::brewEngine::rendering::SpriteComponent;
 using gl3::brewEngine::rendering::BackgroundComponent;
+using gl3::brewEngine::rendering::RenderingSystem;
 
 class CTGame : public Game {
 public:
