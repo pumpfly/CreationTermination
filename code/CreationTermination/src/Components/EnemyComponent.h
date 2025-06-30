@@ -7,7 +7,7 @@ using gl3::brewEngine::ecs::ComponentManager;
 using gl3::brewEngine::ecs::guid_t;
 using gl3::brewEngine::ecs::Entity;
 
-struct EnemyComponent : Component
+class EnemyComponent : Component
 {
     friend ComponentManager;
     friend Entity;
