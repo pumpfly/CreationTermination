@@ -1,6 +1,7 @@
 #pragma once
 
 #include "brewEngine/ecs/Component.h"
+#include "brewEngine/sceneGraph/TransformComponent.h"
 
 using gl3::brewEngine::ecs::Component;
 using gl3::brewEngine::ecs::ComponentManager;

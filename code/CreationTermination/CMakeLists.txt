@@ -23,6 +23,7 @@ set(SOURCE_FILES
         src/Systems/PlayerSystem.h
         src/Systems/PlayerSystem.cpp
         src/Components/PlayerComponent.h
+        src/Components/EnemyComponent.h
 )
 
 # set executable name

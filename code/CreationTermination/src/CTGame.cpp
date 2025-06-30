@@ -17,6 +17,7 @@ void CTGame::start() {
 
     //Main Enemy: Creature
     Creature = &entityManager.createEntity();
+    CreatureEnemyComponent = &Creature->addComponent<EnemyComponent>(Creature->guid());
     CreatureTransform = &Creature->addComponent<TransformComponent>(origin, glm::vec2(1100, 600), 0, glm::vec2(600/4, 500/4));
     CreatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png");
 

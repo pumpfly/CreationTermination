@@ -3,6 +3,7 @@
 #include "brewEngine/Game.h"
 #include "brewEngine/rendering/BackgroundComponent.h"
 #include "brewEngine/rendering/SpriteComponent.h"
+#include "Components/EnemyComponent.h"
 #include "Components/PlayerComponent.h"
 #include "Systems/MissileSystem.h"
 #include "Systems/PlayerSystem.h"
@@ -32,12 +33,15 @@ private:
     std::unique_ptr<MissileSystem> missileSystem;
 
     // Entities and their componenets
+    //Player/Witch
     Entity* Witch = nullptr;
     PlayerComponent* WitchPlayer = nullptr;
     TransformComponent *WitchTransform = nullptr;
     SpriteComponent *WitchSprite = nullptr;
 
-    Entity *Creature = nullptr;
+    //Creature
+    Entity* Creature = nullptr;
+    EnemyComponent* CreatureEnemyComponent = nullptr;
     TransformComponent *CreatureTransform = nullptr;
     SpriteComponent *CreatureSprite = nullptr;
 
