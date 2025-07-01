@@ -3,6 +3,7 @@
 #include "brewEngine/ecs/ComponentManager.h"
 #include "brewEngine/ecs/EntityManager.h"
 #include "brewEngine/ecs/ecs.h"
+#include "brewEngine/sceneGraph/TransformComponent.h"
 #include "glm/vec2.hpp"
 
 using gl3::brewEngine::ecs::ComponentManager;
@@ -14,12 +15,10 @@ namespace gl3::brewEngine::rendering {
         friend Entity;
 
         public:
-        explicit BackgroundComponent(ecs::guid_t owner, glm::vec2 position, glm::vec2 copyPosition, float scrollingSpeed, glm::vec2 scale);
+        explicit BackgroundComponent(ecs::guid_t owner, glm::vec2 copyPosition, float scrollingSpeed);
         ~BackgroundComponent() override { deleted = true; }
 
         float scrollingSpeed;
-        glm::vec2 scale;
-        glm::vec2 position;
         glm::vec2 copyPosition;
     };
 }

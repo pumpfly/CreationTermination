@@ -51,14 +51,17 @@ private:
     //Background/Landscape
     Entity* Background_Layer1 = nullptr;
     SpriteComponent* BackgroundSprite_Layer1 = nullptr;
+    TransformComponent* BackgroundTransform_Layer1 = nullptr;
     BackgroundComponent* BackgroundComponents_Layer1 = nullptr;
 
     Entity* Background_Layer2 = nullptr;
     SpriteComponent* BackgroundSprite_Layer2 = nullptr;
+    TransformComponent* BackgroundTransform_Layer2 = nullptr;
     BackgroundComponent* BackgroundComponents_Layer2 = nullptr;
 
     Entity* Background_Layer3 = nullptr;
     SpriteComponent* BackgroundSprite_Layer3 = nullptr;
+    TransformComponent* BackgroundTransform_Layer3 = nullptr;
     BackgroundComponent* BackgroundComponents_Layer3 = nullptr;
 
     std::vector<TransformComponent> bats;

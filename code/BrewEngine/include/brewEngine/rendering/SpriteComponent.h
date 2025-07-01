@@ -28,8 +28,6 @@ namespace gl3::brewEngine::rendering {
 
         ~SpriteComponent() override { deleted = true; }
 
-        glm::vec4 animateSpriteSheet(SpriteComponent* entitiesSprite, float deltaTime);
-
         Texture2D sprite;
         glm::vec2 size;
 
