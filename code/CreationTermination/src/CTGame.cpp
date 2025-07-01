@@ -6,9 +6,7 @@
 void CTGame::start() {
     //Systems
     renderSystem = std::make_unique<RenderingSystem>(*this);
-    playerSystem = std::make_unique<PlayerSystem>(*this);
     missileSystem = std::make_unique<MissileSystem>(*this);
-    enemySystem = std::make_unique<EnemySystem>(*this);
 
     //Player: Witch
     Witch = &entityManager.createEntity();
@@ -35,6 +33,9 @@ void CTGame::start() {
     BackgroundComponents_Layer3 = &Background_Layer3->addComponent<BackgroundComponent>(glm::vec2(0, 0), glm::vec2(1280*3, 0), 400.0f, glm::vec2(1280*3, 720));
     BackgroundSprite_Layer3 = &Background_Layer3->addComponent<SpriteComponent>("background/forest_3dLayer.png");
 
+    playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
+    enemySystem = std::make_unique<EnemySystem>(*this, Creature);
+
 }
 
 void CTGame::update(GLFWwindow *window) {
@@ -42,6 +43,8 @@ void CTGame::update(GLFWwindow *window) {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
+
+    currentTime += deltaTime;
 
     renderSystem->scrollBackgroundSprite(BackgroundComponents_Layer1, true, true, deltaTime);
     renderSystem->scrollBackgroundSprite(BackgroundComponents_Layer2, true, true, deltaTime);

@@ -1,8 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <ostream>
-
 #include "../Components/PlayerComponent.h"
 #include "brewEngine/ecs/System.h"
 #include "brewEngine/input/Input.h"
@@ -13,19 +10,12 @@ using gl3::brewEngine::input::Input;
 
 class PlayerSystem : public System{
     public:
-    explicit PlayerSystem(Game &game) : System(game) {
-        game.onBeforeUpdate.addListener([&] (Game&) {
-            Entity* Witch;
-            TransformComponent* witchTransform;
-            PlayerComponent* witchPlayer;
-            game.componentManager.forEachComponent<PlayerComponent>([&](PlayerComponent& component) {
-                Witch = &game.entityManager.getEntity(component.entity());
-                witchTransform = &Witch->getComponent<TransformComponent>();
-                witchPlayer = &Witch->getComponent<PlayerComponent>();
-
-                playerMovement(game, witchTransform);
-                playerShooting(game, witchTransform, witchPlayer);
-            });
+    explicit PlayerSystem(Game &game, Entity* Witch) : System(game) {
+        game.onBeforeUpdate.addListener([&, Witch] (Game&) {
+            TransformComponent* witchTransform = &Witch->getComponent<TransformComponent>();
+            PlayerComponent* witch = &Witch->getComponent<PlayerComponent>();
+            playerMovement(game, witchTransform);
+            playerShooting(game, witchTransform, witch);
         });
     }
 

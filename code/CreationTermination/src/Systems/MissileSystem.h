@@ -18,6 +18,7 @@ class MissileSystem : public System{
                 TransformComponent* missileTransform;
                 SpriteComponent* missileSprite;
                 MissileComponent* missile;
+
                 Missile = &game.entityManager.getEntity(component.entity());
                 missileTransform = &Missile->getComponent<TransformComponent>();
                 missileSprite = &Missile->getComponent<SpriteComponent>();

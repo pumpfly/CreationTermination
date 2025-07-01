@@ -31,7 +31,6 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
     //Default Missiles
     if(game.countdown <= 0) {
         if(Input::IsKeyDown(Input::KEY_SPACE)) {
-            std::cout<< "got in" << std::endl;
             witchPlayer->madeFirstShot = true;
             auto angle = glm::radians(witchTransform->localZRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
