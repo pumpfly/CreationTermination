@@ -7,7 +7,6 @@ set(SOURCE_FILES
         src/main.cpp
         src/CTGame.h
         src/Components/HealthComponent.h
-        src/Player.h
         src/CTGame.cpp
         src/Systems/EnemySystem.cpp
         src/Systems/EnemySystem.h

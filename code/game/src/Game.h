@@ -4,8 +4,6 @@
 
 #pragma once
 
-
-//#include <memory>
 #include "BackgroundManager.h"
 #include "SpatialGridManager.h"
 #include "entities/Witch.h"

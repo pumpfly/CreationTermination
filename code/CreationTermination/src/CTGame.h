@@ -8,6 +8,7 @@
 #include "Systems/MissileSystem.h"
 #include "Systems/PlayerSystem.h"
 #include "brewEngine/rendering/RenderingSystem.h"
+#include "Systems/EnemySystem.h"
 
 
 using gl3::brewEngine::Game;
@@ -32,6 +33,7 @@ private:
     std::unique_ptr<RenderingSystem> renderSystem;
     std::unique_ptr<PlayerSystem> playerSystem;
     std::unique_ptr<MissileSystem> missileSystem;
+    std::unique_ptr<EnemySystem> enemySystem;
 
     // Entities and their componenets
     //Player/Witch

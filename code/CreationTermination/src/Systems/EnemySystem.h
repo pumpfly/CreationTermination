@@ -1,6 +1,8 @@
-
 #pragma once
 
+#include <iostream>
+
+#include "../Components/EnemyComponent.h"
 #include "brewEngine/ecs/System.h"
 
 struct EnemyComponent;
@@ -11,18 +13,32 @@ class EnemySystem : public System{
 public:
     explicit EnemySystem(Game &game) : System(game)
     {
-        game.onStartup.addListener([&] (Game &)
+        game.onBeforeUpdate.addListener([&] (Game &)
         {
+            Entity* Creature;
+            TransformComponent* creatureTransform;
+            EnemyComponent* creature;
+            game.componentManager.forEachComponent<EnemyComponent>([&](EnemyComponent& enemyComponent) {
+                if(enemyComponent.type == CREATURE) {
+                    std::cout << "got in" << std::endl;                    Creature = &game.entityManager.getEntity(enemyComponent.entity());
+                    creatureTransform = &Creature->getComponent<TransformComponent>();
+                    creature = &Creature->getComponent<EnemyComponent>();
+                }
+                creatureMovement(game, creatureTransform, creature);
+            });
+        });
+
+        game.onAfterUpdate.addListener([&] (Game &) {
 
         });
     }
 
-    void creatureMovement(TransformComponent* creatureTransform, EnemyComponent* creature, float deltaTime);
+    void creatureMovement(Game &game, TransformComponent* creatureTransform, EnemyComponent* creature);
     void creatureDefense();
 
     void smallEnemiesBehavior();
     void mediumEnemiesBehavior();
-    void largeEnemiesBehavior();
+    void bigEnemiesBehavior();
 };
 
 
