@@ -38,7 +38,6 @@ namespace gl3::brewEngine {
         event_t onAfterUpdate;
         event_t onBeforeShutdown;
         event_t onShutdown;
-        event_t onKeyPress;
 
         ecs::ComponentManager componentManager;
         ecs::EntityManager entityManager;

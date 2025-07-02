@@ -1,5 +1,7 @@
 #include "PlayerSystem.h"
 
+#include <iostream>
+
 #include "../Components/MissileComponent.h"
 #include "brewEngine/rendering/SpriteComponent.h"
 
@@ -31,7 +33,6 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
     //Default Missiles
     if(game.countdown <= 0) {
         if(Input::IsKeyDown(Input::KEY_SPACE)) {
-            witchPlayer->madeFirstShot = true;
             auto angle = glm::radians(witchTransform->localZRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
             glm::vec2 offset = {forwardVec.x * witchTransform->localScale.x, witchTransform->localScale.y/2};
@@ -42,6 +43,7 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 &defaultMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - 90, glm::vec2(10, 10), 10);
             SpriteComponent* missileSprite = &defaultMissile->addComponent<SpriteComponent>("sprites/a.png");
+            guid_t ID = defaultMissile->guid();
 
             witchPlayer->missilesShot++;
             if(witchPlayer->missilesShot == 100) {
@@ -50,26 +52,73 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
             }
             game.countdown = game.countdownReset;
         }
-        if(Input::IsKeyDown(Input::KEY_R)) {
+        if(Input::IsKeyDown(Input::KEY_E)) {
             auto angle = glm::radians(witchTransform->localZRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
             glm::vec2 offset = {forwardVec.x * witchTransform->localScale.x, witchTransform->localScale.y/2};
             for(int i = 0; i <= 8; i++) {
-                Entity* defaultMissile = &game.entityManager.createEntity();
-                MissileComponent* waveMissielComponent = &defaultMissile->addComponent<MissileComponent>(400.0f, WAVE);
-                TransformComponent* defaultMissileTransform =
-                &defaultMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
+                Entity* WaveMissile = &game.entityManager.createEntity();
+                MissileComponent* waveMissiel = &WaveMissile->addComponent<MissileComponent>(400.0f, WAVE);
+                TransformComponent* wavetMissileTransform =
+                &WaveMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - (45.0f + (i * 10.0f)), glm::vec2(5, 5), 5);
-                SpriteComponent* missileSprite = &defaultMissile->addComponent<SpriteComponent>("sprites/a.png");
+                SpriteComponent* missileSprite = &WaveMissile->addComponent<SpriteComponent>("sprites/a.png");
                 if(witchPlayer->missilesShot == 150) {
-                    auto &missile = game.entityManager.getEntity(waveMissielComponent->entity());
+                    auto &missile = game.entityManager.getEntity(waveMissiel->entity());
                     game.entityManager.deleteEntity(missile);
                 }
                 game.countdown = game.countdownReset;
             }
         }
         if(Input::IsKeyDown(Input::KEY_F)) {
+            auto angle = glm::radians(witchTransform->localZRotation);
+            glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
+            glm::vec2 offset {forwardVec.x * witchTransform->localScale.x, witchTransform->localScale.y / 2 - 10};
 
+            Entity* ChargeMissile;
+            MissileComponent* chargeMissile;
+            TransformComponent* chargeMissileTransform;
+            SpriteComponent* chargeMissileSprite;
+            guid_t currMissileID = -1;
+
+            if(!witchPlayer->onlySingleMissile) {
+                ChargeMissile = &game.entityManager.createEntity();
+                chargeMissile = &ChargeMissile->addComponent<MissileComponent>(400.0f, CHARGE);
+                chargeMissileTransform =
+                &ChargeMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
+                    witchTransform->localZRotation - 90, glm::vec2(10, 10), 10);
+                chargeMissileSprite = &ChargeMissile->addComponent<SpriteComponent>("sprites/a.png");
+
+                currMissileID = ChargeMissile->guid();
+                witchPlayer->currentMissileID = currMissileID; // Store for later use
+            }
+            else {
+                currMissileID = witchPlayer->currentMissileID;
+                if(currMissileID != -1) {
+                    chargeMissileTransform = &game.entityManager.getEntity(currMissileID).getComponent<TransformComponent>();
+                }
+            }
+            if(currMissileID != -1 && chargeMissileTransform) {
+                if(chargeMissileTransform->localScale.x <= 50.0f) {
+                    witchPlayer->missileTempSize = (witchPlayer->missileTempSize + 100.0f) * game.getDeltaTime();
+                    game.entityManager.getEntity(currMissileID).getComponent<TransformComponent>().localScale += witchPlayer->missileTempSize;
+                    game.entityManager.getEntity(currMissileID).getComponent<TransformComponent>().radius += witchPlayer->missileTempSize;
+                }
+                chargeMissileTransform->localPosition = witchTransform->localPosition + offset;
+            }
+
+            witchPlayer->onlySingleMissile = true;
+
+            /*if(witchPlayer->missilesShot == 10) {
+                auto &missile = game.entityManager.getEntity(game.entityManager.getEntity(currMissileID).getComponent<TransformComponent>().localScale.x->entity());
+                game.entityManager.deleteEntity(missile);
+            }*/
+
+        }
+        if(Input::IsKeyReleased(Input::KEY_F)) {
+            //TODO: isKeyRealeased is broken: fix it
+            std::cout << "released F" << std::endl;
+            witchPlayer->onlySingleMissile = false;
         }
     }
 }

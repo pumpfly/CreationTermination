@@ -16,6 +16,9 @@ class PlayerComponent : public Component {
     public:
     explicit PlayerComponent(gl3::brewEngine::ecs::guid_t owner): Component(owner) {};
 
-    bool madeFirstShot = false;
     int missilesShot = 0;
+    bool charging = false;
+    bool onlySingleMissile = false;
+    float missileTempSize = 1.0f;
+    guid_t currentMissileID = -1;
 };

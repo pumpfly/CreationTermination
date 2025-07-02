@@ -36,7 +36,7 @@ namespace gl3 {
 
         //Collision
 
-        bool charging = false;
+        bool charging = true;
         bool onlySingleMissile = false;
         float missileTempSize = 1.0f;
 

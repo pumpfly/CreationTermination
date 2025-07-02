@@ -22,14 +22,14 @@ public:
             creatureMovement(game, creatureTransform, creature);
         });
 
-        game.onStartup.addListener([&] (Game &) {
+        game.onAfterStartup.addListener([&] (Game &) {
             //TODO: For loop should end at random number between 5 and 15
             for(int i = 0; i < 8; i++) {
                 Entity* Bat = &game.entityManager.createEntity();
                 EnemyComponent* bat = &Bat->addComponent<EnemyComponent>(MINIENEMY);
                 TransformComponent* batTransfrom = &Bat->addComponent<TransformComponent>(game.origin, glm::vec2(200+ i*10, 200+i*10), 0, glm::vec2(50, 50));
-                SpriteComponent* batSprite = &Bat->addComponent<SpriteComponent>("sprites/bat_Sprites.png");
-                //TODO:: RenderSystem should call DrawSprite method after creating a Spritecomponent
+                SpriteComponent* batSprite = &Bat->addComponent<SpriteComponent>("sprites/bat_Sprites.png", glm::vec2(600, 500), 2);
+
                 smallEnemies.push_back(Bat);
             }
         });

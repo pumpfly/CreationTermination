@@ -14,8 +14,8 @@ namespace gl3::brewEngine::ecs {
     public:
         EntityManager(ComponentManager &componentManager, Game &game);
 
-        Entity &createEntity();
-        [[nodiscard]] Entity &getEntity(guid_t guid);
+        Entity& createEntity();
+        [[nodiscard]] Entity& getEntity(guid_t guid);
         void deleteEntity(Entity &entity);
 
     private:

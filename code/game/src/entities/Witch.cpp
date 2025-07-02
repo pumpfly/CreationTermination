@@ -62,7 +62,7 @@ namespace gl3{
 
         // Charging shot
         if(brew::Input::IsKeyDown(brew::Input::KEY_F)) {
-            charging = true;
+            //charging = true;
             auto angle = glm::radians(zRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
             glm::vec2 offset {forwardVec.x * getSize().x, getSize().y / 2 - 10};
@@ -81,7 +81,7 @@ namespace gl3{
             bigMissiles.back()->setPosition(this->position + offset); //this->getPosition()
             onlySingleMissile = true;
         }
-        if(brew::Input::IsKeyReleased(brew::Input::KEY_F) && charging) {
+        if(brew::Input::IsKeyReleased(brew::Input::KEY_F)) {
             onlySingleMissile = false;
         }
 

@@ -34,7 +34,7 @@ void CTGame::start() {
     Creature = &entityManager.createEntity();
     CreatureEnemyComponent = &Creature->addComponent<EnemyComponent>(CREATURE);
     CreatureTransform = &Creature->addComponent<TransformComponent>(origin, glm::vec2(1100, 600), 0, glm::vec2(600/4, 500/4));
-    CreatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png");
+    CreatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png", glm::vec2(600, 500), 1);
 
     playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
     enemySystem = std::make_unique<EnemySystem>(*this, Creature);
@@ -56,64 +56,4 @@ void CTGame::update(GLFWwindow *window) {
 }
 
 void CTGame::draw() {
-    //Background
-    //The 3d layer is the furthest away which is why it has to be rendered first
-    /*
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        BackgroundSprite_Layer3->sprite,
-        BackgroundComponents_Layer3->position,
-        BackgroundComponents_Layer3->scale,
-        0,
-        glm::vec4(1,1,1,1));
-    //Copy
-     gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-         BackgroundSprite_Layer3->sprite,
-         BackgroundComponents_Layer3->copyPosition,
-         BackgroundComponents_Layer3->scale,
-         0,
-         glm::vec4(1,1,1,1));
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        BackgroundSprite_Layer2->sprite,
-        BackgroundComponents_Layer2->position,
-        BackgroundComponents_Layer2->scale,
-        0,
-        glm::vec4(1,1,1,1));
-    //Copy
-     gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-         BackgroundSprite_Layer2->sprite,
-         BackgroundComponents_Layer2->copyPosition,
-         BackgroundComponents_Layer2->scale,
-         0,
-         glm::vec4(1,1,1,1));
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        BackgroundSprite_Layer1->sprite,
-        BackgroundComponents_Layer1->position,
-        BackgroundComponents_Layer1->scale,
-        0,
-        glm::vec4(1,1,1,1));
-    //Copy
-     gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-         BackgroundSprite_Layer1->sprite,
-         BackgroundComponents_Layer1->copyPosition,
-         BackgroundComponents_Layer1->scale,
-         0,
-         glm::vec4(1,1,1,1));
-    //Animating Witch
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSpriteSheet(
-            WitchSprite->sprite,
-            WitchSprite->animateSpriteSheet(WitchSprite, deltaTime),
-            glm::vec4(WitchTransform->localPosition, WitchTransform->localScale),
-            WitchTransform->localZRotation,
-            glm::vec4(1,1,1,1)
-    );
-
-    //Creature
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        CreatureSprite->sprite,
-        CreatureTransform->localPosition,
-        CreatureTransform->localScale,
-        0,
-        glm::vec4(1,1,1,1)
-        );
-        */
 }

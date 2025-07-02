@@ -25,11 +25,11 @@ class MissileSystem : public System{
                 missile = &Missile->getComponent<MissileComponent>();
 
                 updateMissiles(game, missileTransform, missile);
-                drawMissiles(game, missileTransform, missileSprite);
+                //drawMissiles(game, missileTransform, missileSprite);
             });
         });
     }
 
     void updateMissiles(Game& game, TransformComponent* missileTransform, MissileComponent* missileComponent);
-    void drawMissiles(Game& game, TransformComponent* missileTransform, SpriteComponent* missileSprite);
+    //void drawMissiles(Game& game, TransformComponent* missileTransform, SpriteComponent* missileSprite);
 };

@@ -12,11 +12,11 @@ void MissileSystem::updateMissiles(Game& game, TransformComponent* missileTransf
         cos(glm::radians(missileTransform->localZRotation - 90.0f)) * missileComponent->speed * game.getDeltaTime();
 }
 
-void MissileSystem::drawMissiles(Game &game, TransformComponent *missileTransform, SpriteComponent *missileSprite) {
+/*void MissileSystem::drawMissiles(Game &game, TransformComponent *missileTransform, SpriteComponent *missileSprite) {
     gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
         missileSprite->sprite,
         missileTransform->localPosition,
         missileTransform->localScale,
         0,
         glm::vec4(1,1,1,1));
-}
+}*/
