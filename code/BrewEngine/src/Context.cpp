@@ -9,6 +9,9 @@ namespace gl3::brewEngine::context {
     }
 
     Context::Context(int width, int height, const std::string &title) {
+        this->width = width;
+        this->height = height;
+
         if(!glfwInit()) {
             throw std::runtime_error("Failed to initialize glfw");
         }

@@ -109,7 +109,7 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
 
             witchPlayer->onlySingleMissile = true;
 
-            /*if(witchPlayer->missilesShot == 10) {
+            /*if(currMissileID != -1 && chargeMissileTransform && witchPlayer->missilesShot == 10) {
                 auto &missile = game.entityManager.getEntity(game.entityManager.getEntity(currMissileID).getComponent<TransformComponent>().localScale.x->entity());
                 game.entityManager.deleteEntity(missile);
             }*/

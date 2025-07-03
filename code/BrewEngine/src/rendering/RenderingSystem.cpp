@@ -45,7 +45,7 @@ namespace gl3::brewEngine::rendering {
     }
     glm::vec4 RenderingSystem::animateSpriteSheet(SpriteComponent *entitiesSprite, float deltaTime) {
         entitiesSprite->spriteAnimTimer += deltaTime;
-        if(entitiesSprite->spriteAnimTimer >= 0.2f) {
+        if(entitiesSprite->spriteAnimTimer >= 1/entitiesSprite->framesPerSecond) {
             entitiesSprite->spriteAnimIndex = (entitiesSprite->spriteAnimIndex + 1) % entitiesSprite->frameCount;
             entitiesSprite->spriteAnimTimer = 0;
         }

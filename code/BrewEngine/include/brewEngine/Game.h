@@ -28,7 +28,8 @@ namespace gl3::brewEngine {
 
         void run();
         glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
-        GLFWwindow *getWindow() { return context.getWindow(); }
+        GLFWwindow* getWindow() { return context.getWindow(); }
+        context::Context& getContext() { return context; }
         [[nodiscard]] float getDeltaTime() const { return deltaTime;}
 
         event_t onStartup;

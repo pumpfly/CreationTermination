@@ -24,7 +24,8 @@ namespace gl3::brewEngine::rendering {
 
         explicit SpriteComponent(ecs::guid_t owner, const char* spritePath);
 
-        explicit SpriteComponent(ecs::guid_t owner, const char* spritePath, glm::vec2 frameSize, int frames);
+        explicit SpriteComponent(ecs::guid_t owner, const char* spritePath, glm::vec2 frameSize,
+            int frameCount, float framesPerSecond);
 
         ~SpriteComponent() override { deleted = true; }
 
@@ -32,7 +33,10 @@ namespace gl3::brewEngine::rendering {
         glm::vec2 size;
 
         //Sprite Sheet Animation:
+        glm::vec2 frameSize;
         int frameCount = 0;
+        float framesPerSecond = 0;
+
         float spriteAnimTimer = 0.0f;
         int spriteAnimIndex = 0;
         glm::vec2 spriteFrameSize = glm::vec2(0, 0);

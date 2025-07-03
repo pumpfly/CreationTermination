@@ -28,13 +28,13 @@ void CTGame::start() {
     Witch = &entityManager.createEntity();
     WitchPlayer = &Witch->addComponent<PlayerComponent>();
     WitchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120));
-    WitchSprite = &Witch->addComponent<SpriteComponent>("sprites/witch_idleSprites.png", glm::vec2(680, 415), 4);
+    WitchSprite = &Witch->addComponent<SpriteComponent>("sprites/witch_idleSprites.png", glm::vec2(680, 415), 4, 10);
 
     //Main Enemy: Creature
     Creature = &entityManager.createEntity();
     CreatureEnemyComponent = &Creature->addComponent<EnemyComponent>(CREATURE);
     CreatureTransform = &Creature->addComponent<TransformComponent>(origin, glm::vec2(1100, 600), 0, glm::vec2(600/4, 500/4));
-    CreatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png", glm::vec2(600, 500), 1);
+    CreatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png", glm::vec2(600, 500), 1, 1);
 
     playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
     enemySystem = std::make_unique<EnemySystem>(*this, Creature);
