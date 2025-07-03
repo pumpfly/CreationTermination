@@ -30,8 +30,9 @@ void EnemySystem::smallEnemyBehavior(Game& game, TransformComponent* playerTrans
 
     if (distanceToWitch >= 0.5f || distanceToWitch <= -0.5f)
     {
-        smallEnemyTransfrom->localPosition.x = EnemySystem::lerp(smallEnemyTransfrom->localPosition.x, playerTransform->localPosition.x, game.getDeltaTime() * speed);
-        smallEnemyTransfrom->localPosition.y = EnemySystem::lerp(smallEnemyTransfrom->localPosition.y, playerTransform->localPosition.y, game.getDeltaTime() * speed);
+        smallEnemyTransfrom->localPosition.x = lerp(smallEnemyTransfrom->localPosition.x, playerTransform->localPosition.x, game.getDeltaTime() * speed);
+        smallEnemyTransfrom->localPosition.y = lerp(smallEnemyTransfrom->localPosition.y, playerTransform->localPosition.y, game.getDeltaTime() * speed);
     }
+    std::cout << smallEnemyTransfrom->localPosition.x << std::endl;
 }
 

@@ -14,7 +14,7 @@ using gl3::brewEngine::rendering::SpriteComponent;
 
 class EnemySystem : public System{
 public:
-    explicit EnemySystem(Game &game, Entity* Creature) : System(game)
+    explicit EnemySystem(Game &game, Entity* Creature, Entity* Witch) : System(game)
     {
         game.onBeforeUpdate.addListener([&, Creature] (Game &)
         {
@@ -51,9 +51,14 @@ public:
 
                 smallEnemies.push_back(Bat);
             }
-            for (int j = 0; j < smallEnemies.size(); j++)
+        });
+
+        game.onUpdate.addListener([&, Witch] (Game &)
+        {
+            for (Entity* enemy : smallEnemies)
             {
-                //TODO: call smallEnemyBehavior
+                TransformComponent* enemyTransform = &enemy->getComponent<TransformComponent>();
+                smallEnemyBehavior(game, &Witch->getComponent<TransformComponent>(), enemyTransform, 0.5f);
             }
         });
     }

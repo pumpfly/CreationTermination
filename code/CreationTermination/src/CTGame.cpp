@@ -37,7 +37,7 @@ void CTGame::start() {
     CreatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png", glm::vec2(600, 500), 1, 1);
 
     playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
-    enemySystem = std::make_unique<EnemySystem>(*this, Creature);
+    enemySystem = std::make_unique<EnemySystem>(*this, Creature, Witch);
 
 }
 
