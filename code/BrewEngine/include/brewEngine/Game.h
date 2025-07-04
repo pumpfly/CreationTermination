@@ -12,6 +12,7 @@
 #include "brewEngine/Events.h"
 #include "brewEngine/ecs/ComponentManager.h"
 #include "brewEngine/ecs/EntityManager.h"
+#include "brewEngine/collision/SpatialGridManager.h"
 #include "brewEngine/sceneGraph/TransformComponent.h"
 
 using gl3::brewEngine::sceneGraph::TransformComponent;
@@ -20,6 +21,9 @@ namespace gl3::brewEngine {
     namespace ecs {
         class EntityManager;
         class ComponentManager;
+    }
+    namespace collision {
+        class SpatialGridManager;
     }
 
     class Game {
@@ -42,6 +46,7 @@ namespace gl3::brewEngine {
 
         ecs::ComponentManager componentManager;
         ecs::EntityManager entityManager;
+        collision::SpatialGridManager spatialGridManager;
         TransformComponent *origin = nullptr;
 
         //countdown

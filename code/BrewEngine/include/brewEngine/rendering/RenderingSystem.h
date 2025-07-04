@@ -23,6 +23,8 @@ namespace gl3::brewEngine::rendering{
                     entityTransform = &entity->getComponent<TransformComponent>();
                     entitySprite = &entity->getComponent<SpriteComponent>();
 
+                    // Sprites meant for the Background need to render a copy of the sprite, which will be rendered directly
+                    // at the end of the original sprite.
                     if(game.componentManager.hasComponent<BackgroundComponent>(entity->guid())) {
                         background = &entity->getComponent<BackgroundComponent>();
                         SpriteRenderer::Instance().DrawSprite(
@@ -58,6 +60,7 @@ namespace gl3::brewEngine::rendering{
                 });
             });
         }
+        //in order for the Background to scroll, this method switches the position of the Sprite and its copy
         void scrollBackgroundSprite(TransformComponent* backgroundTransform, BackgroundComponent* background,
             bool isScrollingSideways, bool goesLeftOrUp, float deltaTime);
         glm::vec4 animateSpriteSheet(SpriteComponent* entitiesSprite, float deltaTime);

@@ -20,6 +20,7 @@ namespace gl3::brewEngine::rendering {
             sign = 1;
         }
 
+        // for horizontal background scrolling
         if(isScrollingSideways) {
             backgroundTransform->localPosition.x += offset * background->scrollingSpeed;
             background->copyPosition.x += offset * background->scrollingSpeed;
@@ -30,7 +31,7 @@ namespace gl3::brewEngine::rendering {
             else if(background->copyPosition.x <= sign* backgroundTransform->localScale.x) {
                 background->copyPosition.x = backgroundTransform->localPosition.x  + backgroundTransform->localScale.x;
             }
-        }
+        } // for vertical background scrolling
         else {
             backgroundTransform->localPosition.y += offset * background->scrollingSpeed;
             background->copyPosition.y += offset * background->scrollingSpeed;

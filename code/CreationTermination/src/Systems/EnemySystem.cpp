@@ -26,13 +26,29 @@ void EnemySystem::creatureMovement(Game& game, TransformComponent* creatureTrans
 
 void EnemySystem::smallEnemyBehavior(Game& game, TransformComponent* playerTransform, TransformComponent* smallEnemyTransfrom, float speed)
 {
+    std::mt19937 rng(dev());
+    std::uniform_real_distribution<> dist{-50, 50};
+    bool tooClose = false;
+
     auto distanceToWitch = glm::distance(smallEnemyTransfrom->localPosition, playerTransform->localPosition);
 
-    if (distanceToWitch >= 0.5f || distanceToWitch <= -0.5f)
+    if (distanceToWitch >= 0.5f && !tooClose)
     {
-        smallEnemyTransfrom->localPosition.x = lerp(smallEnemyTransfrom->localPosition.x, playerTransform->localPosition.x, game.getDeltaTime() * speed);
-        smallEnemyTransfrom->localPosition.y = lerp(smallEnemyTransfrom->localPosition.y, playerTransform->localPosition.y, game.getDeltaTime() * speed);
+        smallEnemyTransfrom->localPosition.x = lerp(smallEnemyTransfrom->localPosition.x, playerTransform->localPosition.x, game.getDeltaTime());
+        smallEnemyTransfrom->localPosition.y = lerp(smallEnemyTransfrom->localPosition.y, playerTransform->localPosition.y, game.getDeltaTime());
+        if(distanceToWitch > 0.5 && distanceToWitch < 0.6) {
+            tooClose = true;
+        }
     }
-    std::cout << smallEnemyTransfrom->localPosition.x << std::endl;
+    if(tooClose) {
+        float newPosition = dist(rng);
+        //TODO:: bats should not stay with the witch but should fly through her and back
+        smallEnemyTransfrom->localPosition.x = lerp(smallEnemyTransfrom->localPosition.x,
+            smallEnemyTransfrom->localPosition.x + newPosition, game.getDeltaTime());;
+        smallEnemyTransfrom->localPosition.y = lerp(smallEnemyTransfrom->localPosition.y,
+            smallEnemyTransfrom->localPosition.y + newPosition, game.getDeltaTime());;
+
+        tooClose = false;
+    }
 }
 

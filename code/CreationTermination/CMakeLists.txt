@@ -10,12 +10,8 @@ set(SOURCE_FILES
         src/CTGame.cpp
         src/Systems/EnemySystem.cpp
         src/Systems/EnemySystem.h
-        src/Systems/HealthSystem.h
-        src/Systems/HealthSystem.cpp
         src/Systems/MissileSystem.h
         src/Components/MissileComponent.h
-        src/Systems/CollisionSystem.h
-        src/Systems/CollisionSystem.cpp
         src/Systems/MissileSystem.cpp
         src/Systems/PlayerSystem.h
         src/Systems/PlayerSystem.cpp

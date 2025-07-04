@@ -4,7 +4,7 @@
 
 
 namespace gl3::brewEngine::ecs {
-    EntityManager::EntityManager(ComponentManager &componentManager,Game &game)
+    EntityManager::EntityManager(Game &game, ComponentManager &componentManager)
             : componentManager(componentManager) {
         game.onAfterUpdate.addListener([&](Game &) {
             purgeEntities();

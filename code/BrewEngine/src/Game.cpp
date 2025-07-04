@@ -7,16 +7,18 @@
 #include "brewEngine/sceneGraph/SceneGraphPruner.h"
 
 namespace gl3::brewEngine {
-    using Context = brewEngine::context::Context;
+    using Context = context::Context;
     using ecs::ComponentManager;
     using ecs::EntityManager;
+    using collision::SpatialGridManager;
     using sceneGraph::SceneGraphUpdater;
     using sceneGraph::SceneGraphPruner;
 
     Game::Game(int width, int height, const std::string &title) :
             context(width, height, title),
             componentManager(*this),
-            entityManager(componentManager, *this) {
+            entityManager(*this, componentManager),
+            spatialGridManager(*this, 150, width, height){
         //audio.init();
         //audio.setGlobalVolume(0.1f);
         origin = &entityManager.createEntity().addComponent<TransformComponent>();
@@ -29,7 +31,7 @@ namespace gl3::brewEngine {
         onStartup.invoke(*this);
         start();
         onAfterStartup.invoke(*this);
-        gl3::brewEngine::sceneGraph::SceneGraphUpdater::updateTransforms(*this);
+        SceneGraphUpdater::updateTransforms(*this);
         context.run([&](Context &ctx){
             input::Input::inputUpdate();
             onBeforeUpdate.invoke(*this);

@@ -12,10 +12,11 @@ namespace gl3::brewEngine {
 namespace gl3::brewEngine::ecs {
     class EntityManager {
     public:
-        EntityManager(ComponentManager &componentManager, Game &game);
+        EntityManager(Game &game, ComponentManager &componentManager);
 
         Entity& createEntity();
         [[nodiscard]] Entity& getEntity(guid_t guid);
+        [[nodiscard]] int getEntityCount(){return entities.size();}
         void deleteEntity(Entity &entity);
 
     private:

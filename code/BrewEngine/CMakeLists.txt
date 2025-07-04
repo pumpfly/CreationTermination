@@ -31,6 +31,9 @@ add_library(${ENGINE_NAME} ${HEADER_LIST} ${PRIVATE_HEADER_LIST} ${SOURCE_LIST}
         include/brewEngine/rendering/BackgroundComponent.h
         src/rendering/BackgroundComponent.cpp
         include/brewEngine/rendering/RenderingSystem.h
+        include/brewEngine/Collision/CollisionSystem.h
+        include/brewEngine/Collision/SpatialGridManager.h
+        include/brewEngine/collision/ColliderComponent.h
 )
 
 target_compile_features(${ENGINE_NAME} PRIVATE cxx_std_17)

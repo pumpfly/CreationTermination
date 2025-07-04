@@ -3,9 +3,11 @@
 #include <iostream>
 
 #include "../Components/MissileComponent.h"
+#include "brewEngine/collision/ColliderComponent.h"
 #include "brewEngine/rendering/SpriteComponent.h"
 
 using gl3::brewEngine::rendering::SpriteComponent;
+using gl3::brewEngine::collision::ColliderComponent;
 
 void PlayerSystem::playerMovement(Game &game, TransformComponent* witchTransform)  {
 
@@ -37,13 +39,14 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
             glm::vec2 offset = {forwardVec.x * witchTransform->localScale.x, witchTransform->localScale.y/2};
 
-            Entity* defaultMissile = &game.entityManager.createEntity();
-            MissileComponent* defaultMissileComponent = &defaultMissile->addComponent<MissileComponent>(400.0f, DEFAULT);
+            Entity* DefaultMissile = &game.entityManager.createEntity();
+            MissileComponent* defaultMissileComponent = &DefaultMissile->addComponent<MissileComponent>(400.0f, DEFAULT);
             TransformComponent* defaultMissileTransform =
-                &defaultMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
+                &DefaultMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - 90, glm::vec2(10, 10), 10);
-            SpriteComponent* missileSprite = &defaultMissile->addComponent<SpriteComponent>("sprites/a.png");
-            guid_t ID = defaultMissile->guid();
+            SpriteComponent* defaultMissileSprite = &DefaultMissile->addComponent<SpriteComponent>("sprites/a.png");
+            ColliderComponent* defaultMissileCollider = &DefaultMissile->addComponent<ColliderComponent>(PLAYER, [this](){});
+            guid_t ID = DefaultMissile->guid();
 
             witchPlayer->missilesShot++;
             if(witchPlayer->missilesShot == 100) {
@@ -62,7 +65,8 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 TransformComponent* wavetMissileTransform =
                 &WaveMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - (45.0f + (i * 10.0f)), glm::vec2(5, 5), 5);
-                SpriteComponent* missileSprite = &WaveMissile->addComponent<SpriteComponent>("sprites/a.png");
+                SpriteComponent* waveMissileSprite = &WaveMissile->addComponent<SpriteComponent>("sprites/a.png");
+                ColliderComponent* waveMissileCollider = &WaveMissile->addComponent<ColliderComponent>(PLAYER, [this](){});
                 if(witchPlayer->missilesShot == 150) {
                     auto &missile = game.entityManager.getEntity(waveMissiel->entity());
                     game.entityManager.deleteEntity(missile);
@@ -79,6 +83,7 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
             MissileComponent* chargeMissile;
             TransformComponent* chargeMissileTransform;
             SpriteComponent* chargeMissileSprite;
+
             guid_t currMissileID = -1;
 
             if(!witchPlayer->onlySingleMissile) {
@@ -88,6 +93,7 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 &ChargeMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - 90, glm::vec2(10, 10), 10);
                 chargeMissileSprite = &ChargeMissile->addComponent<SpriteComponent>("sprites/a.png");
+                ColliderComponent* chargeMissileCollider = &ChargeMissile->addComponent<ColliderComponent>(PLAYER, [this](){});
 
                 currMissileID = ChargeMissile->guid();
                 witchPlayer->currentMissileID = currMissileID; // Store for later use

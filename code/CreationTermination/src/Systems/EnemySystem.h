@@ -4,6 +4,7 @@
 #include <random>
 
 #include "../Components/EnemyComponent.h"
+#include "brewEngine/collision/ColliderComponent.h"
 #include "brewEngine/ecs/System.h"
 #include "brewEngine/rendering/SpriteComponent.h"
 
@@ -11,6 +12,7 @@ struct EnemyComponent;
 using gl3::brewEngine::ecs::System;
 using gl3::brewEngine::Game;
 using gl3::brewEngine::rendering::SpriteComponent;
+using gl3::brewEngine::collision::ColliderComponent;
 
 class EnemySystem : public System{
 public:
@@ -24,7 +26,6 @@ public:
         });
 
         game.onAfterStartup.addListener([&] (Game &) {
-            //TODO: For loop should end at random number between 5 and 15
 
             std::mt19937 rng(dev());
             std::uniform_int_distribution<> distEnemyCount{5, 20};
@@ -48,6 +49,7 @@ public:
                 EnemyComponent* bat = &Bat->addComponent<EnemyComponent>(MINIENEMY);
                 TransformComponent* batTransfrom = &Bat->addComponent<TransformComponent>(game.origin, glm::vec2(posXdist(rng), posY), 0, glm::vec2(50, 50));
                 SpriteComponent* batSprite = &Bat->addComponent<SpriteComponent>("sprites/bat_Sprites.png", glm::vec2(600, 500), 2, 5);
+                ColliderComponent* batCollider = &Bat->addComponent<ColliderComponent>(ENEMY, [this](){});
 
                 smallEnemies.push_back(Bat);
             }
