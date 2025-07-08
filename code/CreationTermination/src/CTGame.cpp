@@ -28,11 +28,24 @@ void CTGame::start() {
     //Player: Witch
     Witch = &entityManager.createEntity();
     witchPlayer = &Witch->addComponent<PlayerComponent>();
-    witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120));
+    witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 100);
     witchSprite = &Witch->addComponent<SpriteComponent>("sprites/witch_idleSprites.png", glm::vec2(680, 415), 4, 10);
     witchHealth = &Witch->addComponent<HealthComponent>(5);
     witchCollider = &Witch->addComponent<ColliderComponent>(PLAYER, [this]() {
-        witchHealth->health--;
+        if (witchCollider->isInvulnerable) {
+            witchCollider->invulnerabilityTimer -= deltaTime;
+            if (witchCollider->invulnerabilityTimer <= 0) witchCollider->isInvulnerable = false;
+        } else {
+            witchCollider->invulnerabilityTimer = 0;
+
+            if(witchHealth->health == 0) {
+                return;
+            }
+            --witchHealth->health;
+            witchCollider->invulnerabilityTimer = witchCollider->timeBetweenDamage;
+            witchCollider->isInvulnerable = true;
+
+        }
     });
 
     //Main Enemy: Creature
@@ -46,15 +59,24 @@ void CTGame::start() {
     playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
     enemySystem = std::make_unique<EnemySystem>(*this, Creature, Witch);
 
+    //UI
+    ////Healthbar
+    WitchBackgroundHealthBar = &entityManager.createEntity();
+    WitchBackgroundHealthBarTransform =
+        &WitchBackgroundHealthBar->addComponent<TransformComponent>(origin, glm::vec2(0, 0), 0, glm::vec2(100 * 1.5f, 30 * 1.5f));
+    WitchBackgroundHealthBarSprite = &WitchBackgroundHealthBar->addComponent<SpriteComponent>("sprites/healthbarBase.png");
+
+    WitchHealthQuad = &entityManager.createEntity();
+    WitchHealthQuadTransform =
+        &WitchHealthQuad->addComponent<TransformComponent>(WitchBackgroundHealthBarTransform, glm::vec2(15, 10), 0, glm::vec2(11*1.5, 14*1.5));
+    WitchHealthQuadSprite = &WitchHealthQuad->addComponent<SpriteComponent>("sprites/HealthQuad.png");
+
 }
 
 void CTGame::update(GLFWwindow *window) {
-    draw();
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
-
-    std::cout << witchHealth->health << std::endl;
 
     currentTime += deltaTime;
 
@@ -62,7 +84,4 @@ void CTGame::update(GLFWwindow *window) {
     renderSystem->scrollBackgroundSprite(backgroundTransform_Layer2, backgroundComponents_Layer2, true, true, deltaTime);
     renderSystem->scrollBackgroundSprite(backgroundTransform_Layer3, backgroundComponents_Layer3, true, true, deltaTime);
 
-}
-
-void CTGame::draw() {
 }

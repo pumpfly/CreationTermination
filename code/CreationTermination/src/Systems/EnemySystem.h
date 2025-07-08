@@ -47,7 +47,7 @@ public:
 
                 Entity* Bat = &game.entityManager.createEntity();
                 EnemyComponent* bat = &Bat->addComponent<EnemyComponent>(MINIENEMY);
-                TransformComponent* batTransfrom = &Bat->addComponent<TransformComponent>(game.origin, glm::vec2(posXdist(rng), posY), 0, glm::vec2(50, 50));
+                TransformComponent* batTransfrom = &Bat->addComponent<TransformComponent>(game.origin, glm::vec2(posXdist(rng), posY), 0, glm::vec2(50, 50), 50);
                 SpriteComponent* batSprite = &Bat->addComponent<SpriteComponent>("sprites/bat_Sprites.png", glm::vec2(600, 500), 2, 5);
                 ColliderComponent* batCollider = &Bat->addComponent<ColliderComponent>(ENEMY, [this](){});
 

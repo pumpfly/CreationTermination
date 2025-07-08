@@ -17,6 +17,7 @@ namespace gl3::brewEngine::sceneGraph {
             : localPosition(other.localPosition),
             localZRotation(other.localZRotation),
             localScale(other.localScale),
+            radius(other.radius),
             modelMatrix(other.modelMatrix),
             children(std::move(other.children)){
         owner = other.owner;

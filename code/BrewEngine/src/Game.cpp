@@ -32,6 +32,7 @@ namespace gl3::brewEngine {
         start();
         onAfterStartup.invoke(*this);
         SceneGraphUpdater::updateTransforms(*this);
+
         context.run([&](Context &ctx){
             input::Input::inputUpdate();
             onBeforeUpdate.invoke(*this);

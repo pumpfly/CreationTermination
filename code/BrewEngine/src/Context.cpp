@@ -3,6 +3,12 @@
 #include <stdexcept>
 #include "brewEngine/Context.h"
 
+#include <iostream>
+extern "C" {
+#include <leif.h>
+
+}
+
 namespace gl3::brewEngine::context {
     void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
         glViewport(0, 0, width, height);
@@ -33,20 +39,30 @@ namespace gl3::brewEngine::context {
         if(glGetError() != GL_NO_ERROR) {
             throw std::runtime_error("gl error");
         }
+
+        lf_init_glfw(width, height, window);
     }
 
-    void Context::run(const Context::Callback& update) {
+    void Context::run(const Callback& update) {
         glfwSetTime(1.0 / 60);
         while(!glfwWindowShouldClose(window)) {
             glClearColor(0.172f, 0.243f, 0.313f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             update(*this);
             glfwPollEvents();
+
+            /*
+            lf_begin();
+            if(lf_button("button")) {
+                std::cout << "wowowhowhwoh" << std::endl;
+            }
+            lf_end();*/
             glfwSwapBuffers(window);
         }
     }
 
     Context::~Context() {
+        lf_terminate();
         glfwTerminate();
     }
 }

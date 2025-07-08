@@ -32,7 +32,7 @@ private:
 
     void update(GLFWwindow *window) override;
 
-    void draw() override;
+    //void draw() override;
 
     //Systems
     std::unique_ptr<RenderingSystem> renderSystem;
@@ -42,21 +42,6 @@ private:
     std::unique_ptr<CollisionSystem> collisionSystem;
 
     // Entities and their componenets
-    //Player/Witch
-    Entity* Witch = nullptr;
-    PlayerComponent* witchPlayer = nullptr;
-    TransformComponent *witchTransform = nullptr;
-    SpriteComponent *witchSprite = nullptr;
-    ColliderComponent *witchCollider = nullptr;
-    HealthComponent *witchHealth = nullptr;
-
-    //Creature
-    Entity* Creature = nullptr;
-    EnemyComponent* creatureEnemyComponent = nullptr;
-    TransformComponent *creatureTransform = nullptr;
-    SpriteComponent *creatureSprite = nullptr;
-    ColliderComponent *creatureCollider = nullptr;
-    HealthComponent *creatureHealth = nullptr;
 
     //Background/Landscape
     Entity* Background_Layer1 = nullptr;
@@ -73,5 +58,40 @@ private:
     SpriteComponent* backgroundSprite_Layer3 = nullptr;
     TransformComponent* backgroundTransform_Layer3 = nullptr;
     BackgroundComponent* backgroundComponents_Layer3 = nullptr;
+
+    // Main Characters
+    ////Player/Witch
+    Entity* Witch = nullptr;
+    PlayerComponent* witchPlayer = nullptr;
+    TransformComponent *witchTransform = nullptr;
+    SpriteComponent *witchSprite = nullptr;
+    ColliderComponent *witchCollider = nullptr;
+    HealthComponent *witchHealth = nullptr;
+
+    ////Creature
+    Entity* Creature = nullptr;
+    EnemyComponent* creatureEnemyComponent = nullptr;
+    TransformComponent *creatureTransform = nullptr;
+    SpriteComponent *creatureSprite = nullptr;
+    ColliderComponent *creatureCollider = nullptr;
+    HealthComponent *creatureHealth = nullptr;
+
+    //UI
+    ////HealthBars
+    Entity* WitchBackgroundHealthBar = nullptr;
+    TransformComponent *WitchBackgroundHealthBarTransform = nullptr;
+    SpriteComponent *WitchBackgroundHealthBarSprite = nullptr;
+
+    Entity* WitchHealthQuad = nullptr;
+    TransformComponent *WitchHealthQuadTransform = nullptr;
+    SpriteComponent *WitchHealthQuadSprite = nullptr;
+
+    Entity* CreatureBackgroundHealthBar = nullptr;
+    TransformComponent *CreatureBackgroundHealthBarTransform = nullptr;
+    SpriteComponent *CreatureBackgroundHealthBarSprite = nullptr;
+
+    Entity* CreatureHealthQuad = nullptr;
+    TransformComponent *CreatureHealthQuadTransform = nullptr;
+    SpriteComponent *CreatureHealthQuadSprite = nullptr;
 
 };

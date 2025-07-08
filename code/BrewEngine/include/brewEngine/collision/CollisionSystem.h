@@ -12,6 +12,7 @@ namespace gl3::brewEngine::collision {
         public:
         explicit CollisionSystem(Game &game) : System(game) {
             game.onUpdate.addListener([&] (Game &) {
+                game.spatialGridManager.clearIDs();
                 //filling spatialGrid
                 game.componentManager.forEachComponent<ColliderComponent>([&](ColliderComponent& component){
                     Entity* Entity = &game.entityManager.getEntity(component.entity());
@@ -30,29 +31,28 @@ namespace gl3::brewEngine::collision {
                         game.spatialGridManager.cellAssignment(entityMinX, entityMaxX, entityMinY, entityMaxY, Entity->guid());
                     }
                 });
-            });
-            game.onUpdate.addListener([&] (Game &) {
-                    game.componentManager.forEachComponent<ColliderComponent>([&](ColliderComponent& component) {
-                        Entity* Entity = &game.entityManager.getEntity(component.entity());
-                        TransformComponent* entityTransform = &Entity->getComponent<TransformComponent>();
-                        glm::vec2 entityPosition = entityTransform->localPosition;
-                        int entityMinX = static_cast<int>(entityPosition.x);
-                        int entityMaxX = static_cast<int>(entityPosition.x) + entityTransform->localScale.x;
-                        int entityMinY = static_cast<int>(entityPosition.y);
-                        int entityMaxY = static_cast<int>(entityPosition.y) + entityTransform->localScale.y;
+                game.componentManager.forEachComponent<ColliderComponent>([&](ColliderComponent& component) {
+                    Entity* Entity = &game.entityManager.getEntity(component.entity());
+                    TransformComponent* entityTransform = &Entity->getComponent<TransformComponent>();
+                    glm::vec2 entityPosition = entityTransform->localPosition;
+                    int entityMinX = static_cast<int>(entityPosition.x);
+                    int entityMaxX = static_cast<int>(entityPosition.x) + entityTransform->localScale.x;
+                    int entityMinY = static_cast<int>(entityPosition.y);
+                    int entityMaxY = static_cast<int>(entityPosition.y) + entityTransform->localScale.y;
 
-                        std::vector<guid_t> collisionCandidates = game.spatialGridManager.queryForCollisionCandidates(entityMinX,
-                            entityMaxX, entityMinY, entityMaxY);
-
-                        for(int collisionCandidate : collisionCandidates) {
-                            auto other = &game.entityManager.getEntity(collisionCandidate);
-                            if(Entity == other){continue;}
-                            if(hasCollision(game, Entity, other)) {
-                                component.handleCollision();
-                            }
+                    std::vector<int> collisionCandidates = game.spatialGridManager.queryForCollisionCandidates(entityMinX,
+                        entityMaxX, entityMinY, entityMaxY);
+                    size_t n_candidates = collisionCandidates.size();
+                    for(int collisionCandidate : collisionCandidates) {
+                        auto other = &game.entityManager.getEntity(collisionCandidate);
+                        if(Entity == other){continue;}
+                        if(hasCollision(game, Entity, other)) {
+                            //TODO: Why is hasCollision always false
+                            component.handleCollision();
                         }
-                    });
+                    }
                 });
+            });
         }
 
         bool hasCollision(Game& game, Entity* entity, Entity* other);

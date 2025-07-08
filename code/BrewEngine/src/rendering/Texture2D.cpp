@@ -15,7 +15,6 @@
 #include "brewEngine/rendering/Shader.h"
 #include "brewEngine/Assets.h"
 
-#define STB_IMAGE_IMPLEMENTATION
 #include <iostream>
 #include <string>
 

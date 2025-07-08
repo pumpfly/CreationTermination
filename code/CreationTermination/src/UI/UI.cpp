@@ -3,3 +3,6 @@
 //
 
 #include "UI.h"
+
+void UI::drawUIelements() {
+}
