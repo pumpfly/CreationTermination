@@ -33,7 +33,7 @@ void EnemySystem::smallEnemyBehavior(Game& game, TransformComponent* smallEnemyT
     std::uniform_real_distribution<> waveLengthDist{90, 120};
     float waveLength = waveLengthDist(rng);
 
-    smallEnemyTransfrom->localPosition.y = cos(smallEnemyTransfrom->localPosition.x / waveLength) + YCoordinate;
+    smallEnemyTransfrom->localPosition.y = cos(smallEnemyTransfrom->localPosition.x / 50) + YCoordinate;
     smallEnemyTransfrom->localPosition.x--;
 
 }

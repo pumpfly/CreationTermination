@@ -28,32 +28,43 @@ public:
         game.onAfterStartup.addListener([&] (Game &) {
 
             std::mt19937 rng(dev());
-            std::uniform_int_distribution<> distEnemyCount{10, 30};
 
-            std::uniform_real_distribution<> posYdist{30.0f, 60};
-            float posY = posYdist(rng);
+            //std::uniform_real_distribution<> posYdist{50.0f, 70};
+            //float posY = posYdist(rng);
 
-            for(int i = 0; i < distEnemyCount(rng); i++) {
+            for(int i = 0; i < 4; i++) {
 
                 Entity* Bat = &game.entityManager.createEntity();
                 EnemyComponent* bat = &Bat->addComponent<EnemyComponent>(MINIENEMY);
-                TransformComponent* batTransfrom = &Bat->addComponent<TransformComponent>(game.origin, glm::vec2(game.getContext().getWindowWidth()-500, 10 + posY*i), 0, glm::vec2(50, 50), 50);
+                TransformComponent* batTransfrom = &Bat->addComponent<TransformComponent>(game.origin, glm::vec2(game.getContext().getWindowWidth()-500, 60 + 60*i*2.5f), 0, glm::vec2(50, 50), 50);
                 SpriteComponent* batSprite = &Bat->addComponent<SpriteComponent>("sprites/bat_Sprites.png", glm::vec2(600, 500), 2, 5);
                 ColliderComponent* batCollider = &Bat->addComponent<ColliderComponent>(ENEMY, [this](){});
 
-                std::cout << batTransfrom->localPosition.x << " " << batTransfrom->localPosition.y << std::endl;
+                //std::cout << batTransfrom->localPosition.x << " " << batTransfrom->localPosition.y << std::endl;
 
                 smallEnemies.push_back(Bat);
             }
         });
 
-        game.onUpdate.addListener([&, Witch] (Game &)
+        game.onUpdate.addListener([&] (Game &)
         {
-            for (Entity* enemy : smallEnemies)
-            {
-                TransformComponent* enemyTransform = &enemy->getComponent<TransformComponent>();
-                smallEnemyBehavior(game, enemyTransform, enemyTransform->localPosition.y);
-            }
+            game.componentManager.forEachComponent<EnemyComponent>([&] (EnemyComponent& enemy) {
+                Entity* smallEnemy = nullptr;
+                TransformComponent* smallEnemyTransform = nullptr;
+                if(enemy.type == MINIENEMY) {
+                    smallEnemy = &game.entityManager.getEntity(enemy.entity());
+                    smallEnemyTransform = &smallEnemy->getComponent<TransformComponent>();
+                }
+                if(smallEnemyTransform != nullptr ) {
+                    if(smallEnemyTransform->localPosition.x < 0) {
+                        game.entityManager.deleteEntity(game.entityManager.getEntity(smallEnemyTransform->entity()));
+                        smallEnemies.erase(smallEnemies.begin());
+                    }
+                    else {
+                        smallEnemyBehavior(game, smallEnemyTransform, smallEnemyTransform->localPosition.y);
+                    }
+                }
+            });
         });
     }
 
