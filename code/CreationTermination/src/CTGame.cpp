@@ -33,7 +33,14 @@ void CTGame::start() {
     witchBackgroundHealthBarSprite = &WitchBackgroundHealthBar->addComponent<SpriteComponent>("sprites/healthbarBase.png");
     // The background of the healthbar does not have an UIComponent, because it is not interactive or changes
 
-    for (int i = 0; i < 5; i++)
+    //Player: Witch
+    Witch = &entityManager.createEntity();
+    witchPlayer = &Witch->addComponent<PlayerComponent>();
+    witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 100);
+    witchSprite = &Witch->addComponent<SpriteComponent>("sprites/witch_idleSprites.png", glm::vec2(680, 415), 4, 10);
+    witchHealth = &Witch->addComponent<HealthComponent>(5);
+    //Drawing the UI representation of the Players Health
+    for (int i = 0; i < witchHealth->health; i++)
     {
         WitchHealthQuad = &entityManager.createEntity();
         witchHealthQuadComponent = &WitchHealthQuad->addComponent<UiComponent>();
@@ -43,15 +50,10 @@ void CTGame::start() {
 
         healthQuads.push_back(WitchHealthQuad);
     }
-
-    //Player: Witch
-    Witch = &entityManager.createEntity();
-    witchPlayer = &Witch->addComponent<PlayerComponent>();
-    witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 100);
-    witchSprite = &Witch->addComponent<SpriteComponent>("sprites/witch_idleSprites.png", glm::vec2(680, 415), 4, 10);
-    witchHealth = &Witch->addComponent<HealthComponent>(5);
     witchCollider = &Witch->addComponent<ColliderComponent>(PLAYER, [this]() {
-        if (witchCollider->isInvulnerable) {
+        //This method will only be called on collision
+            // this implementation reduces the health of the Player/Witch
+        if (witchCollider->isInvulnerable) { // the invulnerable state serves the prevention of immediate death
             witchCollider->invulnerabilityTimer -= deltaTime;
             if (witchCollider->invulnerabilityTimer <= 0) witchCollider->isInvulnerable = false;
         } else {
@@ -62,6 +64,7 @@ void CTGame::start() {
             witchCollider->invulnerabilityTimer = witchCollider->timeBetweenDamage;
             witchCollider->isInvulnerable = true;
 
+            //remove a HealthQuad
             this->entityManager.deleteEntity(this->entityManager.getEntity(healthQuads[witchHealth->health]->guid()));
         }
     });
@@ -74,6 +77,7 @@ void CTGame::start() {
     creatureHealth = &Creature->addComponent<HealthComponent>(8);
     creatureCollider = &Creature->addComponent<ColliderComponent>(ENEMY, [this](){});
 
+    // Systems that have to be initialized after the creation of Entities
     playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
     enemySystem = std::make_unique<EnemySystem>(*this, Creature, Witch);
 

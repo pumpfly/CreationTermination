@@ -28,28 +28,20 @@ public:
         game.onAfterStartup.addListener([&] (Game &) {
 
             std::mt19937 rng(dev());
-            std::uniform_int_distribution<> distEnemyCount{5, 20};
+            std::uniform_int_distribution<> distEnemyCount{10, 30};
+
+            std::uniform_real_distribution<> posYdist{30.0f, 60};
+            float posY = posYdist(rng);
 
             for(int i = 0; i < distEnemyCount(rng); i++) {
 
-                std::uniform_int_distribution<> posXdist{game.getContext().getWindowWidth()/2, game.getContext().getWindowWidth()};
-                std::uniform_int_distribution<> posYdist{0, 1};
-                int posY;
-
-                if (posYdist(rng) == 0)
-                {
-                    posY = -20;
-                }
-                else
-                {
-                    posY = game.getContext().getWindowHeight();
-                }
-
                 Entity* Bat = &game.entityManager.createEntity();
                 EnemyComponent* bat = &Bat->addComponent<EnemyComponent>(MINIENEMY);
-                TransformComponent* batTransfrom = &Bat->addComponent<TransformComponent>(game.origin, glm::vec2(posXdist(rng), posY), 0, glm::vec2(50, 50), 50);
+                TransformComponent* batTransfrom = &Bat->addComponent<TransformComponent>(game.origin, glm::vec2(game.getContext().getWindowWidth()-500, 10 + posY*i), 0, glm::vec2(50, 50), 50);
                 SpriteComponent* batSprite = &Bat->addComponent<SpriteComponent>("sprites/bat_Sprites.png", glm::vec2(600, 500), 2, 5);
                 ColliderComponent* batCollider = &Bat->addComponent<ColliderComponent>(ENEMY, [this](){});
+
+                std::cout << batTransfrom->localPosition.x << " " << batTransfrom->localPosition.y << std::endl;
 
                 smallEnemies.push_back(Bat);
             }
@@ -60,7 +52,7 @@ public:
             for (Entity* enemy : smallEnemies)
             {
                 TransformComponent* enemyTransform = &enemy->getComponent<TransformComponent>();
-                smallEnemyBehavior(game, &Witch->getComponent<TransformComponent>(), enemyTransform, 0.5f);
+                smallEnemyBehavior(game, enemyTransform, enemyTransform->localPosition.y);
             }
         });
     }
@@ -68,7 +60,7 @@ public:
     void creatureMovement(Game &game, TransformComponent* creatureTransform, EnemyComponent* creature);
     void creatureDefense();
 
-    void smallEnemyBehavior(Game& game, TransformComponent* playerTransform, TransformComponent* smallEnemyTransfrom, float speed);
+    void smallEnemyBehavior(Game& game, TransformComponent* smallEnemyTransfrom, float Ycoordinate);
     void mediumEnemiesBehavior();
     void bigEnemiesBehavior();
 
