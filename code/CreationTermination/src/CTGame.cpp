@@ -25,6 +25,25 @@ void CTGame::start() {
     backgroundComponents_Layer1 = &Background_Layer1->addComponent<BackgroundComponent>(glm::vec2(1280*3, 0), 800.0f);
     backgroundSprite_Layer1 = &Background_Layer1->addComponent<SpriteComponent>("background/forest_1stLayer.png");
 
+    //UI
+    ////Healthbar
+    WitchBackgroundHealthBar = &entityManager.createEntity();
+    witchBackgroundHealthBarTransform =
+        &WitchBackgroundHealthBar->addComponent<TransformComponent>(origin, glm::vec2(0, 0), 0, glm::vec2(100 * 1.5f, 30 * 1.5f));
+    witchBackgroundHealthBarSprite = &WitchBackgroundHealthBar->addComponent<SpriteComponent>("sprites/healthbarBase.png");
+    // The background of the healthbar does not have an UIComponent, because it is not interactive or changes
+
+    for (int i = 0; i < 5; i++)
+    {
+        WitchHealthQuad = &entityManager.createEntity();
+        witchHealthQuadComponent = &WitchHealthQuad->addComponent<UiComponent>();
+        witchHealthQuadTransform = &WitchHealthQuad->addComponent<TransformComponent>(witchBackgroundHealthBarTransform, glm::vec2(15 + 25 * i, 10), 0,
+                                                     glm::vec2(11 * 2, 14 * 1.5));
+        witchHealthQuadSprite = &WitchHealthQuad->addComponent<SpriteComponent>("sprites/HealthQuad.png");
+
+        healthQuads.push_back(WitchHealthQuad);
+    }
+
     //Player: Witch
     Witch = &entityManager.createEntity();
     witchPlayer = &Witch->addComponent<PlayerComponent>();
@@ -36,8 +55,6 @@ void CTGame::start() {
             witchCollider->invulnerabilityTimer -= deltaTime;
             if (witchCollider->invulnerabilityTimer <= 0) witchCollider->isInvulnerable = false;
         } else {
-            witchCollider->invulnerabilityTimer = 0;
-
             if(witchHealth->health == 0) {
                 return;
             }
@@ -45,6 +62,7 @@ void CTGame::start() {
             witchCollider->invulnerabilityTimer = witchCollider->timeBetweenDamage;
             witchCollider->isInvulnerable = true;
 
+            this->entityManager.deleteEntity(this->entityManager.getEntity(healthQuads[witchHealth->health]->guid()));
         }
     });
 
@@ -58,18 +76,6 @@ void CTGame::start() {
 
     playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
     enemySystem = std::make_unique<EnemySystem>(*this, Creature, Witch);
-
-    //UI
-    ////Healthbar
-    WitchBackgroundHealthBar = &entityManager.createEntity();
-    WitchBackgroundHealthBarTransform =
-        &WitchBackgroundHealthBar->addComponent<TransformComponent>(origin, glm::vec2(0, 0), 0, glm::vec2(100 * 1.5f, 30 * 1.5f));
-    WitchBackgroundHealthBarSprite = &WitchBackgroundHealthBar->addComponent<SpriteComponent>("sprites/healthbarBase.png");
-
-    WitchHealthQuad = &entityManager.createEntity();
-    WitchHealthQuadTransform =
-        &WitchHealthQuad->addComponent<TransformComponent>(WitchBackgroundHealthBarTransform, glm::vec2(15, 10), 0, glm::vec2(11*1.5, 14*1.5));
-    WitchHealthQuadSprite = &WitchHealthQuad->addComponent<SpriteComponent>("sprites/HealthQuad.png");
 
 }
 

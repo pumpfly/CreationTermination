@@ -11,6 +11,7 @@
 #include "Systems/PlayerSystem.h"
 #include "brewEngine/rendering/RenderingSystem.h"
 #include "Components/HealthComponent.h"
+#include "Components/UiComponent.h"
 #include "Systems/EnemySystem.h"
 
 
@@ -79,19 +80,13 @@ private:
     //UI
     ////HealthBars
     Entity* WitchBackgroundHealthBar = nullptr;
-    TransformComponent *WitchBackgroundHealthBarTransform = nullptr;
-    SpriteComponent *WitchBackgroundHealthBarSprite = nullptr;
+    TransformComponent *witchBackgroundHealthBarTransform = nullptr;
+    SpriteComponent *witchBackgroundHealthBarSprite = nullptr;
 
     Entity* WitchHealthQuad = nullptr;
-    TransformComponent *WitchHealthQuadTransform = nullptr;
-    SpriteComponent *WitchHealthQuadSprite = nullptr;
-
-    Entity* CreatureBackgroundHealthBar = nullptr;
-    TransformComponent *CreatureBackgroundHealthBarTransform = nullptr;
-    SpriteComponent *CreatureBackgroundHealthBarSprite = nullptr;
-
-    Entity* CreatureHealthQuad = nullptr;
-    TransformComponent *CreatureHealthQuadTransform = nullptr;
-    SpriteComponent *CreatureHealthQuadSprite = nullptr;
+    TransformComponent *witchHealthQuadTransform = nullptr;
+    SpriteComponent *witchHealthQuadSprite = nullptr;
+    UiComponent *witchHealthQuadComponent = nullptr;
+    std::vector<Entity*> healthQuads;
 
 };
