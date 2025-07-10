@@ -36,7 +36,7 @@ void CTGame::start() {
     //Player: Witch
     Witch = &entityManager.createEntity();
     witchPlayer = &Witch->addComponent<PlayerComponent>();
-    witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 100);
+    witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 70);
     witchSprite = &Witch->addComponent<SpriteComponent>("sprites/witch_idleSprites.png", glm::vec2(680, 415), 4, 10);
     witchHealth = &Witch->addComponent<HealthComponent>(5);
     //Drawing the UI representation of the Players Health

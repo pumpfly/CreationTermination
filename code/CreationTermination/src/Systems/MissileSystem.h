@@ -31,5 +31,4 @@ class MissileSystem : public System{
     }
 
     void updateMissiles(Game& game, TransformComponent* missileTransform, MissileComponent* missileComponent);
-    //void drawMissiles(Game& game, TransformComponent* missileTransform, SpriteComponent* missileSprite);
 };

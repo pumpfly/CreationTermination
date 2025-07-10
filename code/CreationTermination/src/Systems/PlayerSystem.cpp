@@ -45,7 +45,10 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 &DefaultMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - 90, glm::vec2(10, 10), 10);
             SpriteComponent* defaultMissileSprite = &DefaultMissile->addComponent<SpriteComponent>("sprites/a.png");
-            ColliderComponent* defaultMissileCollider = &DefaultMissile->addComponent<ColliderComponent>(PLAYER, [this](){});
+            ColliderComponent* defaultMissileCollider
+                = &DefaultMissile->addComponent<ColliderComponent>(PLAYER, [this]() {
+
+                });
             guid_t ID = DefaultMissile->guid();
 
             witchPlayer->missilesShot++;
