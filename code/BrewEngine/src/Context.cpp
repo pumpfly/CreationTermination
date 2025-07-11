@@ -4,10 +4,7 @@
 #include "brewEngine/Context.h"
 
 #include <iostream>
-extern "C" {
-#include <leif.h>
 
-}
 
 namespace gl3::brewEngine::context {
     void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
@@ -39,8 +36,6 @@ namespace gl3::brewEngine::context {
         if(glGetError() != GL_NO_ERROR) {
             throw std::runtime_error("gl error");
         }
-
-        lf_init_glfw(width, height, window);
     }
 
     void Context::run(const Callback& update) {
@@ -50,19 +45,11 @@ namespace gl3::brewEngine::context {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             update(*this);
             glfwPollEvents();
-
-            /*
-            lf_begin();
-            if(lf_button("button")) {
-                std::cout << "wowowhowhwoh" << std::endl;
-            }
-            lf_end();*/
             glfwSwapBuffers(window);
         }
     }
 
     Context::~Context() {
-        lf_terminate();
         glfwTerminate();
     }
 }

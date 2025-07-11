@@ -17,11 +17,7 @@ set(SOURCE_FILES
         src/Systems/PlayerSystem.cpp
         src/Components/PlayerComponent.h
         src/Components/EnemyComponent.h
-        src/UI/UI.cpp
-        src/UI/UI.h
         src/Components/UiComponent.h
-        src/Systems/UISystem.cpp
-        src/Systems/UISystem.h
 )
 
 # set executable name

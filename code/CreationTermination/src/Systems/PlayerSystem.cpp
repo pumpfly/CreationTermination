@@ -45,15 +45,15 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 &DefaultMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - 90, glm::vec2(10, 10), 10);
             SpriteComponent* defaultMissileSprite = &DefaultMissile->addComponent<SpriteComponent>("sprites/a.png");
-            ColliderComponent* defaultMissileCollider
-                = &DefaultMissile->addComponent<ColliderComponent>(PLAYER, [this]() {
-
+            ColliderComponent* defaultMissileCollider = &DefaultMissile->addComponent<ColliderComponent>
+            (PLAYER, [&game, DefaultMissile]() {
+                    if(DefaultMissile->isDeleted()) return;
+                    game.entityManager.deleteEntity(*DefaultMissile);
                 });
-            guid_t ID = DefaultMissile->guid();
 
             witchPlayer->missilesShot++;
             if(witchPlayer->missilesShot == 100) {
-                auto &missile = game.entityManager.getEntity(defaultMissileComponent->entity());
+                auto &missile = game.entityManager.getEntity(DefaultMissile->guid());
                 game.entityManager.deleteEntity(missile);
             }
             game.countdown = game.countdownReset;
@@ -62,52 +62,90 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
             auto angle = glm::radians(witchTransform->localZRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
             glm::vec2 offset = {forwardVec.x * witchTransform->localScale.x, witchTransform->localScale.y/2};
+
+            Entity* WaveMissile = nullptr;
+            MissileComponent* waveMissiel = nullptr;
+            TransformComponent* wavetMissileTransform = nullptr;
+            SpriteComponent* waveMissileSprite = nullptr;
+            ColliderComponent* waveMissileCollider = nullptr;
             for(int i = 0; i <= 8; i++) {
-                Entity* WaveMissile = &game.entityManager.createEntity();
-                MissileComponent* waveMissiel = &WaveMissile->addComponent<MissileComponent>(400.0f, WAVE);
-                TransformComponent* wavetMissileTransform =
+                WaveMissile = &game.entityManager.createEntity();
+                waveMissiel = &WaveMissile->addComponent<MissileComponent>(400.0f, WAVE);
+                wavetMissileTransform =
                 &WaveMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - (45.0f + (i * 10.0f)), glm::vec2(5, 5), 5);
-                SpriteComponent* waveMissileSprite = &WaveMissile->addComponent<SpriteComponent>("sprites/a.png");
-                ColliderComponent* waveMissileCollider = &WaveMissile->addComponent<ColliderComponent>(PLAYER, [this](){});
-                if(witchPlayer->missilesShot == 150) {
-                    auto &missile = game.entityManager.getEntity(waveMissiel->entity());
-                    game.entityManager.deleteEntity(missile);
-                }
-                game.countdown = game.countdownReset;
+                waveMissileSprite = &WaveMissile->addComponent<SpriteComponent>("sprites/a.png");
+                waveMissileCollider = &WaveMissile->addComponent<ColliderComponent>(PLAYER, [&game, WaveMissile, witchPlayer]{
+                    if(WaveMissile->isDeleted()) return;
+                    if(WaveMissile != nullptr) {
+                        game.entityManager.deleteEntity(*WaveMissile);
+                        witchPlayer->missilesShot--;
+                    }
+                });
             }
+            if(witchPlayer->missilesShot == 150) {
+                if(WaveMissile != nullptr) {
+                    auto &missile = game.entityManager.getEntity(WaveMissile->guid());
+                    game.entityManager.deleteEntity(missile);
+                    witchPlayer->missilesShot--;
+                }
+            }
+            game.countdown = game.countdownReset;
         }
         if(Input::IsKeyDown(Input::KEY_F)) {
+            witchPlayer->chargingMissile = true;
             auto angle = glm::radians(witchTransform->localZRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
             glm::vec2 offset {forwardVec.x * witchTransform->localScale.x, witchTransform->localScale.y / 2 - 10};
 
-            Entity* ChargeMissile;
-            MissileComponent* chargeMissile;
-            TransformComponent* chargeMissileTransform;
-            SpriteComponent* chargeMissileSprite;
+            Entity* ChargeMissile = nullptr;
+            MissileComponent* chargeMissile = nullptr;
+            TransformComponent* chargeMissileTransform = nullptr;
+            SpriteComponent* chargeMissileSprite= nullptr;
+            HealthComponent* chargeMissileHealth= nullptr;
+            ColliderComponent* chargeMissileCollider= nullptr;
 
             guid_t currMissileID = -1;
 
-            if(!witchPlayer->onlySingleMissile) {
+            if(!witchPlayer->isCreatingSingleMissile) {
+                //Creating the Chargemissile
                 ChargeMissile = &game.entityManager.createEntity();
                 chargeMissile = &ChargeMissile->addComponent<MissileComponent>(400.0f, CHARGE);
                 chargeMissileTransform =
                 &ChargeMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - 90, glm::vec2(10, 10), 10);
                 chargeMissileSprite = &ChargeMissile->addComponent<SpriteComponent>("sprites/a.png");
-                ColliderComponent* chargeMissileCollider = &ChargeMissile->addComponent<ColliderComponent>(PLAYER, [this](){});
-
+                chargeMissileHealth = &ChargeMissile->addComponent<HealthComponent>(3);
+                chargeMissileCollider = &ChargeMissile->addComponent<ColliderComponent>
+                (PLAYER, [&game, witchPlayer, chargeMissileHealth, ChargeMissile, chargeMissileTransform]() {
+                    if(ChargeMissile->isDeleted()) return;
+                    //TODO: it does not get inside this if loop because the keyRelease function is not working properly
+                    if(!witchPlayer->chargingMissile) {
+                        if(chargeMissileHealth->health == 0) {
+                            game.entityManager.deleteEntity(*ChargeMissile);
+                        }
+                        else {
+                            chargeMissileHealth->health--;
+                            chargeMissileTransform->localScale.x -= chargeMissileTransform->localScale.x/3;
+                            chargeMissileTransform->localScale.y -= chargeMissileTransform->localScale.y/3;
+                            chargeMissileTransform->radius -= chargeMissileTransform->radius/3;
+                        }
+                    }
+                });
                 currMissileID = ChargeMissile->guid();
                 witchPlayer->currentMissileID = currMissileID; // Store for later use
+
             }
             else {
+                // preventing nullpointer exceptions
                 currMissileID = witchPlayer->currentMissileID;
                 if(currMissileID != -1) {
                     chargeMissileTransform = &game.entityManager.getEntity(currMissileID).getComponent<TransformComponent>();
                 }
             }
+
             if(currMissileID != -1 && chargeMissileTransform) {
+                //While Key is down ChargingMissile grows in size, but only up to 50 x 50
                 if(chargeMissileTransform->localScale.x <= 50.0f) {
                     witchPlayer->missileTempSize = (witchPlayer->missileTempSize + 100.0f) * game.getDeltaTime();
                     game.entityManager.getEntity(currMissileID).getComponent<TransformComponent>().localScale += witchPlayer->missileTempSize;
@@ -116,18 +154,19 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 chargeMissileTransform->localPosition = witchTransform->localPosition + offset;
             }
 
-            witchPlayer->onlySingleMissile = true;
+            witchPlayer->isCreatingSingleMissile = true;
 
-            /*if(currMissileID != -1 && chargeMissileTransform && witchPlayer->missilesShot == 10) {
-                auto &missile = game.entityManager.getEntity(game.entityManager.getEntity(currMissileID).getComponent<TransformComponent>().localScale.x->entity());
+            if(currMissileID != -1 && chargeMissileTransform && witchPlayer->missilesShot == 10) {
+                auto &missile = game.entityManager.getEntity(game.entityManager.getEntity(currMissileID).guid());
                 game.entityManager.deleteEntity(missile);
-            }*/
+            }
 
         }
         if(Input::IsKeyReleased(Input::KEY_F)) {
             //TODO: isKeyRealeased is broken: fix it
             std::cout << "released F" << std::endl;
-            witchPlayer->onlySingleMissile = false;
+            witchPlayer->chargingMissile = false;
+            witchPlayer->isCreatingSingleMissile = false;
         }
     }
 }

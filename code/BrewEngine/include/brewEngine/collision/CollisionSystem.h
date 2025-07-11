@@ -47,7 +47,7 @@ namespace gl3::brewEngine::collision {
                         auto other = &game.entityManager.getEntity(collisionCandidate);
                         if(Entity == other){continue;}
                         if(hasCollision(game, Entity, other)) {
-                            //TODO: Why is hasCollision always false
+                            component.currCollidingEntity = other;
                             component.handleCollision();
                         }
                     }

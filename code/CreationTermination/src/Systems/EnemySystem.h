@@ -4,6 +4,8 @@
 #include <random>
 
 #include "../Components/EnemyComponent.h"
+#include "../Components/MissileComponent.h"
+#include "../Components/PlayerComponent.h"
 #include "brewEngine/collision/ColliderComponent.h"
 #include "brewEngine/ecs/System.h"
 #include "brewEngine/rendering/SpriteComponent.h"
@@ -33,15 +35,37 @@ public:
             //float posY = posYdist(rng);
 
             for(int i = 0; i < 4; i++) {
-
                 Entity* Bat = &game.entityManager.createEntity();
                 EnemyComponent* bat = &Bat->addComponent<EnemyComponent>(MINIENEMY);
-                TransformComponent* batTransfrom = &Bat->addComponent<TransformComponent>(game.origin, glm::vec2(game.getContext().getWindowWidth()-500, 60 + 60*i*2.5f), 0, glm::vec2(50, 50), 50);
+                TransformComponent* batTransfrom =
+                    &Bat->addComponent<TransformComponent>(game.origin, glm::vec2(game.getContext().getWindowWidth()-500, 60 + 60*i*2.5f), 0, glm::vec2(50, 50), 50);
                 SpriteComponent* batSprite = &Bat->addComponent<SpriteComponent>("sprites/bat_Sprites.png", glm::vec2(600, 500), 2, 5);
-                ColliderComponent* batCollider = &Bat->addComponent<ColliderComponent>(ENEMY, [this](){});
+                HealthComponent* batHealth = &Bat->addComponent<HealthComponent>(1);
+                ColliderComponent* batCollider = &Bat->addComponent<ColliderComponent>(ENEMY, [&game, &batHealth, Bat]() {
+                    if(Bat->isDeleted()) return;
+                    if(batHealth->health == 0) {
+                        game.entityManager.deleteEntity(*Bat);
+                        return;
+                    }
+                    ColliderComponent* collider = &Bat->getComponent<ColliderComponent>();
+                    if(!collider || !collider->currCollidingEntity) return;
 
-                //std::cout << batTransfrom->localPosition.x << " " << batTransfrom->localPosition.y << std::endl;
-
+                    Entity* collidingEntity = collider->currCollidingEntity;
+                        if(collidingEntity && !collidingEntity->isDeleted()) {
+                            if(game.componentManager.hasComponent<MissileComponent>(collidingEntity->guid())) {
+                                MissileComponent& missile = collidingEntity->getComponent<MissileComponent>();
+                                if(missile.type == WAVE) {
+                                    batHealth->health = batHealth->health - 0.5f;
+                                }
+                                else{
+                                    batHealth->health = 0;
+                                }
+                            }
+                            else{
+                                batHealth->health = 0;
+                            }
+                        }
+                });
                 smallEnemies.push_back(Bat);
             }
         });

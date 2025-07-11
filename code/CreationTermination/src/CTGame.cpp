@@ -1,5 +1,11 @@
 #include "CTGame.h"
 
+#include <charconv>
+extern "C" {
+#include <leif.h>
+
+}
+
 #include "brewEngine/rendering/SpriteRenderer.h"
 
 
@@ -50,19 +56,22 @@ void CTGame::start() {
 
         healthQuads.push_back(WitchHealthQuad);
     }
-    witchCollider = &Witch->addComponent<ColliderComponent>(PLAYER, [this]() {
+    witchCollider = &Witch->addComponent<ColliderComponent>(PLAYER, [this] {
         //This method will only be called on collision
             // this implementation reduces the health of the Player/Witch
-        if (witchCollider->isInvulnerable) { // the invulnerable state serves the prevention of immediate death
-            witchCollider->invulnerabilityTimer -= deltaTime;
-            if (witchCollider->invulnerabilityTimer <= 0) witchCollider->isInvulnerable = false;
+        ColliderComponent* collider = &Witch->getComponent<ColliderComponent>();
+        if (collider->isInvulnerable) { // the invulnerable state serves the prevention of immediate death
+            while(collider->invulnerabilityTimer > 0) {
+                collider->invulnerabilityTimer -= deltaTime;
+            }
+            collider->isInvulnerable = false;
         } else {
             if(witchHealth->health == 0) {
                 return;
             }
             --witchHealth->health;
-            witchCollider->invulnerabilityTimer = witchCollider->timeBetweenDamage;
-            witchCollider->isInvulnerable = true;
+            collider->invulnerabilityTimer = collider->timeBetweenDamage;
+            collider->isInvulnerable = true;
 
             //remove a HealthQuad
             this->entityManager.deleteEntity(this->entityManager.getEntity(healthQuads[witchHealth->health]->guid()));
@@ -72,22 +81,50 @@ void CTGame::start() {
     //Main Enemy: Creature
     Creature = &entityManager.createEntity();
     creatureEnemyComponent = &Creature->addComponent<EnemyComponent>(CREATURE);
-    creatureTransform = &Creature->addComponent<TransformComponent>(origin, glm::vec2(1100, 600), 0, glm::vec2(600/4, 500/4));
+    creatureTransform = &Creature->addComponent<TransformComponent>(origin, glm::vec2(1100, 600), 0, glm::vec2(600/4, 500/4), 200);
     creatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png", glm::vec2(600, 500), 1, 1);
     creatureHealth = &Creature->addComponent<HealthComponent>(8);
-    creatureCollider = &Creature->addComponent<ColliderComponent>(ENEMY, [this](){});
+    creatureCollider = &Creature->addComponent<ColliderComponent>(ENEMY, [this]() {
+        //This method will only be called on collision
+            // this implementation reduces the health of the Player/Witch
+        if (creatureCollider->isInvulnerable) { // the invulnerable state serves the prevention of immediate death
+            creatureCollider->invulnerabilityTimer -= deltaTime;
+            if (creatureCollider->invulnerabilityTimer <= 0) creatureCollider->isInvulnerable = false;
+        } else {
+            if(this->currScore == maxScore) {
+                std::cout << "You won!" << std::endl;
+                return;
+            }
+            this->currScore = this->currScore + 150;
+            std::cout << this->currScore << std::endl;
+            creatureCollider->invulnerabilityTimer = creatureCollider->timeBetweenDamage;
+            creatureCollider->isInvulnerable = true;
+        }
+    });
 
     // Systems that have to be initialized after the creation of Entities
     playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
     enemySystem = std::make_unique<EnemySystem>(*this, Creature, Witch);
 
+    //UI
+    //lf_init_glfw(this->getContext().getWindowWidth(), this->getContext().getWindowHeight(), this->getContext().getWindow());
+
 }
 
 void CTGame::update(GLFWwindow *window) {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        lf_terminate();
         glfwSetWindowShouldClose(window, true);
     }
-
+    /*
+    lf_begin();
+    std::string s = std::to_string(this->currScore);
+    // Center the text horizontally
+    lf_set_ptr_x_absolute((this->getContext().getWindowWidth() - lf_text_dimension(s.c_str()).x) / 2.0f);
+    lf_color_alpha({1,1,1}, 1);
+    lf_text(s.c_str());
+    lf_end();
+    */
     currentTime += deltaTime;
 
     renderSystem->scrollBackgroundSprite(backgroundTransform_Layer1, backgroundComponents_Layer1, true, true, deltaTime);

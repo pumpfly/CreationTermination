@@ -25,12 +25,13 @@ namespace gl3::brewEngine::collision {
 
     public:
         std::function <void()> handleCollision;
+        Entity* currCollidingEntity = nullptr;
 
         CollisionCategory type;
 
         bool isInvulnerable = false;
         bool gotHit = false;
-        const float timeBetweenDamage = 3.0f;
+        const float timeBetweenDamage = 1.0f;
         float invulnerabilityTimer = timeBetweenDamage;
     };
 }

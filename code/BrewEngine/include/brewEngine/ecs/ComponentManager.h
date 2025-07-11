@@ -35,6 +35,7 @@ namespace gl3::brewEngine::ecs {
 
         template<typename C>
         bool hasComponent(const guid_t &owner) {
+            if(containers.find(typeid(C).hash_code()) == containers.end()) {return false;}
             auto &container = containers.at(typeid(C).hash_code());
             return container.find(owner) != container.end();
         }

@@ -33,7 +33,9 @@ private:
 
     void update(GLFWwindow *window) override;
 
-    //void draw() override;
+    //Score
+    int currScore = 0;
+    int maxScore = 5000;
 
     //Systems
     std::unique_ptr<RenderingSystem> renderSystem;
