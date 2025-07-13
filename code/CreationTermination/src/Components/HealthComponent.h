@@ -15,7 +15,7 @@ class HealthComponent: public Component {
     public:
     void SetHealth(int newHealth) {health = newHealth;}
 
-    int health;
+    float health = 1;
 
 private:
     explicit HealthComponent(guid_t owner, int health = 100) : Component(owner), health(health) {}

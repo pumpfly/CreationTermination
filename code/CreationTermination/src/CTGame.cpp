@@ -1,12 +1,7 @@
 #include "CTGame.h"
 
-#include <charconv>
-extern "C" {
-#include <leif.h>
-
-}
-
 #include "brewEngine/rendering/SpriteRenderer.h"
+#include "brewEngine/Assets.h"
 
 
 void CTGame::start() {
@@ -106,8 +101,9 @@ void CTGame::start() {
     playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
     enemySystem = std::make_unique<EnemySystem>(*this, Creature, Witch);
 
-    //UI
-    //lf_init_glfw(this->getContext().getWindowWidth(), this->getContext().getWindowHeight(), this->getContext().getWindow());
+    // Loading a bigger font
+    std::string path = gl3::brewEngine::resolveAssetPath("fonts/inter.ttf").string();
+    bigfont = lf_load_font(path.c_str(), 30);
 
 }
 
@@ -116,16 +112,65 @@ void CTGame::update(GLFWwindow *window) {
         lf_terminate();
         glfwSetWindowShouldClose(window, true);
     }
-    /*
+
+    //UI
+    // Starting leif context
     lf_begin();
-    std::string s = std::to_string(this->currScore);
-    // Center the text horizontally
-    lf_set_ptr_x_absolute((this->getContext().getWindowWidth() - lf_text_dimension(s.c_str()).x) / 2.0f);
-    lf_color_alpha({1,1,1}, 1);
-    lf_text(s.c_str());
-    lf_end();
+
+    ////Score display
+    std::string scoreText = "SCORE: " + std::to_string(this->currScore);
+    {
+        // Setting big font
+        lf_push_font(&bigfont);
+        LfUIElementProps scoreDisplay = lf_get_theme().text_props;
+        scoreDisplay.text_color = LF_BLACK;
+        // Center the text horizontally
+        lf_set_ptr_x_absolute((this->getContext().getWindowWidth() - lf_text_dimension(scoreText.c_str()).x) / 2.0f);
+        // Push the style props
+        lf_push_style_props(scoreDisplay);
+
+        // Render the text
+        lf_text(scoreText.c_str());
+
+        // Pop the style props
+        lf_pop_style_props();
+
+        // Unsetting big font
+        lf_pop_font();
+
+    }
+
+    /* Exit Button */
+    /*
+    const char* btntext = "Exit";
+    // Defining properties of the button
+    LfUIElementProps btnprops = lf_get_theme().button_props;
+    btnprops.margin_left = 0.0f; btnprops.margin_top = 15.0f; btnprops.border_width = 0.0f; btnprops.corner_radius = 9.0f;
+    btnprops.text_color = LF_WHITE;
+    btnprops.color = (LfColor){90, 90, 90, 255};
+    {
+      const float width = 50.0f;
+
+      lf_push_style_props(btnprops);
+      // Center the button horizontally
+      int windowWidth = this->getContext().getWindowWidth();
+      lf_set_ptr_x_absolute((static_cast<float>(windowWidth) - (width + btnprops.padding * 4.0f)));
+        //std::cout << (width + btnprops.padding * 2.0f) << std::endl;
+
+      // Rendering a button with fixed scale (-1 stands for "use normal height")
+      if(lf_button_fixed(btntext, width, -1) == LF_CLICKED) {
+        // Closing the window when you pressed the button
+        glfwSetWindowShouldClose(window, 1);
+      }
+
+      lf_pop_style_props();
+    }
     */
-    currentTime += deltaTime;
+    // Ending leif context
+    lf_end();
+
+    //stopwatch for spawn timing
+    currentTime += deltaTime*3;
 
     renderSystem->scrollBackgroundSprite(backgroundTransform_Layer1, backgroundComponents_Layer1, true, true, deltaTime);
     renderSystem->scrollBackgroundSprite(backgroundTransform_Layer2, backgroundComponents_Layer2, true, true, deltaTime);

@@ -3,6 +3,10 @@
 #include <functional>
 #include <GLFW/glfw3.h>
 
+extern "C" {
+#include <leif.h>
+}
+
 namespace gl3::brewEngine::context {
     class Context {
     public:

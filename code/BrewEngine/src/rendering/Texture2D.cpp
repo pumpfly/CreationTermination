@@ -48,7 +48,7 @@ namespace gl3::brewEngine::rendering {
 
     Texture2D Texture2D::FromFile(const char *filename) {
         int width, height, nrChannels;
-        auto path = gl3::resolveAssetPath(filename).string();
+        auto path = resolveAssetPath(filename).string();
 
         unsigned char *data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
         if(!data) {

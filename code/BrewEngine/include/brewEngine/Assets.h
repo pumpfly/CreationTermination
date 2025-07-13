@@ -10,7 +10,7 @@
 
 namespace fs = std::filesystem;
 
-namespace gl3 {
+namespace gl3::brewEngine {
     inline fs::path resolveAssetPath(const fs::path &relativeAssetPath) {
         auto mergedPath = (GET_DIR(ASSET_ROOT) / relativeAssetPath).make_preferred();
         return fs::canonical(mergedPath);

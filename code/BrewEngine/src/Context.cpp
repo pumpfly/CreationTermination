@@ -2,7 +2,6 @@
 #include "glad/glad.h"
 #include <stdexcept>
 #include "brewEngine/Context.h"
-
 #include <iostream>
 
 
@@ -36,6 +35,9 @@ namespace gl3::brewEngine::context {
         if(glGetError() != GL_NO_ERROR) {
             throw std::runtime_error("gl error");
         }
+
+        //UI: leif library initialization
+        lf_init_glfw(width, height, window);
     }
 
     void Context::run(const Callback& update) {

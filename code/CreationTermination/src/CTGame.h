@@ -91,4 +91,7 @@ private:
     UiComponent *witchHealthQuadComponent = nullptr;
     std::vector<Entity*> healthQuads;
 
+    ////Leif UI elements
+    LfFont bigfont;
+
 };

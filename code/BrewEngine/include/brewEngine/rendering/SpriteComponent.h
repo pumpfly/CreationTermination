@@ -30,10 +30,10 @@ namespace gl3::brewEngine::rendering {
         ~SpriteComponent() override { deleted = true; }
 
         Texture2D sprite;
-        glm::vec2 size;
+        glm::vec2 size = glm::vec2(1.0f, 1.0f);
 
         //Sprite Sheet Animation:
-        glm::vec2 frameSize;
+        glm::vec2 frameSize = glm::vec2(1.0f, 1.0f);
         int frameCount = 0;
         float framesPerSecond = 0;
 
