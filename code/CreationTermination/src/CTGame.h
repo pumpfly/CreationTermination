@@ -33,6 +33,8 @@ private:
 
     void update(GLFWwindow *window) override;
 
+    //Stopwatch/Timer
+    float currentTime = 0;
     //Score
     int currScore = 0;
     int maxScore = 5000;

@@ -11,7 +11,7 @@ using gl3::brewEngine::ecs::Entity;
 
 enum EnemyType {
     CREATURE,
-    MINIENEMY,
+    SMALLENEMY,
     MEDIUMENEMY,
     BIGENEMY
 };

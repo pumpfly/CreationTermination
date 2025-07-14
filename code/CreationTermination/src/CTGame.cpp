@@ -99,7 +99,7 @@ void CTGame::start() {
 
     // Systems that have to be initialized after the creation of Entities
     playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
-    enemySystem = std::make_unique<EnemySystem>(*this, Creature, Witch);
+    enemySystem = std::make_unique<EnemySystem>(*this, Creature);
 
     // Loading a bigger font
     std::string path = gl3::brewEngine::resolveAssetPath("fonts/inter.ttf").string();
@@ -170,7 +170,7 @@ void CTGame::update(GLFWwindow *window) {
     lf_end();
 
     //stopwatch for spawn timing
-    currentTime += deltaTime*3;
+    enemySystem->currentTime += deltaTime*60;
 
     renderSystem->scrollBackgroundSprite(backgroundTransform_Layer1, backgroundComponents_Layer1, true, true, deltaTime);
     renderSystem->scrollBackgroundSprite(backgroundTransform_Layer2, backgroundComponents_Layer2, true, true, deltaTime);

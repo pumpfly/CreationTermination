@@ -49,12 +49,6 @@ namespace gl3::brewEngine {
         collision::SpatialGridManager spatialGridManager;
         TransformComponent *origin = nullptr;
 
-        //countdown
-        const float countdownReset = 0.1f;
-        float countdown = countdownReset;
-        //Stopwatch/Timer
-        float currentTime = 0;
-
     protected:
         Game(int width, int height, const std::string &title);
         virtual void start() {}

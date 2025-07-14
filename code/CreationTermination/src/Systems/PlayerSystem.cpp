@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "../Components/MissileComponent.h"
+#include "brewEngine/Config.h"
 #include "brewEngine/collision/ColliderComponent.h"
 #include "brewEngine/rendering/SpriteComponent.h"
 
@@ -17,23 +18,40 @@ void PlayerSystem::playerMovement(Game &game, TransformComponent* witchTransform
     forward = forward * game.getDeltaTime();
 
     if(Input::IsKeyDown(Input::KEY_A)) {
-        witchTransform->localPosition.x -= forward.x * 200.0f;
+        if(witchTransform->localPosition.x < 0) isTooFarLeft = true;
+        if(!isTooFarLeft) {
+            witchTransform->localPosition.x -= forward.x * 200.0f;
+            isTooFarRight = false;
+        }
     }
     if(Input::IsKeyDown(Input::KEY_D)) {
-        witchTransform->localPosition.x += forward.x * 200.0f;
+        if(witchTransform->localPosition.x > 1150) isTooFarRight = true;
+        if(!isTooFarRight) {
+            witchTransform->localPosition.x += forward.x * 200.0f;
+            isTooFarLeft = false;
+        }
     }
     if(Input::IsKeyDown(Input::KEY_W)) {
-        witchTransform->localPosition.y = witchTransform->localPosition.y - game.getDeltaTime() * 200.0f;
+        if(witchTransform->localPosition.y < 0) isTooFarUp = true;
+        if(!isTooFarUp) {
+            witchTransform->localPosition.y = witchTransform->localPosition.y - game.getDeltaTime() * 200.0f;
+            isTooFarDown = false;
+        }
     }
     if(Input::IsKeyDown(Input::KEY_S)) {
-        witchTransform->localPosition.y = witchTransform->localPosition.y + game.getDeltaTime() * 200.0f;
+        if(witchTransform->localPosition.y > 580) isTooFarDown = true;
+        if(!isTooFarDown) {
+            float y = gl3::brewEngine::config::ScreenSize.y;
+            witchTransform->localPosition.y = witchTransform->localPosition.y + game.getDeltaTime() * 200.0f;
+            isTooFarUp = false;
+        }
     }
 }
 
 void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform, PlayerComponent* witchPlayer) {
-    game.countdown -= game.getDeltaTime();
+    countdown -= game.getDeltaTime();
     //Default Missiles
-    if(game.countdown <= 0) {
+    if(countdown <= 0) {
         if(Input::IsKeyDown(Input::KEY_SPACE)) {
             auto angle = glm::radians(witchTransform->localZRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
@@ -51,12 +69,7 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                     game.entityManager.deleteEntity(*DefaultMissile);
                 });
 
-            witchPlayer->missilesShot++;
-            if(witchPlayer->missilesShot == 100) {
-                auto &missile = game.entityManager.getEntity(DefaultMissile->guid());
-                game.entityManager.deleteEntity(missile);
-            }
-            game.countdown = game.countdownReset;
+            countdown = countdownReset;
         }
         if(Input::IsKeyDown(Input::KEY_E)) {
             auto angle = glm::radians(witchTransform->localZRotation);
@@ -79,20 +92,12 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                     if(WaveMissile->isDeleted()) return;
                     if(WaveMissile != nullptr) {
                         game.entityManager.deleteEntity(*WaveMissile);
-                        witchPlayer->missilesShot--;
                     }
                 });
             }
-            if(witchPlayer->missilesShot == 150) {
-                if(WaveMissile != nullptr) {
-                    auto &missile = game.entityManager.getEntity(WaveMissile->guid());
-                    game.entityManager.deleteEntity(missile);
-                    witchPlayer->missilesShot--;
-                }
-            }
-            game.countdown = game.countdownReset;
+            countdown = countdownReset;
         }
-        if(Input::IsKeyDown(Input::KEY_F)) {
+        if(Input::IsKeyPressed(Input::KEY_F)) {
             witchPlayer->chargingMissile = true;
             auto angle = glm::radians(witchTransform->localZRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
@@ -155,11 +160,6 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
             }
 
             witchPlayer->isCreatingSingleMissile = true;
-
-            if(currMissileID != -1 && chargeMissileTransform && witchPlayer->missilesShot == 10) {
-                auto &missile = game.entityManager.getEntity(game.entityManager.getEntity(currMissileID).guid());
-                game.entityManager.deleteEntity(missile);
-            }
 
         }
         if(Input::IsKeyReleased(Input::KEY_F)) {

@@ -11,5 +11,5 @@
 
 namespace gl3 {
     const glm::mat4 ProjectionMatrix =
-        glm::ortho(0.0f, config::ScreenSize.x, config::ScreenSize.y, 0.0f, -1.0f, 1.0f);
+        glm::ortho(0.0f, brewEngine::config::ScreenSize.x, brewEngine::config::ScreenSize.y, 0.0f, -1.0f, 1.0f);
 }

@@ -19,6 +19,15 @@ class PlayerSystem : public System{
         });
     }
 
+    //countdown
+    const float countdownReset = 0.1f;
+    float countdown = countdownReset;
+
+    bool isTooFarLeft = false;
+    bool isTooFarRight = false;
+    bool isTooFarUp = false;
+    bool isTooFarDown = false;
+
     void playerMovement(Game &game, TransformComponent* witchTransform);
     void playerShooting(Game &game, TransformComponent* witchTransform, PlayerComponent* witchPlayer);
 };

@@ -16,7 +16,6 @@ class PlayerComponent : public Component {
     public:
     explicit PlayerComponent(gl3::brewEngine::ecs::guid_t owner): Component(owner) {};
 
-    int missilesShot = 0;
     bool chargingMissile = false;
     //isCreatingSingleMissile serves the purpose to prevent creating multiple missiles while the player charges the charge Missile
     bool isCreatingSingleMissile = false;

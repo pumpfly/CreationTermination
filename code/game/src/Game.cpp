@@ -89,7 +89,7 @@ namespace gl3 {
         auto miniEnemy = std::make_unique<bats>();
         entities.push_back(std::move(miniEnemy));
 
-        tempSpatialGrid = SpatialGridManager(150, 1280, 720);
+        tempSpatialGrid = SpatialGridManager(150, 1920, 1080);
 
         /*backgroundMusic = std::make_unique<SoLoud::Wav>();
         backgroundMusic->load(resolveAssetPath("audio/electronic-wave.mp3").string().c_str());

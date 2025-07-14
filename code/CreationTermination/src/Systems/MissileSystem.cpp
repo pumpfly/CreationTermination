@@ -4,6 +4,29 @@
 
 #include "brewEngine/rendering/SpriteRenderer.h"
 
+MissileSystem::MissileSystem(Game &game): System(game) {
+    game.onAfterUpdate.addListener([&] (Game&) {
+        game.componentManager.forEachComponent<MissileComponent>([&](MissileComponent& component) {
+            Entity* Missile;
+            TransformComponent* missileTransform;
+            SpriteComponent* missileSprite;
+            MissileComponent* missile;
+
+            Missile = &game.entityManager.getEntity(component.entity());
+            missileTransform = &Missile->getComponent<TransformComponent>();
+            missileSprite = &Missile->getComponent<SpriteComponent>();
+            missile = &Missile->getComponent<MissileComponent>();
+
+            if(missileTransform->localPosition.x > game.getContext().getWindowWidth() && missileTransform->localPosition.x < 0
+                && missileTransform->localPosition.y > game.getContext().getWindowHeight() && missileTransform->localPosition.y < 0) {
+                game.entityManager.deleteEntity(*Missile);
+            }
+            else {
+                updateMissiles(game, missileTransform, missile);
+            }
+        });
+    });
+}
 
 void MissileSystem::updateMissiles(Game& game, TransformComponent* missileTransform, MissileComponent* missileComponent) {
     missileTransform->localPosition.y -=
@@ -11,12 +34,3 @@ void MissileSystem::updateMissiles(Game& game, TransformComponent* missileTransf
     missileTransform->localPosition.x -=
         cos(glm::radians(missileTransform->localZRotation - 90.0f)) * missileComponent->speed * game.getDeltaTime();
 }
-
-/*void MissileSystem::drawMissiles(Game &game, TransformComponent *missileTransform, SpriteComponent *missileSprite) {
-    gl3::brewEngine::rendering::SpriteRenderer::Instance().DrawSprite(
-        missileSprite->sprite,
-        missileTransform->localPosition,
-        missileTransform->localScale,
-        0,
-        glm::vec4(1,1,1,1));
-}*/
