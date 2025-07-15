@@ -77,7 +77,7 @@ void CTGame::start() {
     Creature = &entityManager.createEntity();
     creatureEnemyComponent = &Creature->addComponent<EnemyComponent>(CREATURE);
     creatureTransform = &Creature->addComponent<TransformComponent>(origin, glm::vec2(1100, 600), 0, glm::vec2(600/4, 500/4), 200);
-    creatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png", glm::vec2(600, 500), 1, 1);
+    creatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png", glm::vec2(600, 500), 1, 1, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
     creatureHealth = &Creature->addComponent<HealthComponent>(8);
     creatureCollider = &Creature->addComponent<ColliderComponent>(ENEMY, [this]() {
         //This method will only be called on collision
