@@ -23,8 +23,9 @@ public:
     void creatureMovement(Game &game, TransformComponent* creatureTransform, EnemyComponent* creature);
     void creatureDefense();
 
-    void smallEnemyBehavior(Game& game, TransformComponent* smallEnemyTransfrom, float Ycoordinate);
-    void mediumEnemiesBehavior(Game& game, TransformComponent* mediumEnemyTransform, float YCoordinate);
+    void enemyCosSinMovement(Game& game, TransformComponent* smallEnemyTransfrom, float Ycoordinate,
+        float speed, float wiggleLength);
+    void enemyDiagonalMovement(Game& game, TransformComponent* mediumEnemyTransform);
     void bigEnemiesBehavior(Game& game, TransformComponent* bigEnemyTransform, EnemyComponent* bigEnemy);
 
     float lerp(float a, float b, float f) {return a + f * (b - a);}
