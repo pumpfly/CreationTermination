@@ -37,7 +37,7 @@ namespace gl3::brewEngine {
             input::Input::inputUpdate();
             onBeforeUpdate.invoke(*this);
             update(getWindow());
-            onUpdate.invoke(*this);
+            onUpdate.invoke(*this, deltaTime);
             draw();
             updateDeltaTime();
             onAfterUpdate.invoke(*this);

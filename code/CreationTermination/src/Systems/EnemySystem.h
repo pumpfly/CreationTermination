@@ -35,18 +35,18 @@ public:
     const float smallEnemyCountdownReset = 1.0f;
     float smallEnemySpawnCountdown = smallEnemyCountdownReset;
     //medium enemy spawn counter
-    bool MwillSpawn = false;
+    bool MediumWillSpawn = false;
     const float mediumEnemyCountdownReset = 2.0f;
     float mediumEnemySpawnCountdown = mediumEnemyCountdownReset;
     //big enemy spaw counter
-    bool BwillSpawn = false;
+    bool BigWillSpawn = false;
     const float bigEnemyCountdownReset = 4.0f;
     float bigEnemySpawnCountdown = bigEnemyCountdownReset;
 
 
     unsigned int difficulty = 1;
     //Stopwatch/Timer
-    int currentTime = 0;
+    float currentTime = 0;
 };
 
 

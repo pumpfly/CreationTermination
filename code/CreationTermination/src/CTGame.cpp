@@ -141,7 +141,7 @@ void CTGame::update(GLFWwindow *window) {
     }
 
     /* Exit Button */
-    /*
+
     const char* btntext = "Exit";
     // Defining properties of the button
     LfUIElementProps btnprops = lf_get_theme().button_props;
@@ -165,12 +165,12 @@ void CTGame::update(GLFWwindow *window) {
 
       lf_pop_style_props();
     }
-    */
+
     // Ending leif context
     lf_end();
 
     //stopwatch for spawn timing
-    enemySystem->currentTime += deltaTime*60;
+    enemySystem->currentTime += deltaTime;
 
     renderSystem->scrollBackgroundSprite(backgroundTransform_Layer1, backgroundComponents_Layer1, true, true, deltaTime);
     renderSystem->scrollBackgroundSprite(backgroundTransform_Layer2, backgroundComponents_Layer2, true, true, deltaTime);

@@ -29,6 +29,7 @@ namespace gl3::brewEngine {
     class Game {
     public:
         using event_t = events::Events<Game, Game&>;
+        using update_event_t = events::Events<Game, Game&, float>;
 
         void run();
         glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
@@ -39,7 +40,7 @@ namespace gl3::brewEngine {
         event_t onStartup;
         event_t onAfterStartup;
         event_t onBeforeUpdate;
-        event_t onUpdate;
+        update_event_t onUpdate;
         event_t onAfterUpdate;
         event_t onBeforeShutdown;
         event_t onShutdown;

@@ -10,6 +10,15 @@
 using gl3::brewEngine::rendering::SpriteComponent;
 using gl3::brewEngine::collision::ColliderComponent;
 
+PlayerSystem::PlayerSystem(Game &game, Entity *Witch): System(game) {
+    game.onBeforeUpdate.addListener([&, Witch] (Game&) {
+        TransformComponent* witchTransform = &Witch->getComponent<TransformComponent>();
+        PlayerComponent* witch = &Witch->getComponent<PlayerComponent>();
+        playerMovement(game, witchTransform);
+        playerShooting(game, witchTransform, witch);
+    });
+}
+
 void PlayerSystem::playerMovement(Game &game, TransformComponent* witchTransform)  {
 
     glm::vec2 forward(0.0f, 0.0f);
@@ -97,7 +106,7 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
             }
             countdown = countdownReset;
         }
-        if(Input::IsKeyPressed(Input::KEY_F)) {
+        if(Input::IsKeyDown(Input::KEY_F)) {
             witchPlayer->chargingMissile = true;
             auto angle = glm::radians(witchTransform->localZRotation);
             glm::vec2 forwardVec = {glm::cos(angle), glm::sin(angle)};
@@ -127,14 +136,14 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                     //TODO: it does not get inside this if loop because the keyRelease function is not working properly
                     if(!witchPlayer->chargingMissile) {
                         if(chargeMissileHealth->health == 0) {
-                            game.entityManager.deleteEntity(*ChargeMissile);
-                        }
-                        else {
-                            chargeMissileHealth->health--;
-                            chargeMissileTransform->localScale.x -= chargeMissileTransform->localScale.x/3;
-                            chargeMissileTransform->localScale.y -= chargeMissileTransform->localScale.y/3;
-                            chargeMissileTransform->radius -= chargeMissileTransform->radius/3;
-                        }
+                        game.entityManager.deleteEntity(*ChargeMissile);
+                    }
+                    else {
+                        chargeMissileHealth->health--;
+                        chargeMissileTransform->localScale.x -= chargeMissileTransform->localScale.x/3;
+                        chargeMissileTransform->localScale.y -= chargeMissileTransform->localScale.y/3;
+                        chargeMissileTransform->radius -= chargeMissileTransform->radius/3;
+                    }
                     }
                 });
                 currMissileID = ChargeMissile->guid();

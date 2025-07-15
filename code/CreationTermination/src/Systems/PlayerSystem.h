@@ -10,14 +10,7 @@ using gl3::brewEngine::input::Input;
 
 class PlayerSystem : public System{
     public:
-    explicit PlayerSystem(Game &game, Entity* Witch) : System(game) {
-        game.onBeforeUpdate.addListener([&, Witch] (Game&) {
-            TransformComponent* witchTransform = &Witch->getComponent<TransformComponent>();
-            PlayerComponent* witch = &Witch->getComponent<PlayerComponent>();
-            playerMovement(game, witchTransform);
-            playerShooting(game, witchTransform, witch);
-        });
-    }
+    explicit PlayerSystem(Game &game, Entity* Witch);
 
     //countdown
     const float countdownReset = 0.1f;

@@ -12,8 +12,8 @@ namespace gl3::brewEngine::sceneGraph {
     class SceneGraphUpdater : public System {
     public:
         explicit SceneGraphUpdater(Game &game) : System(game) {
-            game.onUpdate.addListener([&](Game &) {
-                updateTransforms(game);
+            game.onUpdate.addListener([&](Game & g, float deltaTime) {
+                updateTransforms(g);
             });
         }
 
