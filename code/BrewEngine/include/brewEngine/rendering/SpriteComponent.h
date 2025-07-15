@@ -25,12 +25,13 @@ namespace gl3::brewEngine::rendering {
         explicit SpriteComponent(ecs::guid_t owner, const char* spritePath);
 
         explicit SpriteComponent(ecs::guid_t owner, const char* spritePath, glm::vec2 frameSize,
-            int frameCount, float framesPerSecond);
+            int frameCount, float framesPerSecond, glm::vec4 color);
 
         ~SpriteComponent() override { deleted = true; }
 
         Texture2D sprite;
         glm::vec2 size = glm::vec2(1.0f, 1.0f);
+        glm::vec4 color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
         //Sprite Sheet Animation:
         glm::vec2 frameSize = glm::vec2(1.0f, 1.0f);

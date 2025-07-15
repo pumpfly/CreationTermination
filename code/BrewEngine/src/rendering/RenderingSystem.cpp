@@ -24,14 +24,14 @@ namespace gl3::brewEngine::rendering {
                         entityTransform->localPosition,
                         entityTransform->localScale,
                         0,
-                        glm::vec4(1,1,1,1));
+                        entitySprite->color);
                         //Copy
                         SpriteRenderer::Instance().DrawSprite(
                          entitySprite->sprite,
                          background->copyPosition,
                          entityTransform->localScale,
                          0,
-                         glm::vec4(1,1,1,1));
+                         entitySprite->color);
                     }
                     else if(sprite.frameCount != 0){
                         SpriteRenderer::Instance().DrawSpriteSheet(
@@ -39,7 +39,7 @@ namespace gl3::brewEngine::rendering {
                         animateSpriteSheet(&entity->getComponent<SpriteComponent>(), game.getDeltaTime()),
                         glm::vec4(entityTransform->localPosition, entityTransform->localScale),
                         entityTransform->localZRotation,
-                        glm::vec4(1,1,1,1));
+                        entitySprite->color);
                     }
                     else {
                         SpriteRenderer::Instance().DrawSprite(
@@ -47,7 +47,7 @@ namespace gl3::brewEngine::rendering {
                          entityTransform->localPosition,
                          entityTransform->localScale,
                          0,
-                         glm::vec4(1,1,1,1));
+                         entitySprite->color);
                     }
                 });
             });

@@ -38,7 +38,7 @@ void CTGame::start() {
     Witch = &entityManager.createEntity();
     witchPlayer = &Witch->addComponent<PlayerComponent>();
     witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 70);
-    witchSprite = &Witch->addComponent<SpriteComponent>("sprites/witch_idleSprites.png", glm::vec2(680, 415), 4, 10);
+    witchSprite = &Witch->addComponent<SpriteComponent>("sprites/witch_idleSprites.png", glm::vec2(680, 415), 4, 10, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
     witchHealth = &Witch->addComponent<HealthComponent>(5);
     //Drawing the UI representation of the Players Health
     for (int i = 0; i < witchHealth->health; i++)
@@ -77,7 +77,7 @@ void CTGame::start() {
     Creature = &entityManager.createEntity();
     creatureEnemyComponent = &Creature->addComponent<EnemyComponent>(CREATURE);
     creatureTransform = &Creature->addComponent<TransformComponent>(origin, glm::vec2(1100, 600), 0, glm::vec2(600/4, 500/4), 200);
-    creatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png", glm::vec2(600, 500), 1, 1);
+    creatureSprite = &Creature->addComponent<SpriteComponent>("sprites/creature.png", glm::vec2(600, 500), 1, 1, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
     creatureHealth = &Creature->addComponent<HealthComponent>(8);
     creatureCollider = &Creature->addComponent<ColliderComponent>(ENEMY, [this]() {
         //This method will only be called on collision
