@@ -111,9 +111,14 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 for(int i = 0; i < SwaveSize - difficulty; i++) {
                     Entity* SmallEnemy = &g.entityManager.createEntity();
                     EnemyComponent* smallEnemy = &SmallEnemy->addComponent<EnemyComponent>(SMALLENEMY);
-                    if(behaviorChanger == 0)
+                    if(behaviorChanger == 1) {
+                        tempEnemyPosition = glm::vec2(g.getContext().getWindowWidth()-500 + 120*j + pos, 50*pos + 100*i + pos*10);
+                    }
+                    else {
+                        tempEnemyPosition = glm::vec2(g.getContext().getWindowWidth()-500 - (120*j + pos), g.getContext().getWindowHeight() + 50);
+                    }
                     TransformComponent* smallEnemyTransform =
-                            &SmallEnemy->addComponent<TransformComponent>(g.origin, glm::vec2(g.getContext().getWindowWidth()-500 + 120*j + pos, 50*pos + 100*i + pos*10), 0, glm::vec2(60, 50), 50);
+                            &SmallEnemy->addComponent<TransformComponent>(g.origin, tempEnemyPosition, 0, glm::vec2(60, 50), 50);
                     SpriteComponent* smallEnemySprite =
                         &SmallEnemy->addComponent<SpriteComponent>("sprites/bat_Sprites.png", glm::vec2(600, 500), 2, 5, glm::vec4(1,1,1,1));
                     HealthComponent* smallEnemyHealth = &SmallEnemy->addComponent<HealthComponent>(1);

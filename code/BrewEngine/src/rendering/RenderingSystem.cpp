@@ -24,7 +24,7 @@ namespace gl3::brewEngine::rendering {
                         entityTransform->localPosition,
                         entityTransform->localScale,
                         0,
-                        glm::vec4(1,1,1,1));
+                        entitySprite->color);
                         //Copy
                         SpriteRenderer::Instance().DrawSprite(
                          entitySprite->sprite,
