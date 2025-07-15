@@ -23,14 +23,17 @@ public:
     void creatureMovement(Game &game, TransformComponent* creatureTransform, EnemyComponent* creature);
     void creatureDefense();
 
-    void enemyCosSinMovement(Game& game, TransformComponent* smallEnemyTransfrom, float Ycoordinate,
+    void enemyCosMovement(Game& game, TransformComponent* enemyTransform, float Ycoordinate,
         float speed, float wiggleLength);
-    void enemyDiagonalMovement(Game& game, TransformComponent* mediumEnemyTransform);
+    void enemySinMovement(Game& game, TransformComponent* enemyTransform, float Ycoordinate,
+        float speed, float wiggleLength);
+    void enemyDiagonalMovement(Game& game, TransformComponent* enemyTransfrom, float speed);
     void bigEnemiesBehavior(Game& game, TransformComponent* bigEnemyTransform, EnemyComponent* bigEnemy);
 
     float lerp(float a, float b, float f) {return a + f * (b - a);}
     std::random_device dev;
 
+    glm::vec2 tempEnemyPosition = glm::vec2(0,0);
 
     //small enemy spawn counter
     const float smallEnemyCountdownReset = 1.0f;

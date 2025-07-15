@@ -96,7 +96,7 @@ namespace gl3::brewEngine::rendering {
 
     }
 
-    // DrawSpritePro can handle Sprite sheets and is important for animation
+    // DrawSpriteSheet is important for animation
     void SpriteRenderer::DrawSpriteSheet(Texture2D &texture, glm::vec4 source, glm::vec4 dest, float rotate,
         glm::vec4 color) {
 
@@ -113,9 +113,9 @@ namespace gl3::brewEngine::rendering {
 
         model = glm::translate(model, glm::vec3(dest.x, dest.y, 0.0f));
 
-        //model = glm::translate(model, glm::vec3(0.5f * dest.z, 0.5f * dest.w, 0.0f));
+        model = glm::translate(model, glm::vec3(0.5f * dest.z, 0.5f * dest.w, 0.0f));
         model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-        //model = glm::translate(model, glm::vec3(-0.5f * dest.z, -0.5f * dest.w, 0.0f));
+        model = glm::translate(model, glm::vec3(-0.5f * dest.z, -0.5f * dest.w, 0.0f));
 
         model = glm::scale(model, glm::vec3(dest.z, dest.w, 1.0f));
 
