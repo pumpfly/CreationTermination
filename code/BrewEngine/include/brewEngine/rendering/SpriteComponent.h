@@ -31,7 +31,7 @@ namespace gl3::brewEngine::rendering {
 
         Texture2D sprite;
         glm::vec2 size = glm::vec2(1.0f, 1.0f);
-        glm::vec4 color = glm::vec4(1,1,1,1);
+        glm::vec4 color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
         //Sprite Sheet Animation:
         glm::vec2 frameSize = glm::vec2(1.0f, 1.0f);
