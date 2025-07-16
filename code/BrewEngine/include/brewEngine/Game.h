@@ -17,6 +17,14 @@
 
 using gl3::brewEngine::sceneGraph::TransformComponent;
 
+enum GameState
+{
+    GAME_INTRO,
+    GAME_ACTIVE,
+    GAME_OVER,
+    GAME_WIN
+};
+
 namespace gl3::brewEngine {
     namespace ecs {
         class EntityManager;
@@ -63,6 +71,7 @@ namespace gl3::brewEngine {
     private:
         void updateDeltaTime();
 
+        GameState currentState = GAME_INTRO;
         context::Context context;
         float lastFrameTime = 1.0f / 60;
     };
