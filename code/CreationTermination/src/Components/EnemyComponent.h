@@ -24,7 +24,11 @@ class EnemyComponent : public Component
 public:
     EnemyType type;
 
-    //Creature Components
+    bool MovesInCosCurves = true;
+    bool MovesInSinCurves = false;
+    bool MovesDiagonalUp = false;
+    bool MovesDiagonalDown = false;
+
     float speed = 1.5;
     float positionChangeTime = 1.0f;
     float countdown = positionChangeTime;
@@ -35,5 +39,13 @@ public:
     //SoLoud::Wav firingSound;
 
 private:
+    //This constructor will be used by small and medium enemy
+    explicit EnemyComponent(guid_t owner, EnemyType type,
+        bool MovesInCosCurves, bool MovesInSinCurves, bool MovesDiagonalUp, bool MovesDiagonalDown)
+    : Component(owner), type(type),
+    MovesInCosCurves(MovesInCosCurves), MovesInSinCurves(MovesInSinCurves),
+    MovesDiagonalUp(MovesDiagonalUp), MovesDiagonalDown(MovesDiagonalDown){}
+
+    //The constructor will be used by creature and big enemy
     explicit EnemyComponent(guid_t owner, EnemyType type) : Component(owner), type(type){}
 };

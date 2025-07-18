@@ -13,6 +13,7 @@
 #include "Components/HealthComponent.h"
 #include "Components/UiComponent.h"
 #include "Systems/EnemySystem.h"
+#include "Systems/IntroSystem.h"
 
 
 using gl3::brewEngine::Game;
@@ -40,6 +41,7 @@ private:
     int maxScore = 5000;
 
     //Systems
+    std::unique_ptr<IntroSystem> introSystem;
     std::unique_ptr<RenderingSystem> renderSystem;
     std::unique_ptr<PlayerSystem> playerSystem;
     std::unique_ptr<MissileSystem> missileSystem;

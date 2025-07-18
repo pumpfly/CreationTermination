@@ -1,3 +1,4 @@
+#include <iostream>
 #include <leif.h>
 
 #include "CTGame.h"

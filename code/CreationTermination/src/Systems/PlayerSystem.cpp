@@ -11,6 +11,7 @@ using gl3::brewEngine::rendering::SpriteComponent;
 using gl3::brewEngine::collision::ColliderComponent;
 
 PlayerSystem::PlayerSystem(Game &game, Entity *Witch): System(game) {
+    if(game.getGameState() != GAME_ACTIVE) return;
     game.onBeforeUpdate.addListener([&, Witch] (Game&) {
         TransformComponent* witchTransform = &Witch->getComponent<TransformComponent>();
         PlayerComponent* witch = &Witch->getComponent<PlayerComponent>();
@@ -70,8 +71,13 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
             MissileComponent* defaultMissileComponent = &DefaultMissile->addComponent<MissileComponent>(400.0f, DEFAULT);
             TransformComponent* defaultMissileTransform =
                 &DefaultMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
-                    witchTransform->localZRotation - 90, glm::vec2(10, 10), 10);
-            SpriteComponent* defaultMissileSprite = &DefaultMissile->addComponent<SpriteComponent>("sprites/a.png");
+                    witchTransform->localZRotation - 90, glm::vec2(30, 30), 10);
+            SpriteComponent* defaultMissileSprite =
+                &DefaultMissile->addComponent<SpriteComponent>("sprites/witchMissile.png",
+                    glm::vec2(400,400),
+                    3,
+                    10,
+                    glm::vec4(1,1,1,1));
             ColliderComponent* defaultMissileCollider = &DefaultMissile->addComponent<ColliderComponent>
             (PLAYER, [&game, DefaultMissile]() {
                     if(DefaultMissile->isDeleted()) return;
@@ -95,8 +101,12 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 waveMissiel = &WaveMissile->addComponent<MissileComponent>(400.0f, WAVE);
                 wavetMissileTransform =
                 &WaveMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
-                    witchTransform->localZRotation - (45.0f + (i * 10.0f)), glm::vec2(5, 5), 5);
-                waveMissileSprite = &WaveMissile->addComponent<SpriteComponent>("sprites/a.png");
+                    witchTransform->localZRotation - (45.0f + (i * 10.0f)), glm::vec2(15, 15), 5);
+                waveMissileSprite = &WaveMissile->addComponent<SpriteComponent>("sprites/witchMissile.png",
+                    glm::vec2(400,400),
+                    3,
+                    10,
+                    glm::vec4(1,1,1,1));
                 waveMissileCollider = &WaveMissile->addComponent<ColliderComponent>(PLAYER, [&game, WaveMissile, witchPlayer]{
                     if(WaveMissile->isDeleted()) return;
                     if(WaveMissile != nullptr) {
@@ -127,8 +137,12 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 chargeMissile = &ChargeMissile->addComponent<MissileComponent>(400.0f, CHARGE);
                 chargeMissileTransform =
                 &ChargeMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
-                    witchTransform->localZRotation - 90, glm::vec2(10, 10), 10);
-                chargeMissileSprite = &ChargeMissile->addComponent<SpriteComponent>("sprites/a.png");
+                    witchTransform->localZRotation - 90, glm::vec2(30, 30), 10);
+                chargeMissileSprite = &ChargeMissile->addComponent<SpriteComponent>("sprites/witchMissile.png",
+                    glm::vec2(400,400),
+                    3,
+                    10,
+                    glm::vec4(1,1,1,1));
                 chargeMissileHealth = &ChargeMissile->addComponent<HealthComponent>(3);
                 chargeMissileCollider = &ChargeMissile->addComponent<ColliderComponent>
                 (PLAYER, [&game, witchPlayer, chargeMissileHealth, ChargeMissile, chargeMissileTransform]() {
@@ -160,7 +174,7 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
 
             if(currMissileID != -1 && chargeMissileTransform) {
                 //While Key is down ChargingMissile grows in size, but only up to 50 x 50
-                if(chargeMissileTransform->localScale.x <= 50.0f) {
+                if(chargeMissileTransform->localScale.x <= 100.0f) {
                     witchPlayer->missileTempSize = (witchPlayer->missileTempSize + 100.0f) * game.getDeltaTime();
                     game.entityManager.getEntity(currMissileID).getComponent<TransformComponent>().localScale += witchPlayer->missileTempSize;
                     game.entityManager.getEntity(currMissileID).getComponent<TransformComponent>().radius += witchPlayer->missileTempSize;

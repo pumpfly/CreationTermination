@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <random>
 
 #include "../Components/EnemyComponent.h"
@@ -10,7 +9,6 @@
 #include "brewEngine/ecs/System.h"
 #include "brewEngine/rendering/SpriteComponent.h"
 
-struct EnemyComponent;
 using gl3::brewEngine::ecs::System;
 using gl3::brewEngine::Game;
 using gl3::brewEngine::rendering::SpriteComponent;
@@ -20,15 +18,15 @@ class EnemySystem : public System{
 public:
     explicit EnemySystem(Game &game, Entity* Creature);
 
-    void creatureMovement(Game &game, TransformComponent* creatureTransform, EnemyComponent* creature);
-    void creatureDefense();
+    void creatureMovement(Game &game, TransformComponent* creatureTransform, EnemyComponent* creature, float speed);
+    //void creatureDefense();
 
     void enemyCosMovement(Game& game, TransformComponent* enemyTransform, float Ycoordinate,
         float speed, float wiggleLength);
     void enemySinMovement(Game& game, TransformComponent* enemyTransform, float Ycoordinate,
         float speed, float wiggleLength);
-    void enemyDiagonalMovement(Game& game, TransformComponent* enemyTransfrom, float speed);
-    void bigEnemiesBehavior(Game& game, TransformComponent* bigEnemyTransform, EnemyComponent* bigEnemy);
+    void enemyDiagonalMovement(Game& game, TransformComponent* enemyTransfrom, bool goingUp, float speed);
+    void bigEnemiesBehavior(Game& game, TransformComponent* bigEnemyTransform, EnemyComponent* bigEnemy, float speed);
 
     float lerp(float a, float b, float f) {return a + f * (b - a);}
     std::random_device dev;
@@ -48,7 +46,7 @@ public:
     float bigEnemySpawnCountdown = bigEnemyCountdownReset;
 
 
-    unsigned int difficulty = 1;
+    unsigned int difficulty = 4;
     //Stopwatch/Timer
     float currentTime = 0;
 };

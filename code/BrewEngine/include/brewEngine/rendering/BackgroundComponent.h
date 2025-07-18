@@ -15,10 +15,13 @@ namespace gl3::brewEngine::rendering {
         friend Entity;
 
         public:
-        explicit BackgroundComponent(ecs::guid_t owner, glm::vec2 copyPosition, float scrollingSpeed);
+        explicit BackgroundComponent(ecs::guid_t owner, glm::vec2 copyPosition,
+            float scrollingSpeed, bool isScrollingSideways, bool goesLeftOrUp);
         ~BackgroundComponent() override { deleted = true; }
 
-        float scrollingSpeed;
-        glm::vec2 copyPosition;
+        float scrollingSpeed = 0.0f;
+        glm::vec2 copyPosition = glm::vec2(0.0f);
+        bool isScrollingSideways = false;
+        bool goesLeftOrUp = false;
     };
 }

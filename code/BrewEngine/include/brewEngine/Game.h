@@ -34,6 +34,20 @@ namespace gl3::brewEngine {
         class SpatialGridManager;
     }
 
+    class CGameState
+    {
+    public:
+        void Init();
+        void Cleanup();
+
+        void Pause();
+        void Resume();
+
+        void HandleEvents();
+        void Update();
+        void Draw();
+    };
+
     class Game {
     public:
         using event_t = events::Events<Game, Game&>;
@@ -44,6 +58,8 @@ namespace gl3::brewEngine {
         GLFWwindow* getWindow() { return context.getWindow(); }
         context::Context& getContext() { return context; }
         [[nodiscard]] float getDeltaTime() const { return deltaTime;}
+        GameState getGameState(){return currentState;}
+        void setGameState(GameState newState){currentState = newState;}
 
         event_t onStartup;
         event_t onAfterStartup;

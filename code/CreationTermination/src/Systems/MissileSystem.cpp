@@ -6,6 +6,7 @@
 
 MissileSystem::MissileSystem(Game &game): System(game) {
     game.onAfterUpdate.addListener([&] (Game&) {
+        if(game.getGameState() != GAME_ACTIVE) return;
         game.componentManager.forEachComponent<MissileComponent>([&](MissileComponent& component) {
             Entity* Missile;
             TransformComponent* missileTransform;

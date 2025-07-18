@@ -51,9 +51,18 @@ namespace gl3::brewEngine::rendering {
                     }
                 });
             });
+        game.onUpdate.addListener([&] (Game &g, float deltaTime) {
+            g.componentManager.forEachComponent<BackgroundComponent>([&](BackgroundComponent& Bcomponent) {
+                Entity* Background = &g.entityManager.getEntity(Bcomponent.entity());
+                TransformComponent* bTransform = &Background->getComponent<TransformComponent>();
+                scrollBackgroundSprite(bTransform, &Bcomponent, Bcomponent.isScrollingSideways,
+                    Bcomponent.goesLeftOrUp, deltaTime);
+            });
+        });
     }
 
-    void RenderingSystem::scrollBackgroundSprite(TransformComponent* backgroundTransform, BackgroundComponent* background, bool isScrollingSideways, bool goesLeftOrUp, float deltaTime) {
+    void RenderingSystem::scrollBackgroundSprite(TransformComponent* backgroundTransform, BackgroundComponent* background,
+        bool isScrollingSideways, bool goesLeftOrUp, float deltaTime) {
         // If isScrollingSideways and goesLeftOrDown is true then the background will scroll to the left
         // If isScrollingSideways is true but goesLeftOrDown is false then the background will scroll to the right
         // If isScrollingSideways is false but goesLeftOrDown is true the background will move up along the y axis
