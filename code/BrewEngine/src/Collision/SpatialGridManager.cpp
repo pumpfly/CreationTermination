@@ -1,5 +1,7 @@
 #include "brewEngine/collision/SpatialGridManager.h"
 
+#include <iostream>
+
 #include "brewEngine/rendering/GeometryRenderer.h"
 
 namespace gl3::brewEngine::collision {
@@ -27,7 +29,7 @@ namespace gl3::brewEngine::collision {
     std::vector<int> SpatialGridManager::boundingBox(int entityMinX, int entityMaxX, int entityMinY, int entityMaxY) {
         //Mapping world position
         int entityMinXcell = std::max<int>(0, static_cast<int>(std::floor(entityMinX / cellSize)));
-        int entityMaxXcell = std::min<int>(static_cast<int>(spatialGrid[0].size() - 1),
+        int entityMaxXcell = std::min<int>(static_cast<int>(spatialGrid.size() - 1),
                                      static_cast<int>(std::floor(entityMaxX/ cellSize)));
 
         int entityMinYcell = std::max<int>(0, static_cast<int>(std::floor(entityMinY / cellSize)));
@@ -55,7 +57,7 @@ namespace gl3::brewEngine::collision {
                 spatialGrid[cX][cY].push_back(ID);
                 //Debugging:
                 for (auto currEntity: spatialGrid[cX][cY]) {
-                    //std::cout << "Row Number: " << cX << " Column Number: " << cY << " Cell content: " << currEntity << std::endl;
+                    //std::cout << "Row Number: " << cX << " Column Number: " << cY << " Entity in Cell: " << currEntity << std::endl;
                 }
             }
         }

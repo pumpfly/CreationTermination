@@ -7,17 +7,20 @@
 
 
 EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
-    if(game.getGameState() != GAME_ACTIVE) return;
+    smallEnemyTexture = Texture2D::FromFile("sprites/bat_Sprites.png");
+    mediumEnemyTexture = Texture2D::FromFile("sprites/BirdOfPrey.png");
+    bigEnemyTexture = Texture2D::FromFile("sprites/dragonIdle.png");
     for(int j = 0; j < 4; j++) {
             for(int i = 0; i < 4; i++) {
                 Entity* SmallEnemy = &game.entityManager.createEntity();
                 EnemyComponent* smallEnemy = &SmallEnemy->addComponent<EnemyComponent>(SMALLENEMY, true, false, false, false);
                 TransformComponent* smallEnemyTransform =
                         &SmallEnemy->addComponent<TransformComponent>(game.origin,
-                            glm::vec2(game.getContext().getWindowWidth()-500 + 120*j, 50 + 100*i),
+                            glm::vec2(game.getContext().getWindowWidth() + 120*j, 50 + 100*i),
                             0,
                             glm::vec2(60, 50), 50);
-                SpriteComponent* smallEnemySprite = &SmallEnemy->addComponent<SpriteComponent>("sprites/bat_Sprites.png",
+                SpriteComponent* smallEnemySprite = &SmallEnemy->addComponent<SpriteComponent>(
+                    smallEnemyTexture,
                     glm::vec2(600, 500),
                     2,
                     5,
@@ -58,15 +61,32 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
 
     game.onBeforeUpdate.addListener([&, Creature] (Game & g)
     {
-            TransformComponent* creatureTransform = &Creature->getComponent<TransformComponent>();
-            EnemyComponent* creature = &Creature->getComponent<EnemyComponent>();
-            creatureMovement(g, creatureTransform, creature, 1.5);
+        if(game.getGameState() != GAME_ACTIVE) return;
+
+        TransformComponent* creatureTransform = &Creature->getComponent<TransformComponent>();
+        EnemyComponent* creature = &Creature->getComponent<EnemyComponent>();
+        ColliderComponent* creatureCollider = &Creature->getComponent<ColliderComponent>();
+        SpriteComponent* creatureSprite = &Creature->getComponent<SpriteComponent>();
+        creatureMovement(g, creatureTransform, creature, 1.5);
+
+        if(creatureCollider->isInvulnerable && creatureCollider->invulnerabilityTimer > 0) {
+            creatureCollider->invulnerabilityTimer -= g.getDeltaTime();
+            creatureSprite->color = glm::vec4(1, 0, 0, 1);
+        }
+        else {
+            creatureSprite->color = glm::vec4(1, 1, 1, 1);
+            creatureCollider->invulnerabilityTimer = creatureCollider->timeBetweenDamage;
+            creatureCollider->isInvulnerable = false;
+        }
+
     });
 
     game.onUpdate.addListener([&] (Game & g, float deltaTime) {
+        if(game.getGameState() != GAME_ACTIVE) return;
+
         currentTime += deltaTime;
 
-        if(currentTime >= 50) {
+        if(currentTime >= 30) {
             currentTime = 0;
             difficulty++;
         }
@@ -87,14 +107,14 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
         //medium and big spawn probability
         std::uniform_int_distribution<> spawnProbabilityDist{0, 100};
         ////medium enemies
-        if(50 + difficulty*2 <= 100){MediumWillSpawn = (spawnProbabilityDist(rng) < 70 + difficulty);}
+        //if(50 + difficulty*2 <= 100){MediumWillSpawn = (spawnProbabilityDist(rng) < 70 + difficulty);}
         int MsmallestPossibleWaveSize = 2;
         int MbiggestPossibleWaveSize = 4;
         std::uniform_int_distribution<> MsizeDist{MsmallestPossibleWaveSize, MbiggestPossibleWaveSize};
         int MwaveSize = MsizeDist(rng);
 
         ////big enemies
-        if(30 + difficulty*2 <= 100){BigWillSpawn = (spawnProbabilityDist(rng) > 30 + difficulty);}
+        if(30 + difficulty*2 <= 100){BigWillSpawn = (spawnProbabilityDist(rng) < 70 + difficulty);}
         int BsmallestPossibleWaveSize = 1;
         int BbiggestPossibleWaveSize = 3;
         std::uniform_int_distribution<> BsizeDist{BsmallestPossibleWaveSize, BbiggestPossibleWaveSize};
@@ -122,7 +142,6 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
 
         //spawning enemies
         ////small enemy spawner
-        /*
         if(smallEnemySpawnCountdown <= 0) {
 
             // will be changed according to the enemy behavior and used for the creation of the enemies transform
@@ -135,11 +154,11 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
             else {
                 if(UpOrDown == 1) {
                     diagonalUp = true;
-                    currLocalPos = glm::vec2(g.getContext().getWindowWidth() - 400, g.getContext().getWindowHeight() -400);
+                    currLocalPos = glm::vec2(g.getContext().getWindowWidth() + 60, g.getContext().getWindowHeight() + 50);
                 }
                 else {
                     diagonalDown = true;
-                    currLocalPos = glm::vec2(g.getContext().getWindowWidth() - 300, 0);
+                    currLocalPos = glm::vec2(g.getContext().getWindowWidth() + 60, 0);
                 }
             }
 
@@ -148,10 +167,11 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
             for(int j = 0; j < SwaveSize; j++) {
                 for(int i = 0; i < SwaveSize - difficulty; i++) {
                     if(cos || sin) {
-                        currLocalPos = glm::vec2(g.getContext().getWindowWidth()-500 + 120*j + pos, 50*pos + 100*i);
+                        currLocalPos = glm::vec2(g.getContext().getWindowWidth() + 120*j + pos, 50*pos + 100*i);
                     }
                     else {
-                        currLocalPos.x = currLocalPos.x - pos*30;
+                        //offset between the line of enemies
+                        currLocalPos.x = currLocalPos.x + pos*30;
                     }
                     Entity* SmallEnemy = &g.entityManager.createEntity();
                     EnemyComponent* smallEnemy =
@@ -162,7 +182,8 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                                 0,
                                 glm::vec2(60, 50), 50);
                     SpriteComponent* smallEnemySprite =
-                        &SmallEnemy->addComponent<SpriteComponent>("sprites/bat_Sprites.png",
+                        &SmallEnemy->addComponent<SpriteComponent>(
+                            smallEnemyTexture,
                             glm::vec2(600, 500),
                             2,
                             5,
@@ -203,7 +224,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 }
             }
             smallEnemySpawnCountdown = smallEnemyCountdownReset;
-        }*/
+        }
         ////medium enemey spawner
         if(difficulty >= 2 && mediumEnemySpawnCountdown <= 0) {
 
@@ -215,25 +236,25 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 else {sin = true;}
             }
             else {
+                // Deciding the spawn point of the first enemy of the wave
                 if(UpOrDown == 1) {
                     diagonalUp = true;
-                    currLocalPos = glm::vec2(g.getContext().getWindowWidth() - 400, g.getContext().getWindowHeight() -400);
+                    currLocalPos = glm::vec2(g.getContext().getWindowWidth()+60*2, g.getContext().getWindowHeight()+50*2);
                 }
                 else {
                     diagonalDown = true;
-                    currLocalPos = glm::vec2(g.getContext().getWindowWidth() - 300, 0);
+                    currLocalPos = glm::vec2(g.getContext().getWindowWidth()+60*2, 0);
                 }
             }
 
             for(int j = 0; j < MwaveSize; j++) {
                 for(int i = 0; i < MwaveSize; i++) {
                     if(cos || sin) {
-                        currLocalPos = glm::vec2(g.getContext().getWindowWidth()-500 + 120*j*1.5 + pos, pos*50*1.5 + 100*i);
-                        std::cout << currLocalPos.x << " " << currLocalPos.y << std::endl;
+                        currLocalPos = glm::vec2(g.getContext().getWindowWidth() + 120*j*1.5 + pos, pos*50*1.5 + 100*i);
                     }
                     else {
                         //offset between enemies
-                        currLocalPos.x = currLocalPos.x - pos*30*1.5;
+                        currLocalPos.x = currLocalPos.x + pos*30*1.5;
                     }
                     Entity* MediumEnemy = &g.entityManager.createEntity();
                     EnemyComponent* mediumEnemy = &MediumEnemy->addComponent<EnemyComponent>(MEDIUMENEMY, cos, sin, diagonalUp, diagonalDown);
@@ -244,7 +265,8 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                                 glm::vec2(60*2, 50*2),
                                 50*2);
                     SpriteComponent* mediumEnemySprite =
-                        &MediumEnemy->addComponent<SpriteComponent>("sprites/birdOfPrey.png",
+                        &MediumEnemy->addComponent<SpriteComponent>(
+                            mediumEnemyTexture,
                             glm::vec2(600, 500),
                             2,
                             5,
@@ -295,7 +317,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
 
         ///big enemey spawner
         ///BigWillSpawn
-        if(difficulty >= 4 && bigEnemySpawnCountdown <= 0) {
+        if(BigWillSpawn && difficulty >= 4 && bigEnemySpawnCountdown <= 0) {
             for(int i = 0; i < BwaveSize; i++) {
                 Entity* BigEnemy = &g.entityManager.createEntity();
                 EnemyComponent* bigEnemy = &BigEnemy->addComponent<EnemyComponent>(BIGENEMY);
@@ -305,7 +327,8 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                             0,
                             glm::vec2(60*4, 50*4),
                             50*4);
-                SpriteComponent* bigEnemySprite = &BigEnemy->addComponent<SpriteComponent>("sprites/dragonIdle.png",
+                SpriteComponent* bigEnemySprite = &BigEnemy->addComponent<SpriteComponent>(
+                    bigEnemyTexture,
                     glm::vec2(600, 500),
                     2,
                     5,
@@ -407,7 +430,7 @@ void EnemySystem::enemyDiagonalMovement(Game &game, TransformComponent *enemyTra
 
     // Move relative to reference point
     float deltaX = referenceX - enemyTransform->localPosition.x;
-    enemyTransform->localPosition.y = referenceY + (goingUp ? -1 : 1) * deltaX * 0.3;
+    enemyTransform->localPosition.y = referenceY + (goingUp ? -1 : 1) * deltaX * 0.4;
 
 }
 

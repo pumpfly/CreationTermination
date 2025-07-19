@@ -12,7 +12,7 @@ namespace gl3::brewEngine::context {
     public:
         using Callback = std::function<void(Context&)>;
 
-        explicit Context(int width = 1920, int height = 1080, const std::string &title = "Game");
+        explicit Context(int width = 1920/1.5, int height = 1080/1.5, const std::string &title = "Game");
         virtual ~Context();
         void run(const Callback& update);
         [[nodiscard]] GLFWwindow *getWindow() { return window; }

@@ -43,10 +43,12 @@ namespace gl3::brewEngine::context {
     void Context::run(const Callback& update) {
         glfwSetTime(1.0 / 60);
         while(!glfwWindowShouldClose(window)) {
-            glClearColor(0.172f, 0.243f, 0.313f, 1.0f);
+            glClearColor(1, 0, 0, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            update(*this);
+            lf_begin();
             glfwPollEvents();
+            update(*this);
+            lf_end();
             glfwSwapBuffers(window);
         }
     }

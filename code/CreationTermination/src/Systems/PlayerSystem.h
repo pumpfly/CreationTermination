@@ -1,8 +1,10 @@
 #pragma once
 
+#include "../Components/MissileComponent.h"
 #include "../Components/PlayerComponent.h"
 #include "brewEngine/ecs/System.h"
 #include "brewEngine/input/Input.h"
+#include "brewEngine/rendering/Texture2D.h"
 
 using gl3::brewEngine::ecs::System;
 using gl3::brewEngine::Game;
@@ -20,6 +22,8 @@ class PlayerSystem : public System{
     bool isTooFarRight = false;
     bool isTooFarUp = false;
     bool isTooFarDown = false;
+
+    gl3::brewEngine::rendering::Texture2D missileSprite;
 
     void playerMovement(Game &game, TransformComponent* witchTransform);
     void playerShooting(Game &game, TransformComponent* witchTransform, PlayerComponent* witchPlayer);

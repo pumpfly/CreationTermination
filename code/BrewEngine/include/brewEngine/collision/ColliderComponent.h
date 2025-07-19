@@ -1,4 +1,6 @@
 #pragma once
+#include <utility>
+
 #include "../../../../CreationTermination/src/Components/HealthComponent.h"
 #include "brewEngine/ecs/Component.h"
 #include "brewEngine/ecs/ComponentManager.h"
@@ -21,7 +23,7 @@ namespace gl3::brewEngine::collision {
 
         explicit ColliderComponent(guid_t owner, CollisionCategory type,
             std::function <void()> handleCollision)
-                : Component(owner), type(type), handleCollision(handleCollision) {}
+                : Component(owner), type(type), handleCollision(std::move(handleCollision)) {}
 
     public:
         std::function <void()> handleCollision;

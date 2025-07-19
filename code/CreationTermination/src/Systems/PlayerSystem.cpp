@@ -11,12 +11,27 @@ using gl3::brewEngine::rendering::SpriteComponent;
 using gl3::brewEngine::collision::ColliderComponent;
 
 PlayerSystem::PlayerSystem(Game &game, Entity *Witch): System(game) {
-    if(game.getGameState() != GAME_ACTIVE) return;
-    game.onBeforeUpdate.addListener([&, Witch] (Game&) {
+
+    missileSprite = gl3::brewEngine::rendering::Texture2D::FromFile("sprites/witchMissile.png");
+
+    game.onBeforeUpdate.addListener([&, Witch] (Game& g) {
+        if(game.getGameState() != GAME_ACTIVE) return;
         TransformComponent* witchTransform = &Witch->getComponent<TransformComponent>();
         PlayerComponent* witch = &Witch->getComponent<PlayerComponent>();
+        ColliderComponent* witchCollider = &Witch->getComponent<ColliderComponent>();
+        SpriteComponent* witchSprite = &Witch->getComponent<SpriteComponent>();
         playerMovement(game, witchTransform);
         playerShooting(game, witchTransform, witch);
+
+        if(witchCollider->isInvulnerable && witchCollider->invulnerabilityTimer > 0) {
+            witchCollider->invulnerabilityTimer -= g.getDeltaTime();
+            witchSprite->color = glm::vec4(1, 0, 0, 1);
+        }
+        else {
+            witchSprite->color = glm::vec4(1, 1, 1, 1);
+            witchCollider->invulnerabilityTimer = witchCollider->timeBetweenDamage;
+            witchCollider->isInvulnerable = false;
+        }
     });
 }
 
@@ -35,7 +50,7 @@ void PlayerSystem::playerMovement(Game &game, TransformComponent* witchTransform
         }
     }
     if(Input::IsKeyDown(Input::KEY_D)) {
-        if(witchTransform->localPosition.x > 1150) isTooFarRight = true;
+        if(witchTransform->localPosition.x > game.getContext().getWindowWidth()) isTooFarRight = true;
         if(!isTooFarRight) {
             witchTransform->localPosition.x += forward.x * 200.0f;
             isTooFarLeft = false;
@@ -73,7 +88,8 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 &DefaultMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - 90, glm::vec2(30, 30), 10);
             SpriteComponent* defaultMissileSprite =
-                &DefaultMissile->addComponent<SpriteComponent>("sprites/witchMissile.png",
+                &DefaultMissile->addComponent<SpriteComponent>(
+                    missileSprite,
                     glm::vec2(400,400),
                     3,
                     10,
@@ -102,7 +118,7 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 wavetMissileTransform =
                 &WaveMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - (45.0f + (i * 10.0f)), glm::vec2(15, 15), 5);
-                waveMissileSprite = &WaveMissile->addComponent<SpriteComponent>("sprites/witchMissile.png",
+                waveMissileSprite = &WaveMissile->addComponent<SpriteComponent>(missileSprite,
                     glm::vec2(400,400),
                     3,
                     10,
@@ -138,7 +154,7 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                 chargeMissileTransform =
                 &ChargeMissile->addComponent<TransformComponent>(game.origin, witchTransform->localPosition + offset,
                     witchTransform->localZRotation - 90, glm::vec2(30, 30), 10);
-                chargeMissileSprite = &ChargeMissile->addComponent<SpriteComponent>("sprites/witchMissile.png",
+                chargeMissileSprite = &ChargeMissile->addComponent<SpriteComponent>(missileSprite,
                     glm::vec2(400,400),
                     3,
                     10,

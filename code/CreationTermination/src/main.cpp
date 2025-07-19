@@ -7,8 +7,8 @@
 int main() {
     try {
         CTGame creationTermination(
-            1920,
-            1080,
+            1920/1.5,
+            1080/1.5,
             "Creation Termination"
         );
         creationTermination.run();

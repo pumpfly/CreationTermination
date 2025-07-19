@@ -13,7 +13,7 @@ namespace gl3::brewEngine {
 namespace gl3::brewEngine::collision {
     class SpatialGridManager {
     public:
-        explicit SpatialGridManager (Game &engine, int cellSize = 150, int screenWidth = 1280, int screenHeight = 720);
+        explicit SpatialGridManager (Game &engine, int cellSize = 150, int screenWidth = 1920/1.5, int screenHeight = 1080/1.5);
         virtual ~SpatialGridManager() = default;
         // Getter and Setter
         [[nodiscard]] const int &getCellSize() const {return cellSize; }

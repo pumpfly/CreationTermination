@@ -10,11 +10,12 @@
 #include "Systems/MissileSystem.h"
 #include "Systems/PlayerSystem.h"
 #include "brewEngine/rendering/RenderingSystem.h"
+#include "brewEngine/rendering/Texture2D.h"
 #include "Components/HealthComponent.h"
 #include "Components/UiComponent.h"
 #include "Systems/EnemySystem.h"
+#include "Systems/GameOverSystem.h"
 #include "Systems/IntroSystem.h"
-
 
 using gl3::brewEngine::Game;
 using gl3::brewEngine::ecs::Entity;
@@ -40,8 +41,20 @@ private:
     int currScore = 0;
     int maxScore = 5000;
 
+    //Textures
+    Texture2D witchTexture;
+    Texture2D creatureTexture;
+    Texture2D backgroundTexture_Layer1;
+    Texture2D backgroundTexture_Layer2;
+    Texture2D backgroundTexture_Layer3;
+    Texture2D endSceneTexture_Lost;
+    Texture2D endSceneTexture_Won;
+    Texture2D witchBackgroundHealthbarTexture;
+    Texture2D witchHealthQuadTexture;
+
     //Systems
     std::unique_ptr<IntroSystem> introSystem;
+    std::unique_ptr<GameOverSystem> gameOverSystem;
     std::unique_ptr<RenderingSystem> renderSystem;
     std::unique_ptr<PlayerSystem> playerSystem;
     std::unique_ptr<MissileSystem> missileSystem;
@@ -49,6 +62,13 @@ private:
     std::unique_ptr<CollisionSystem> collisionSystem;
 
     // Entities and their componenets
+
+    //Intro
+    Entity* CutScene = nullptr;
+    TransformComponent *cutSceneTransform = nullptr;
+    //Game Over
+    Entity* EndScene = nullptr;
+    TransformComponent* endSceneTransform = nullptr;
 
     //Background/Landscape
     Entity* Background_Layer1 = nullptr;

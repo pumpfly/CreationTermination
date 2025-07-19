@@ -2,6 +2,7 @@
 
 #include <random>
 
+#include "brewEngine/rendering/Texture2D.h"
 #include "../Components/EnemyComponent.h"
 #include "../Components/MissileComponent.h"
 #include "../Components/PlayerComponent.h"
@@ -13,6 +14,7 @@ using gl3::brewEngine::ecs::System;
 using gl3::brewEngine::Game;
 using gl3::brewEngine::rendering::SpriteComponent;
 using gl3::brewEngine::collision::ColliderComponent;
+using gl3::brewEngine::rendering::Texture2D;
 
 class EnemySystem : public System{
 public:
@@ -29,9 +31,15 @@ public:
     void bigEnemiesBehavior(Game& game, TransformComponent* bigEnemyTransform, EnemyComponent* bigEnemy, float speed);
 
     float lerp(float a, float b, float f) {return a + f * (b - a);}
+
     std::random_device dev;
 
     glm::vec2 tempEnemyPosition = glm::vec2(0,0);
+
+    //Textures
+    Texture2D smallEnemyTexture;
+    Texture2D mediumEnemyTexture;
+    Texture2D bigEnemyTexture;
 
     //small enemy spawn counter
     const float smallEnemyCountdownReset = 1.0f;
@@ -46,7 +54,7 @@ public:
     float bigEnemySpawnCountdown = bigEnemyCountdownReset;
 
 
-    unsigned int difficulty = 4;
+    unsigned int difficulty = 1;
     //Stopwatch/Timer
     float currentTime = 0;
 };

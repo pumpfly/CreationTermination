@@ -20,6 +20,8 @@ set(SOURCE_FILES
         src/Components/UiComponent.h
         src/Systems/IntroSystem.cpp
         src/Systems/IntroSystem.h
+        src/Systems/GameOverSystem.cpp
+        src/Systems/GameOverSystem.h
 )
 
 # set executable name

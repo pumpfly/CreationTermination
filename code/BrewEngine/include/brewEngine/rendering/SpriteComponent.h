@@ -22,9 +22,9 @@ namespace gl3::brewEngine::rendering {
 
     public:
 
-        explicit SpriteComponent(ecs::guid_t owner, const char* spritePath);
+        explicit SpriteComponent(ecs::guid_t owner, Texture2D sprite);
 
-        explicit SpriteComponent(ecs::guid_t owner, const char* spritePath, glm::vec2 frameSize,
+        explicit SpriteComponent(ecs::guid_t owner, Texture2D sprite, glm::vec2 frameSize,
             int frameCount, float framesPerSecond, glm::vec4 color);
 
         ~SpriteComponent() override { deleted = true; }

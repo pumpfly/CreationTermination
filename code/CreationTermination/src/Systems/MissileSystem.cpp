@@ -18,8 +18,8 @@ MissileSystem::MissileSystem(Game &game): System(game) {
             missileSprite = &Missile->getComponent<SpriteComponent>();
             missile = &Missile->getComponent<MissileComponent>();
 
-            if(missileTransform->localPosition.x > game.getContext().getWindowWidth() && missileTransform->localPosition.x < 0
-                && missileTransform->localPosition.y > game.getContext().getWindowHeight() && missileTransform->localPosition.y < 0) {
+            if(missileTransform->localPosition.x > game.getContext().getWindowWidth() || missileTransform->localPosition.x < 0
+                || missileTransform->localPosition.y > game.getContext().getWindowHeight() || missileTransform->localPosition.y < 0) {
                 game.entityManager.deleteEntity(*Missile);
             }
             else {
