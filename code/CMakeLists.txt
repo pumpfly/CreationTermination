@@ -3,6 +3,8 @@ project(gl3)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_link_options(-static-libstdc++ -static-libgcc -static -lpthread -lwinpthread)
+
 add_subdirectory(extern/glad)
 add_subdirectory(extern/glfw)
 add_subdirectory(extern/leif)

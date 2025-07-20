@@ -3,9 +3,11 @@
 
 #include "CTGame.h"
 #include "brewEngine/Config.h"
+#include "brewEngine/GameRestarter.h"
 
-int main() {
+int main(int argc, char *argv[]) {
     try {
+        gl3::brewEngine::GameRestarter::getInstance().init(argv[0]);
         CTGame creationTermination(
             1920/1.5,
             1080/1.5,

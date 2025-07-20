@@ -28,7 +28,8 @@ public:
     void enemySinMovement(Game& game, TransformComponent* enemyTransform, float Ycoordinate,
         float speed, float wiggleLength);
     void enemyDiagonalMovement(Game& game, TransformComponent* enemyTransfrom, bool goingUp, float speed);
-    void bigEnemiesBehavior(Game& game, TransformComponent* bigEnemyTransform, EnemyComponent* bigEnemy, float speed);
+    void bigEnemiesBehavior(Game& game, SpriteComponent* bigEnemySprite, TransformComponent* bigEnemyTransform,
+        EnemyComponent* bigEnemy, float speed);
 
     float lerp(float a, float b, float f) {return a + f * (b - a);}
 
@@ -37,9 +38,11 @@ public:
     glm::vec2 tempEnemyPosition = glm::vec2(0,0);
 
     //Textures
-    Texture2D smallEnemyTexture;
-    Texture2D mediumEnemyTexture;
-    Texture2D bigEnemyTexture;
+    Texture2D batTexture;
+    Texture2D BirdOfPreyTexture;
+    Texture2D dragonTexture;
+    Texture2D dragonshootingTexture;
+    Texture2D missileSprite;
 
     //small enemy spawn counter
     const float smallEnemyCountdownReset = 1.0f;
@@ -57,6 +60,12 @@ public:
     unsigned int difficulty = 1;
     //Stopwatch/Timer
     float currentTime = 0;
+
+    float bigShootCountdown = 0;
+    float bigShootCountdownReset = 2.0f;
+    bool spriteChangeTriggered = false;
+    float spriteChangeCountdown = 0;
+    float spriteChangeCountdownReset = 1;
 };
 
 

@@ -57,20 +57,19 @@ void CTGame::start() {
         10,
         glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
     witchHealth = &Witch->addComponent<HealthComponent>(5);
-    //Drawing the UI representation of the Players Health
-    for (int i = 0; i < witchHealth->health; i++)
-    {
-        WitchHealthQuad = &entityManager.createEntity();
-        witchHealthQuadComponent = &WitchHealthQuad->addComponent<UiComponent>();
-        witchHealthQuadTransform = &WitchHealthQuad->addComponent<TransformComponent>(
-            witchBackgroundHealthBarTransform,
-            glm::vec2(15 + 25 * i, 10),
-            0,
-            glm::vec2(11 * 2, 14 * 1.5));
-        witchHealthQuadSprite = &WitchHealthQuad->addComponent<SpriteComponent>(witchHealthQuadTexture);
 
-        healthQuads.push_back(WitchHealthQuad);
-    }
+    //Drawing the UI representation of the Players Health
+    WitchHealthQuad = &entityManager.createEntity();
+    witchHealthQuadComponent = &WitchHealthQuad->addComponent<UiComponent>();
+    witchHealthQuadTransform = &WitchHealthQuad->addComponent<TransformComponent>(
+        witchBackgroundHealthBarTransform,
+        glm::vec2(16, 12),
+        0,
+        glm::vec2(12 * 2 * witchHealth->health, 14 * 1.5));
+    witchHealthQuadSprite = &WitchHealthQuad->addComponent<SpriteComponent>(witchHealthQuadTexture);
+
+    //healthQuads.push_back(WitchHealthQuad);
+
     witchCollider = &Witch->addComponent<ColliderComponent>(PLAYER, [this] {
         //This method will only be called on collision
             // this implementation reduces the health of the Player/Witch
@@ -85,20 +84,15 @@ void CTGame::start() {
         collider->invulnerabilityTimer = collider->timeBetweenDamage;
         collider->isInvulnerable = true;
 
-        //remove a HealthQuad
-        this->entityManager.deleteEntity(this->entityManager.getEntity(healthQuads[witchHealth->health]->guid()));
-        healthQuads.erase(healthQuads.begin() + witchHealth->health);
-
-        if(witchHealth->health == 0 || healthQuads.empty()) {
+        if(witchHealth->health == 0) {
             this->setGameState(GAME_OVER);
             EndScene = &this->entityManager.createEntity();
             endSceneTransform = &EndScene->addComponent<TransformComponent>(origin,
                 glm::vec2(0, 0),
                 0,
                 glm::vec2(this->getContext().getWindowWidth(), this->getContext().getWindowHeight()));
-            gameOverSystem = std::make_unique<GameOverSystem>(*this, EndScene, endSceneTexture_Lost, endSceneTexture_Won);
+            gameOverSystem = std::make_unique<GameOverSystem>(*this, EndScene, Witch, endSceneTexture_Lost, endSceneTexture_Won);
         }
-        collider->isInvulnerable = true;
     });
 
     //Main Enemy: Creature
@@ -121,16 +115,34 @@ void CTGame::start() {
             // this implementation reduces the health of the Player/Witch
         if (creatureCollider->isInvulnerable) return;
 
-        this->currScore = this->currScore + 150;
+        ColliderComponent* colliderComponent = &Creature->getComponent<ColliderComponent>();
+        if(!colliderComponent || !colliderComponent->currCollidingEntity) return;
 
-        if(this->currScore >= maxScore) {
+        Entity* collidingEntity = colliderComponent->currCollidingEntity;
+        if(collidingEntity && !collidingEntity->isDeleted()) {
+            if(this->componentManager.hasComponent<MissileComponent>(collidingEntity->guid())) {
+                MissileComponent& missile = collidingEntity->getComponent<MissileComponent>();
+                if(missile.type == WAVE) {
+                    currScore += 10;
+                }
+                else if(missile.type == CHARGE){
+                    currScore += 100;
+                }
+                else{
+                    currScore += 30;
+                }
+            }
+        }
+
+        if(currScore >= maxScore) {
             this->setGameState(GAME_WIN);
             EndScene = &this->entityManager.createEntity();
             endSceneTransform = &EndScene->addComponent<TransformComponent>(origin,
                 glm::vec2(0, 0),
                 0,
                 glm::vec2(this->getContext().getWindowWidth(), this->getContext().getWindowHeight()));
-            gameOverSystem = std::make_unique<GameOverSystem>(*this, EndScene, endSceneTexture_Lost, endSceneTexture_Won);
+            gameOverSystem =
+                std::make_unique<GameOverSystem>(*this, EndScene, Witch, endSceneTexture_Lost, endSceneTexture_Won);
         }
         creatureCollider->isInvulnerable = true;
 
@@ -161,10 +173,11 @@ void CTGame::update(GLFWwindow *window) {
         glfwSetWindowShouldClose(window, true);
     }
 
-    //UI
-    ////Score display
+    witchHealthQuadTransform->localScale.x = 12 * 2 * witchHealth->health;
+
     if (this->getGameState() == GAME_ACTIVE) {
-        std::string scoreText = "SCORE: " + std::to_string(this->currScore);
+        //Score display
+        std::string scoreText = "SCORE: " + std::to_string(currScore) + "  GOAL: 5000";
         {
             // Setting big font
             lf_push_font(&bigfont);

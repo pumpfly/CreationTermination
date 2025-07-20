@@ -37,8 +37,8 @@ namespace gl3::brewEngine::input {
     void Input::inputUpdate() {
         for (int i = 0; i < MAX_KEYBOARD_KEYS; i++) {
             // TODO: DO in one bit operation for performance
-            Bitmanipulation::clearBit(currentKeyState[i], 1);
-            Bitmanipulation::clearBit(currentKeyState[i], 2);
+            //Bitmanipulation::clearBit(currentKeyState[i], 1);
+            //Bitmanipulation::clearBit(currentKeyState[i], 2);
         }
         glfwPollEvents();
     }

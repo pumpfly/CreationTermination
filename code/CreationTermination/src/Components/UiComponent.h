@@ -13,11 +13,6 @@ class UiComponent : public Component
     friend ComponentManager;
     friend Entity;
 
-public:
-
-
-private:
-
-    explicit UiComponent(guid_t owner) : Component(owner){};
+    explicit UiComponent(guid_t owner) : Component(owner) {};
 
 };

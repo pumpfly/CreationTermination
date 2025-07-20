@@ -13,5 +13,5 @@ class MissileSystem : public System{
     public:
     explicit MissileSystem(Game &game);
 
-    void updateMissiles(Game& game, TransformComponent* missileTransform, MissileComponent* missileComponent);
+    void updateMissiles(Game& game, bool goesToTheRight, TransformComponent* missileTransform, MissileComponent* missileComponent);
 };

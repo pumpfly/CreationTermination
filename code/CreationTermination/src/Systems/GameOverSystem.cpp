@@ -3,15 +3,20 @@
 #include <iostream>
 
 #include "../Components/EnemyComponent.h"
+#include "../Components/HealthComponent.h"
 #include "../Components/MissileComponent.h"
+#include "../Components/PlayerComponent.h"
+#include "../Components/UiComponent.h"
+#include "brewEngine/GameRestarter.h"
 #include "brewEngine/rendering/SpriteComponent.h"
 
 extern "C" {
 #include <leif.h>
 }
 
-GameOverSystem::GameOverSystem(Game &game, Entity *EndScene, const Texture2D &gameOver, const Texture2D &gameWon) : System(game) {
-    game.onUpdate.addListener([&, EndScene](Game &g, float deltaTime) {
+GameOverSystem::GameOverSystem(Game &game, Entity* EndScene, Entity* Witch,
+  const Texture2D &gameOver, const Texture2D &gameWon) : System(game) {
+    game.onUpdate.addListener([&, EndScene, Witch](Game &g, float deltaTime) {
         if(g.getGameState() == GAME_ACTIVE) return;
         if(g.getGameState() == GAME_OVER) {
           endSceneSprite = &EndScene->addComponent<SpriteComponent>(gameOver);
@@ -62,21 +67,7 @@ GameOverSystem::GameOverSystem(Game &game, Entity *EndScene, const Texture2D &ga
           // Rendering a button with fixed scale (-1 stands for "use normal height")
           auto button_state = lf_button_fixed(rtbtntext, width, -1);
           if(button_state == LF_CLICKED) {
-              game.componentManager.forEachComponent<EnemyComponent>([&](EnemyComponent& component) {
-                guid_t id =component.entity();
-                if(id != -1) {
-                  game.entityManager.deleteEntity(game.entityManager.getEntity(id));
-                }
-              });
-              game.componentManager.forEachComponent<MissileComponent>([&](MissileComponent& component) {
-                guid_t id =component.entity();
-                if(id != -1) {
-                  game.entityManager.deleteEntity(game.entityManager.getEntity(id));
-                }
-              });
-            //Player
-
-            //Creature
+            gl3::brewEngine::GameRestarter::getInstance().restart();
           }
 
           lf_pop_style_props();

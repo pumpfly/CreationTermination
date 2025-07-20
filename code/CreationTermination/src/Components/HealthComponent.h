@@ -13,7 +13,7 @@ class HealthComponent: public Component {
     friend Entity;
 
     public:
-    void SetHealth(int newHealth) {health = newHealth;}
+    //void SetHealth(int newHealth) {health = newHealth;}
 
     float health = 1;
 

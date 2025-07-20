@@ -40,6 +40,7 @@ namespace gl3::brewEngine {
             draw();
             updateDeltaTime();
             onAfterUpdate.invoke(*this);
+
         });
         onBeforeShutdown.invoke(*this);
         onShutdown.invoke(*this);

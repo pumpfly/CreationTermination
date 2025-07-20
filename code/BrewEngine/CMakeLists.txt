@@ -34,6 +34,8 @@ add_library(${ENGINE_NAME} ${HEADER_LIST} ${PRIVATE_HEADER_LIST} ${SOURCE_LIST}
         include/brewEngine/Collision/CollisionSystem.h
         include/brewEngine/Collision/SpatialGridManager.h
         include/brewEngine/collision/ColliderComponent.h
+        include/brewEngine/GameRestarter.h
+        src/GameRestarter.cpp
 )
 
 target_compile_features(${ENGINE_NAME} PRIVATE cxx_std_17)

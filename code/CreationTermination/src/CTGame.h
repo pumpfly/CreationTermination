@@ -35,6 +35,11 @@ private:
 
     void update(GLFWwindow *window) override;
 
+    void setScores(int currScore, int maxScore) {
+        this->currScore = currScore;
+        this->maxScore = maxScore;
+    }
+
     //Stopwatch/Timer
     float currentTime = 0;
     //Score
@@ -113,7 +118,7 @@ private:
     TransformComponent *witchHealthQuadTransform = nullptr;
     SpriteComponent *witchHealthQuadSprite = nullptr;
     UiComponent *witchHealthQuadComponent = nullptr;
-    std::vector<Entity*> healthQuads;
+    //std::vector<Entity*> healthQuads;
 
     ////Leif UI elements
     LfFont bigfont;

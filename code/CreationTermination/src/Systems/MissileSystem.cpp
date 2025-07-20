@@ -23,15 +23,18 @@ MissileSystem::MissileSystem(Game &game): System(game) {
                 game.entityManager.deleteEntity(*Missile);
             }
             else {
-                updateMissiles(game, missileTransform, missile);
+                updateMissiles(game, missile->goesToTheRight, missileTransform, missile);
             }
         });
     });
 }
 
-void MissileSystem::updateMissiles(Game& game, TransformComponent* missileTransform, MissileComponent* missileComponent) {
+void MissileSystem::updateMissiles(Game& game, bool goesToTheRight, TransformComponent* missileTransform, MissileComponent* missileComponent) {
+    float sign = 1;
+    if(!goesToTheRight) sign = -1.0;
+
     missileTransform->localPosition.y -=
-        sin(glm::radians(missileTransform->localZRotation - 90.0f)) * missileComponent->speed * game.getDeltaTime();
+        sin(glm::radians(missileTransform->localZRotation - 90.0f)) * missileComponent->speed * game.getDeltaTime() * sign;
     missileTransform->localPosition.x -=
-        cos(glm::radians(missileTransform->localZRotation - 90.0f)) * missileComponent->speed * game.getDeltaTime();
+        cos(glm::radians(missileTransform->localZRotation - 90.0f)) * missileComponent->speed * game.getDeltaTime() * sign;
 }
