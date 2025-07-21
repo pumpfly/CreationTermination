@@ -21,9 +21,9 @@ namespace gl3::brewEngine::collision {
         friend ComponentManager;
         friend Entity;
 
-        explicit ColliderComponent(guid_t owner, CollisionCategory type,
+        explicit ColliderComponent(guid_t owner, CollisionCategory type, float timeBetweenDamage,
             std::function <void()> handleCollision)
-                : Component(owner), type(type), handleCollision(std::move(handleCollision)) {}
+                : Component(owner), timeBetweenDamage(timeBetweenDamage) ,type(type), handleCollision(std::move(handleCollision)) {}
 
     public:
         std::function <void()> handleCollision;
@@ -31,9 +31,10 @@ namespace gl3::brewEngine::collision {
 
         CollisionCategory type;
 
+        bool isShielded = false;
         bool isInvulnerable = false;
         bool gotHit = false;
-        const float timeBetweenDamage = 1.0f;
+        float timeBetweenDamage = 1.0f;
         float invulnerabilityTimer = timeBetweenDamage;
     };
 }

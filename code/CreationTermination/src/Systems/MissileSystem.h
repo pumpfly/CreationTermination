@@ -13,5 +13,7 @@ class MissileSystem : public System{
     public:
     explicit MissileSystem(Game &game);
 
+    gl3::brewEngine::rendering::Texture2D debugSprite;
+
     void updateMissiles(Game& game, bool goesToTheRight, TransformComponent* missileTransform, MissileComponent* missileComponent);
 };

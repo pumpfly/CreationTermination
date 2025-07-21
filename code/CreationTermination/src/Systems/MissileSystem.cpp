@@ -5,17 +5,18 @@
 #include "brewEngine/rendering/SpriteRenderer.h"
 
 MissileSystem::MissileSystem(Game &game): System(game) {
+    debugSprite = gl3::brewEngine::rendering::Texture2D::FromFile("sprites/radiusCircle.png");
     game.onAfterUpdate.addListener([&] (Game&) {
         if(game.getGameState() != GAME_ACTIVE) return;
         game.componentManager.forEachComponent<MissileComponent>([&](MissileComponent& component) {
             Entity* Missile;
             TransformComponent* missileTransform;
-            SpriteComponent* missileSprite;
+            //SpriteComponent* missileSprite;
             MissileComponent* missile;
 
             Missile = &game.entityManager.getEntity(component.entity());
             missileTransform = &Missile->getComponent<TransformComponent>();
-            missileSprite = &Missile->getComponent<SpriteComponent>();
+            //missileSprite = &Missile->getComponent<SpriteComponent>();
             missile = &Missile->getComponent<MissileComponent>();
 
             if(missileTransform->localPosition.x > game.getContext().getWindowWidth() || missileTransform->localPosition.x < 0
@@ -34,7 +35,7 @@ void MissileSystem::updateMissiles(Game& game, bool goesToTheRight, TransformCom
     if(!goesToTheRight) sign = -1.0;
 
     missileTransform->localPosition.y -=
-        sin(glm::radians(missileTransform->localZRotation - 90.0f)) * missileComponent->speed * game.getDeltaTime() * sign;
+        sin(glm::radians(missileTransform->localZRotation - 180)) * missileComponent->speed * game.getDeltaTime() * sign;
     missileTransform->localPosition.x -=
-        cos(glm::radians(missileTransform->localZRotation - 90.0f)) * missileComponent->speed * game.getDeltaTime() * sign;
+        cos(glm::radians(missileTransform->localZRotation -180)) * missileComponent->speed * game.getDeltaTime() * sign;
 }

@@ -15,6 +15,8 @@ namespace gl3::brewEngine::rendering {
         }
 
         void drawLine(glm::vec4 color, glm::vec2 p1, glm::vec2 p2);
+        void drawCircle(glm::vec4 color, float cx, float cy, float r, int num_segments);
+
 
     private:
         GeometryRenderer();

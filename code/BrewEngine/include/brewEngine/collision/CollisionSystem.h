@@ -1,6 +1,7 @@
 
 #pragma once
 #include "ColliderComponent.h"
+#include "brewEngine/rendering/Texture2D.h"
 #include "brewEngine/Game.h"
 #include "brewEngine/ecs/System.h"
 
@@ -14,6 +15,8 @@ namespace gl3::brewEngine::collision {
 
         bool hasCollision(Entity* entity, Entity* other);
 
+        rendering::Texture2D radiusDisplay;
+        Entity* radiusCenter = nullptr;
     };
 }
 

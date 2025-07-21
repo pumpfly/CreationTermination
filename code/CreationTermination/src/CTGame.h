@@ -16,6 +16,7 @@
 #include "Systems/EnemySystem.h"
 #include "Systems/GameOverSystem.h"
 #include "Systems/IntroSystem.h"
+#include "Systems/ShieldSystem.h"
 
 using gl3::brewEngine::Game;
 using gl3::brewEngine::ecs::Entity;
@@ -34,6 +35,8 @@ private:
     void start() override;
 
     void update(GLFWwindow *window) override;
+
+    void draw() override;
 
     void setScores(int currScore, int maxScore) {
         this->currScore = currScore;
@@ -56,6 +59,8 @@ private:
     Texture2D endSceneTexture_Won;
     Texture2D witchBackgroundHealthbarTexture;
     Texture2D witchHealthQuadTexture;
+    Texture2D shieldCoolDownBarTexture;
+    Texture2D shieldQuadTexture;
 
     //Systems
     std::unique_ptr<IntroSystem> introSystem;
@@ -63,6 +68,7 @@ private:
     std::unique_ptr<RenderingSystem> renderSystem;
     std::unique_ptr<PlayerSystem> playerSystem;
     std::unique_ptr<MissileSystem> missileSystem;
+    std::unique_ptr<ShieldSystem> shieldSystem;
     std::unique_ptr<EnemySystem> enemySystem;
     std::unique_ptr<CollisionSystem> collisionSystem;
 
@@ -118,9 +124,21 @@ private:
     TransformComponent *witchHealthQuadTransform = nullptr;
     SpriteComponent *witchHealthQuadSprite = nullptr;
     UiComponent *witchHealthQuadComponent = nullptr;
-    //std::vector<Entity*> healthQuads;
+
+    ////ShieldCooldownBar
+    Entity* ShieldBar = nullptr;
+    TransformComponent *shieldBarTransform = nullptr;
+    SpriteComponent *shieldBarSprite = nullptr;
+
+    Entity* ShieldQuad = nullptr;
+    TransformComponent *shieldQuadTransform = nullptr;
+    SpriteComponent *shieldQuadSprite = nullptr;
+    UiComponent *shieldQuad = nullptr;
+    float shieldQuadMaxX = 0;
 
     ////Leif UI elements
     LfFont bigfont;
+    LfFont mediumfont;
 
+    int shieldCooldownUiNumber = 0;
 };

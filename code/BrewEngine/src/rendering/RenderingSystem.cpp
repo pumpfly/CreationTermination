@@ -46,7 +46,7 @@ namespace gl3::brewEngine::rendering {
                          entitySprite->sprite,
                          entityTransform->localPosition,
                          entityTransform->localScale,
-                         0,
+                         entityTransform->localZRotation,
                          entitySprite->color);
                     }
                 });

@@ -4,6 +4,7 @@
 
 #include "brewEngine/rendering/SpriteRenderer.h"
 #include "brewEngine/Assets.h"
+#include "Systems/ShieldSystem.h"
 
 extern "C" {
 #include <leif.h>
@@ -20,6 +21,8 @@ void CTGame::start() {
     endSceneTexture_Won = Texture2D::FromFile("sprites/gameOverScreen_Won.png");;
     witchBackgroundHealthbarTexture = Texture2D::FromFile("sprites/healthbarBase.png");
     witchHealthQuadTexture = Texture2D::FromFile("sprites/HealthQuad.png");
+    shieldCoolDownBarTexture = Texture2D::FromFile("sprites/ShieldBase.png");
+    shieldQuadTexture = Texture2D::FromFile("sprites/ShieldQuad.png");
 
     renderSystem = std::make_unique<RenderingSystem>(*this);
 
@@ -39,38 +42,17 @@ void CTGame::start() {
     backgroundComponents_Layer1 = &Background_Layer1->addComponent<BackgroundComponent>(glm::vec2(1280*3, 0), 800.0f, true, true);
     backgroundSprite_Layer1 = &Background_Layer1->addComponent<SpriteComponent>(backgroundTexture_Layer1);
 
-    //UI
-    ////Healthbar
-    WitchBackgroundHealthBar = &entityManager.createEntity();
-    witchBackgroundHealthBarTransform =
-        &WitchBackgroundHealthBar->addComponent<TransformComponent>(origin, glm::vec2(0, 0), 0, glm::vec2(100 * 1.5f, 30 * 1.5f));
-    witchBackgroundHealthBarSprite = &WitchBackgroundHealthBar->addComponent<SpriteComponent>(witchBackgroundHealthbarTexture);
-    // The background of the healthbar does not have an UIComponent, because it is not interactive or changes
-
     //Player: Witch
     Witch = &entityManager.createEntity();
     witchPlayer = &Witch->addComponent<PlayerComponent>();
-    witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 70);
+    witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 80);
     witchSprite = &Witch->addComponent<SpriteComponent>(witchTexture,
         glm::vec2(680, 415),
         4,
         10,
         glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
     witchHealth = &Witch->addComponent<HealthComponent>(5);
-
-    //Drawing the UI representation of the Players Health
-    WitchHealthQuad = &entityManager.createEntity();
-    witchHealthQuadComponent = &WitchHealthQuad->addComponent<UiComponent>();
-    witchHealthQuadTransform = &WitchHealthQuad->addComponent<TransformComponent>(
-        witchBackgroundHealthBarTransform,
-        glm::vec2(16, 12),
-        0,
-        glm::vec2(12 * 2 * witchHealth->health, 14 * 1.5));
-    witchHealthQuadSprite = &WitchHealthQuad->addComponent<SpriteComponent>(witchHealthQuadTexture);
-
-    //healthQuads.push_back(WitchHealthQuad);
-
-    witchCollider = &Witch->addComponent<ColliderComponent>(PLAYER, [this] {
+    witchCollider = &Witch->addComponent<ColliderComponent>(PLAYER, 1.0f, [this] {
         //This method will only be called on collision
             // this implementation reduces the health of the Player/Witch
 
@@ -78,7 +60,7 @@ void CTGame::start() {
         ColliderComponent* collider = &Witch->getComponent<ColliderComponent>();
 
         // the invulnerable state serves the prevention of immediate death
-        if (collider->isInvulnerable) return;
+        if (collider->isInvulnerable || collider->isShielded) return;
 
         --witchHealth->health;
         collider->invulnerabilityTimer = collider->timeBetweenDamage;
@@ -95,6 +77,43 @@ void CTGame::start() {
         }
     });
 
+    //UI
+    ////Healthbar
+    WitchBackgroundHealthBar = &entityManager.createEntity();
+    witchBackgroundHealthBarTransform =
+        &WitchBackgroundHealthBar->addComponent<TransformComponent>(origin, glm::vec2(0, 0), 0, glm::vec2(100 * 2.0f, 30 * 2.0f));
+    witchBackgroundHealthBarSprite = &WitchBackgroundHealthBar->addComponent<SpriteComponent>(witchBackgroundHealthbarTexture);
+    // The background of the healthbar does not have an UIComponent, because it is not interactive or changes
+    //Drawing the UI representation of the Players Health
+    WitchHealthQuad = &entityManager.createEntity();
+    witchHealthQuadTransform = &WitchHealthQuad->addComponent<TransformComponent>(
+        witchBackgroundHealthBarTransform,
+        glm::vec2(22, 20),
+        0,
+        glm::vec2(14 * 2.5f * witchHealth->health, 12 * 2.0f));
+    witchHealthQuadSprite = &WitchHealthQuad->addComponent<SpriteComponent>(witchHealthQuadTexture);
+    witchHealthQuadComponent = &WitchHealthQuad->addComponent<UiComponent>();
+
+    ////ShieldCooldownBar
+    /////Drawing the UI representation of the shield cooldown
+    ShieldBar = &entityManager.createEntity();
+    shieldBarTransform =
+        &ShieldBar->addComponent<TransformComponent>(origin,
+            witchBackgroundHealthBarTransform->localPosition + glm::vec2(witchBackgroundHealthBarTransform->localScale.x + 20, 0),
+            0,
+            glm::vec2(100 * 2.0f, 30 * 2.0f));
+    shieldBarSprite = &ShieldBar->addComponent<SpriteComponent>(shieldCoolDownBarTexture);
+
+    ShieldQuad = &entityManager.createEntity();
+    shieldQuadTransform = &ShieldQuad->addComponent<TransformComponent>(
+        shieldBarTransform,
+        shieldBarTransform->localPosition + glm::vec2(22, 20),
+        0,
+        glm::vec2(120, 12 * 2.0f));
+    shieldQuadSprite = &ShieldQuad->addComponent<SpriteComponent>(shieldQuadTexture);
+    shieldQuad = &ShieldQuad->addComponent<UiComponent>();
+    shieldQuadMaxX = shieldQuadTransform->localScale.x;
+
     //Main Enemy: Creature
     Creature = &entityManager.createEntity();
     creatureEnemyComponent = &Creature->addComponent<EnemyComponent>(CREATURE);
@@ -102,7 +121,7 @@ void CTGame::start() {
         glm::vec2(1100, 600),
         0,
         glm::vec2(600/4, 500/4),
-        200);
+        70);
     creatureSprite = &Creature->addComponent<SpriteComponent>(
         creatureTexture,
         glm::vec2(600, 500),
@@ -110,7 +129,7 @@ void CTGame::start() {
         1,
         glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
     creatureHealth = &Creature->addComponent<HealthComponent>(8);
-    creatureCollider = &Creature->addComponent<ColliderComponent>(ENEMY, [this]{
+    creatureCollider = &Creature->addComponent<ColliderComponent>(ENEMY, 1.0f, [this]{
         //This method will only be called on collision
             // this implementation reduces the health of the Player/Witch
         if (creatureCollider->isInvulnerable) return;
@@ -123,13 +142,13 @@ void CTGame::start() {
             if(this->componentManager.hasComponent<MissileComponent>(collidingEntity->guid())) {
                 MissileComponent& missile = collidingEntity->getComponent<MissileComponent>();
                 if(missile.type == WAVE) {
-                    currScore += 10;
+                    currScore += 20;
                 }
-                else if(missile.type == CHARGE){
-                    currScore += 100;
+                else if(missile.type == CHARGE && !missile.isBeingCharged){
+                    currScore += 150;
                 }
-                else{
-                    currScore += 30;
+                else if(missile.type != CHARGE){
+                    currScore += 40;
                 }
             }
         }
@@ -159,22 +178,25 @@ void CTGame::start() {
 
     introSystem = std::make_unique<IntroSystem>(*this, CutScene);
     enemySystem = std::make_unique<EnemySystem>(*this, Creature);
-    playerSystem = std::make_unique<PlayerSystem>(*this, Witch);
+    playerSystem = std::make_unique<PlayerSystem>(*this, Witch, shieldCooldownUiNumber);
     collisionSystem = std::make_unique<CollisionSystem>(*this);
     missileSystem = std::make_unique<MissileSystem>(*this);
+    shieldSystem = std::make_unique<ShieldSystem>(*this);
     // Loading a bigger font
     std::string path = gl3::brewEngine::resolveAssetPath("fonts/inter.ttf").string();
     bigfont = lf_load_font(path.c_str(), 30);
+    mediumfont = lf_load_font(path.c_str(), 20);
 }
 
 void CTGame::update(GLFWwindow *window) {
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        lf_terminate();
-        glfwSetWindowShouldClose(window, true);
+    witchHealthQuadTransform->localScale.x = 24 * witchHealth->health;
+    if(shieldCooldownUiNumber <= 20) {
+        shieldQuadTransform->localScale.x = shieldQuadMaxX - static_cast<float>(shieldCooldownUiNumber) * 6.0f;
     }
+    //draw();
+}
 
-    witchHealthQuadTransform->localScale.x = 12 * 2 * witchHealth->health;
-
+void CTGame::draw() {
     if (this->getGameState() == GAME_ACTIVE) {
         //Score display
         std::string scoreText = "SCORE: " + std::to_string(currScore) + "  GOAL: 5000";
@@ -185,6 +207,7 @@ void CTGame::update(GLFWwindow *window) {
             scoreDisplay.text_color = LF_BLACK;
             // Center the text horizontally
             lf_set_ptr_x_absolute((this->getContext().getWindowWidth() - lf_text_dimension(scoreText.c_str()).x) / 2.0f);
+            lf_set_ptr_y_absolute(0);
             // Push the style props
             lf_push_style_props(scoreDisplay);
 
@@ -197,5 +220,27 @@ void CTGame::update(GLFWwindow *window) {
             // Unsetting big font
             lf_pop_font();
         }
+        //Controls
+        std::string bottomText = "[SPACE] = OK DAMAGE    [E] = SMALL AND LITTLE DAMAGE BUT MULTIPLE AT ONCE    [F] = HOLD TO INCREASE SIZE AND DAMAGE    [L_SHIFT] = SHIELD";
+        {
+            // Setting big font
+            lf_push_font(&mediumfont);
+            LfUIElementProps bottomInfoDisplay = lf_get_theme().text_props;
+            bottomInfoDisplay.text_color = LF_BLACK;
+            lf_set_ptr_x_absolute(this->getContext().getWindowWidth() - 100);
+            lf_set_ptr_y_absolute(this->getContext().getWindowHeight() - 90);
+            // Push the style props
+            lf_push_style_props(bottomInfoDisplay);
+
+            // Render the text
+            lf_text(bottomText.c_str());
+
+            // Pop the style props
+            lf_pop_style_props();
+
+            // Unsetting big font
+            lf_pop_font();
+        }
+
     }
 }

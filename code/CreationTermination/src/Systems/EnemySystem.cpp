@@ -7,6 +7,8 @@
 
 
 EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
+    //// Even though Clion represents the following code blocks as not being used, it is definitely being used. ////
+
     batTexture = Texture2D::FromFile("sprites/bat_Sprites.png");
     BirdOfPreyTexture = Texture2D::FromFile("sprites/BirdOfPrey.png");
     dragonTexture = Texture2D::FromFile("sprites/dragonIdle.png");
@@ -20,7 +22,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                         &SmallEnemy->addComponent<TransformComponent>(game.origin,
                             glm::vec2(game.getContext().getWindowWidth() + 120*j, 50 + 100*i),
                             0,
-                            glm::vec2(60, 50), 50);
+                            glm::vec2(60, 50), 40);
                 SpriteComponent* smallEnemySprite = &SmallEnemy->addComponent<SpriteComponent>(
                     batTexture,
                     glm::vec2(600, 500),
@@ -28,7 +30,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                     5,
                     glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
                 HealthComponent* smallEnemyHealth = &SmallEnemy->addComponent<HealthComponent>(2);
-                ColliderComponent* smallEnemyCollider = &SmallEnemy->addComponent<ColliderComponent>(ENEMY, [&game, SmallEnemy]() {
+                ColliderComponent* smallEnemyCollider = &SmallEnemy->addComponent<ColliderComponent>(ENEMY, 0, [&game, SmallEnemy]() {
                     if(SmallEnemy->isDeleted()) return;
 
                     HealthComponent* healthC = &SmallEnemy->getComponent<HealthComponent>();
@@ -46,15 +48,12 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                     if(collidingEntity && !collidingEntity->isDeleted()) {
                         if(game.componentManager.hasComponent<MissileComponent>(collidingEntity->guid())) {
                             MissileComponent& missile = collidingEntity->getComponent<MissileComponent>();
-                                if(missile.type == WAVE) {
-                                    healthC->health = healthC->health - 0.5f;
-                                }
-                                else if(missile.type == CHARGE){
+                                if(missile.type == CHARGE && !missile.isBeingCharged){
                                     HealthComponent& chargeMissileHealth = collidingEntity->getComponent<HealthComponent>();
                                     healthC->health = healthC->health - chargeMissileHealth.health;
                                 }
-                                else {
-                                    healthC->health--;
+                                else{
+                                    healthC->health -= missile.damage;
                                 }
                             }
                             else{
@@ -169,8 +168,6 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 }
             }
 
-            //Even though Clion represents the coming code as not being used, it is definitely being used.
-
             for(int j = 0; j < SwaveSize; j++) {
                 for(int i = 0; i < SwaveSize - difficulty; i++) {
                     if(cos || sin) {
@@ -187,7 +184,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                             &SmallEnemy->addComponent<TransformComponent>(g.origin,
                                 currLocalPos,
                                 0,
-                                glm::vec2(60, 50), 50);
+                                glm::vec2(60, 50), 40);
                     SpriteComponent* smallEnemySprite =
                         &SmallEnemy->addComponent<SpriteComponent>(
                             batTexture,
@@ -198,7 +195,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                     HealthComponent* smallEnemyHealth = &SmallEnemy->addComponent<HealthComponent>(2);
 
                     //Collision Handling:
-                    ColliderComponent* smallEnemyCollider = &SmallEnemy->addComponent<ColliderComponent>(ENEMY, [&g, SmallEnemy]{
+                    ColliderComponent* smallEnemyCollider = &SmallEnemy->addComponent<ColliderComponent>(ENEMY, 0,[&g, SmallEnemy]{
                         if(SmallEnemy->isDeleted()) return;
 
                         HealthComponent* healthC = &SmallEnemy->getComponent<HealthComponent>();
@@ -216,15 +213,12 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                         if(collidingEntity && !collidingEntity->isDeleted()) {
                             if(g.componentManager.hasComponent<MissileComponent>(collidingEntity->guid())) {
                                 MissileComponent& missile = collidingEntity->getComponent<MissileComponent>();
-                                if(missile.type == WAVE) {
-                                    healthC->health = healthC->health - 0.5f;
-                                }
-                                else if(missile.type == CHARGE){
+                                if(missile.type == CHARGE && !missile.isBeingCharged){
                                     HealthComponent& chargeMissileHealth = collidingEntity->getComponent<HealthComponent>();
                                     healthC->health = healthC->health - chargeMissileHealth.health;
                                 }
-                                else {
-                                    healthC->health--;
+                                else{
+                                    healthC->health -= missile.damage;
                                 }
                             }
                             else{
@@ -275,7 +269,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                                 currLocalPos,
                                 0,
                                 glm::vec2(60*2, 50*2),
-                                50*2);
+                                80);
                     SpriteComponent* mediumEnemySprite =
                         &MediumEnemy->addComponent<SpriteComponent>(
                             BirdOfPreyTexture,
@@ -286,7 +280,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                     HealthComponent* mediumEnemyHealth = &MediumEnemy->addComponent<HealthComponent>(5);
 
                     //Collision Handling:
-                    ColliderComponent* mediumEnemyCollider = &MediumEnemy->addComponent<ColliderComponent>(ENEMY, [&g, MediumEnemy]() {
+                    ColliderComponent* mediumEnemyCollider = &MediumEnemy->addComponent<ColliderComponent>(ENEMY, 0, [&g, MediumEnemy]() {
                         if(MediumEnemy->isDeleted()) return;
 
                         //Fresh health component pointer to avoid garbage data
@@ -305,15 +299,12 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                         if(collidingEntity && !collidingEntity->isDeleted()) {
                             if(g.componentManager.hasComponent<MissileComponent>(collidingEntity->guid())) {
                                 MissileComponent& missile = collidingEntity->getComponent<MissileComponent>();
-                                if(missile.type == WAVE) {
-                                    healthC->health = healthC->health - 0.3f;
-                                }
-                                else if(missile.type == CHARGE){
+                                if(missile.type == CHARGE){
                                     HealthComponent& chargeMissileHealth = collidingEntity->getComponent<HealthComponent>();
                                     healthC->health = healthC->health - chargeMissileHealth.health;
                                 }
-                                else {
-                                    healthC->health--;
+                                else{
+                                    healthC->health -= missile.damage;
                                 }
                             }
                             else{
@@ -335,10 +326,10 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 EnemyComponent* bigEnemy = &BigEnemy->addComponent<EnemyComponent>(BIGENEMY);
                 TransformComponent* bigEnemyTransform =
                         &BigEnemy->addComponent<TransformComponent>(g.origin,
-                            glm::vec2(((g.getContext().getWindowWidth()/2 + 50*6)-50*3 - i*60*3) + pos, -50*3),
+                            glm::vec2(((g.getContext().getWindowWidth()/2 + 50*6)-50*3 - i*60*3) + pos, 50*3),
                             0,
                             glm::vec2(60*4, 50*4),
-                            50*4);
+                            50*3);
                 SpriteComponent* bigEnemySprite = &BigEnemy->addComponent<SpriteComponent>(
                     dragonTexture,
                     glm::vec2(600, 500),
@@ -348,7 +339,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 HealthComponent* bigEnemyHealth = &BigEnemy->addComponent<HealthComponent>(10);
 
                 //Collision Handling:
-                ColliderComponent* bigEnemyCollider = &BigEnemy->addComponent<ColliderComponent>(ENEMY, [&g, BigEnemy]() {
+                ColliderComponent* bigEnemyCollider = &BigEnemy->addComponent<ColliderComponent>(ENEMY, 0, [&g, BigEnemy]() {
                     if(BigEnemy->isDeleted()) return;
 
                     //Fresh health component pointer to avoid garbage data
@@ -367,15 +358,12 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                     if(collidingEntity && !collidingEntity->isDeleted()) {
                         if(g.componentManager.hasComponent<MissileComponent>(collidingEntity->guid())) {
                             MissileComponent& missile = collidingEntity->getComponent<MissileComponent>();
-                            if(missile.type == WAVE) {
-                                healthC->health = healthC->health - 0.5f;
-                            }
-                            else if(missile.type == CHARGE){
+                            if(missile.type == CHARGE){
                                 HealthComponent& chargeMissileHealth = collidingEntity->getComponent<HealthComponent>();
                                 healthC->health = healthC->health - chargeMissileHealth.health;
                             }
-                            else {
-                                healthC->health--;
+                            else{
+                                healthC->health -= missile.damage;
                             }
                         }
                         else{
@@ -472,10 +460,13 @@ void EnemySystem::bigEnemiesBehavior(Game& game, SpriteComponent* bigEnemySprite
         glm::vec2 offset = {forwardVec.x, bigEnemyTransform->localScale.y/2};
 
         Entity* DefaultMissile = &game.entityManager.createEntity();
-        MissileComponent* defaultMissileComponent = &DefaultMissile->addComponent<MissileComponent>(false, 400.0f, DEFAULT);
+        MissileComponent* defaultMissileComponent = &DefaultMissile->addComponent<MissileComponent>(false, 400.0f, 2.0f, DEFAULT);
         TransformComponent* defaultMissileTransform =
-            &DefaultMissile->addComponent<TransformComponent>(game.origin, bigEnemyTransform->localPosition - offset,
-                bigEnemyTransform->localZRotation - 90, glm::vec2(50, 50), 40);
+            &DefaultMissile->addComponent<TransformComponent>(game.origin,
+                bigEnemyTransform->localPosition - offset,
+                bigEnemyTransform->localZRotation - 90,
+                glm::vec2(50, 50),
+                40);
         SpriteComponent* defaultMissileSprite =
             &DefaultMissile->addComponent<SpriteComponent>(
                 missileSprite,
@@ -484,7 +475,7 @@ void EnemySystem::bigEnemiesBehavior(Game& game, SpriteComponent* bigEnemySprite
                 10,
                 glm::vec4(1,1,1,1));
         ColliderComponent* defaultMissileCollider = &DefaultMissile->addComponent<ColliderComponent>
-        (ENEMY, [&game, DefaultMissile]() {
+        (ENEMY, 0,[&game, DefaultMissile]() {
                 if(DefaultMissile->isDeleted()) return;
                 game.entityManager.deleteEntity(*DefaultMissile);
             });

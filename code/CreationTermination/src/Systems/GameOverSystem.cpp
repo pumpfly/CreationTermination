@@ -35,7 +35,6 @@ GameOverSystem::GameOverSystem(Game &game, Entity* EndScene, Entity* Witch,
           const float width = 50.0f;
 
           lf_push_style_props(btnprops);
-          // Center the button horizontally
           int windowWidth = g.getContext().getWindowWidth();
             int windowHeight = g.getContext().getWindowHeight();
           lf_set_ptr_x_absolute(static_cast<float>(windowWidth)/2 - (width + btnprops.padding * 4.0f));
@@ -59,7 +58,6 @@ GameOverSystem::GameOverSystem(Game &game, Entity* EndScene, Entity* Witch,
           const float width = 50.0f;
 
           lf_push_style_props(rtbtnprops);
-          // Center the button horizontally
           int windowWidth = g.getContext().getWindowWidth();
             int windowHeight = g.getContext().getWindowHeight();
           lf_set_ptr_x_absolute(static_cast<float>(windowWidth)/2 - (width + rtbtnprops.padding * 4.0f)*3);

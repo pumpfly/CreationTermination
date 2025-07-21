@@ -22,6 +22,9 @@ set(SOURCE_FILES
         src/Systems/IntroSystem.h
         src/Systems/GameOverSystem.cpp
         src/Systems/GameOverSystem.h
+        src/Components/ShieldComponent.h
+        src/Systems/ShieldSystem.cpp
+        src/Systems/ShieldSystem.h
 )
 
 # set executable name

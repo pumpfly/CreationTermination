@@ -1,8 +1,11 @@
 
 #include "brewEngine/collision/CollisionSystem.h"
 
+#include "brewEngine/rendering/SpriteComponent.h"
+
 namespace gl3::brewEngine::collision {
     CollisionSystem::CollisionSystem(Game &game): System(game) {
+        radiusDisplay = rendering::Texture2D::FromFile("sprites/radiusCircle.png");
         game.onUpdate.addListener([&] (Game & g, float deltaTime) {
             //SpatialGridManager::drawGrid(150, 1920/1.5, 1080/1.5);
             g.spatialGridManager.clearIDs();
@@ -28,6 +31,7 @@ namespace gl3::brewEngine::collision {
                 Entity* Entity = &g.entityManager.getEntity(component.entity());
                 TransformComponent* entityTransform = &Entity->getComponent<TransformComponent>();
                 glm::vec2 entityPosition = entityTransform->localPosition;
+
                 int entityMinX = static_cast<int>(entityPosition.x);
                 int entityMaxX = static_cast<int>(entityPosition.x) + entityTransform->localScale.x;
                 int entityMinY = static_cast<int>(entityPosition.y);
@@ -55,8 +59,8 @@ namespace gl3::brewEngine::collision {
         ColliderComponent* entityColliderComponent = &entity->getComponent<ColliderComponent>();
         ColliderComponent* otherColliderComponent = &other->getComponent<ColliderComponent>();
 
-        glm::vec2 center1(entityTransform->localPosition + entityTransform->radius);
-        glm::vec2 center2(otherTransform->localPosition + otherTransform->radius);
+        glm::vec2 center1(entityTransform->localPosition + entityTransform->localScale/2.0f);
+        glm::vec2 center2(otherTransform->localPosition + otherTransform->localScale/2.0f);
 
         glm::vec2 difference = center2 - center1;
 
