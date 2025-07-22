@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "brewEngine/collision/ColliderComponent.h"
 #include "brewEngine/rendering/SpriteRenderer.h"
 
 MissileSystem::MissileSystem(Game &game): System(game) {
@@ -11,13 +12,19 @@ MissileSystem::MissileSystem(Game &game): System(game) {
         game.componentManager.forEachComponent<MissileComponent>([&](MissileComponent& component) {
             Entity* Missile;
             TransformComponent* missileTransform;
-            //SpriteComponent* missileSprite;
             MissileComponent* missile;
+            gl3::brewEngine::collision::ColliderComponent* missileCollider;
 
             Missile = &game.entityManager.getEntity(component.entity());
             missileTransform = &Missile->getComponent<TransformComponent>();
-            //missileSprite = &Missile->getComponent<SpriteComponent>();
             missile = &Missile->getComponent<MissileComponent>();
+            missileCollider = &Missile->getComponent<gl3::brewEngine::collision::ColliderComponent>();
+
+            missileCollider->invulnerabilityTimer -= game.getDeltaTime();
+
+            if(missileCollider->invulnerabilityTimer <= 0) {
+                missileCollider->isInvulnerable = false;
+            }
 
             if(missileTransform->localPosition.x > game.getContext().getWindowWidth() || missileTransform->localPosition.x < 0
                 || missileTransform->localPosition.y > game.getContext().getWindowHeight() || missileTransform->localPosition.y < 0) {

@@ -87,7 +87,7 @@ void PlayerSystem::playerShield(Game& game, TransformComponent* witchTransform, 
 
     if(Input::IsKeyDown(Input::KEY_LEFT_SHIFT) && shieldCooldown <= 0) {
         witchCollider->isShielded = true;
-        shieldCooldown = 20;
+        shieldCooldown = 12;
 
         Entity* shieldEntity = nullptr;
         ShieldComponent* shieldComponent = nullptr;

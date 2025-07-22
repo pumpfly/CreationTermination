@@ -33,6 +33,7 @@ namespace gl3::brewEngine::collision {
 
         bool isShielded = false;
         bool isInvulnerable = false;
+
         bool gotHit = false;
         float timeBetweenDamage = 1.0f;
         float invulnerabilityTimer = timeBetweenDamage;

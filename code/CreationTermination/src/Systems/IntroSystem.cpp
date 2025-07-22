@@ -47,7 +47,7 @@ IntroSystem::IntroSystem(Game &game, Entity* CutScene): System(game){
           lf_pop_style_props();
         }
 
-        if (sceneCountdown >= 5 && sceneIndex <=5) {
+        if (sceneCountdown >= 8 && sceneIndex <=8) {
             sceneIndex++;
             sceneCountdown = 0;
         }

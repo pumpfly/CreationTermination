@@ -45,13 +45,13 @@ void CTGame::start() {
     //Player: Witch
     Witch = &entityManager.createEntity();
     witchPlayer = &Witch->addComponent<PlayerComponent>();
-    witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 80);
+    witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 60);
     witchSprite = &Witch->addComponent<SpriteComponent>(witchTexture,
         glm::vec2(680, 415),
         4,
         10,
         glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-    witchHealth = &Witch->addComponent<HealthComponent>(5);
+    witchHealth = &Witch->addComponent<HealthComponent>(7);
     witchCollider = &Witch->addComponent<ColliderComponent>(PLAYER, 1.0f, [this] {
         //This method will only be called on collision
             // this implementation reduces the health of the Player/Witch
@@ -189,7 +189,7 @@ void CTGame::start() {
 }
 
 void CTGame::update(GLFWwindow *window) {
-    witchHealthQuadTransform->localScale.x = 24 * witchHealth->health;
+    witchHealthQuadTransform->localScale.x = 19 * witchHealth->health;
     if(shieldCooldownUiNumber <= 20) {
         shieldQuadTransform->localScale.x = shieldQuadMaxX - static_cast<float>(shieldCooldownUiNumber) * 6.0f;
     }
@@ -221,14 +221,14 @@ void CTGame::draw() {
             lf_pop_font();
         }
         //Controls
-        std::string bottomText = "[SPACE] = OK DAMAGE    [E] = SMALL AND LITTLE DAMAGE BUT MULTIPLE AT ONCE    [F] = HOLD TO INCREASE SIZE AND DAMAGE    [L_SHIFT] = SHIELD";
+        std::string bottomText = "[W][A][S][D] = MOVEMENT     [SPACE] = DEFAULT SHOT     [E] = SPREAD SHOT     [F] = CHARGE SHOT     [L_SHIFT] = SHIELD";
         {
             // Setting big font
             lf_push_font(&mediumfont);
             LfUIElementProps bottomInfoDisplay = lf_get_theme().text_props;
             bottomInfoDisplay.text_color = LF_BLACK;
             lf_set_ptr_x_absolute(this->getContext().getWindowWidth() - 100);
-            lf_set_ptr_y_absolute(this->getContext().getWindowHeight() - 90);
+            lf_set_ptr_y_absolute(this->getContext().getWindowHeight() - 64);
             // Push the style props
             lf_push_style_props(bottomInfoDisplay);
 

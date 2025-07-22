@@ -92,7 +92,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
 
         currentTime += deltaTime;
 
-        if(currentTime >= 30) {
+        if(currentTime >= 30 && difficulty <= 5) {
             currentTime = 0;
             difficulty++;
         }
@@ -269,7 +269,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                                 currLocalPos,
                                 0,
                                 glm::vec2(60*2, 50*2),
-                                80);
+                                55);
                     SpriteComponent* mediumEnemySprite =
                         &MediumEnemy->addComponent<SpriteComponent>(
                             BirdOfPreyTexture,
@@ -326,20 +326,20 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 EnemyComponent* bigEnemy = &BigEnemy->addComponent<EnemyComponent>(BIGENEMY);
                 TransformComponent* bigEnemyTransform =
                         &BigEnemy->addComponent<TransformComponent>(g.origin,
-                            glm::vec2(((g.getContext().getWindowWidth()/2 + 50*6)-50*3 - i*60*3) + pos, 50*3),
+                            glm::vec2(((g.getContext().getWindowWidth()/2 + 50*6)-50*3 - i*60*3) + pos, -50*4),
                             0,
                             glm::vec2(60*4, 50*4),
-                            50*3);
+                            100);
                 SpriteComponent* bigEnemySprite = &BigEnemy->addComponent<SpriteComponent>(
                     dragonTexture,
                     glm::vec2(600, 500),
                     2,
                     5,
                     glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-                HealthComponent* bigEnemyHealth = &BigEnemy->addComponent<HealthComponent>(10);
+                HealthComponent* bigEnemyHealth = &BigEnemy->addComponent<HealthComponent>(20);
 
                 //Collision Handling:
-                ColliderComponent* bigEnemyCollider = &BigEnemy->addComponent<ColliderComponent>(ENEMY, 0, [&g, BigEnemy]() {
+                ColliderComponent* bigEnemyCollider = &BigEnemy->addComponent<ColliderComponent>(ENEMY, 0, [&g, BigEnemy, deltaTime]() {
                     if(BigEnemy->isDeleted()) return;
 
                     //Fresh health component pointer to avoid garbage data
@@ -360,7 +360,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                             MissileComponent& missile = collidingEntity->getComponent<MissileComponent>();
                             if(missile.type == CHARGE){
                                 HealthComponent& chargeMissileHealth = collidingEntity->getComponent<HealthComponent>();
-                                healthC->health = healthC->health - chargeMissileHealth.health;
+                                healthC->health -= chargeMissileHealth.health * deltaTime*3;
                             }
                             else{
                                 healthC->health -= missile.damage;
@@ -428,6 +428,16 @@ void EnemySystem::enemyDiagonalMovement(Game &game, TransformComponent *enemyTra
     static float referenceX = enemyTransform->localPosition.x;
     static float referenceY = enemyTransform->localPosition.y;
 
+    if(referenceY >= game.getContext().getWindowHeight() + enemyTransform->localScale.y * 2 ||
+        referenceY <= -enemyTransform->localScale.y * 2) {
+        try {
+            game.entityManager.deleteEntity(game.entityManager.getEntity(enemyTransform->entity()));
+            return;
+        }
+        catch(...) {
+
+        }
+    }
     enemyTransform->localPosition.x -= speed * game.getDeltaTime();
 
     // Move relative to reference point
@@ -464,7 +474,7 @@ void EnemySystem::bigEnemiesBehavior(Game& game, SpriteComponent* bigEnemySprite
         TransformComponent* defaultMissileTransform =
             &DefaultMissile->addComponent<TransformComponent>(game.origin,
                 bigEnemyTransform->localPosition - offset,
-                bigEnemyTransform->localZRotation - 90,
+                0,
                 glm::vec2(50, 50),
                 40);
         SpriteComponent* defaultMissileSprite =

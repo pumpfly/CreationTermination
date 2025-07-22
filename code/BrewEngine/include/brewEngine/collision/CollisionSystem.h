@@ -17,6 +17,9 @@ namespace gl3::brewEngine::collision {
 
         rendering::Texture2D radiusDisplay;
         Entity* radiusCenter = nullptr;
+
+        float timeBetweenDamage = 1.0f;
+        float invulnerabilityTimer = timeBetweenDamage;
     };
 }
 

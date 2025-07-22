@@ -19,6 +19,6 @@ class ShieldComponent: public Component {
     std::function<void()> endFunc;
     glm::vec2 offset = glm::vec2(0.0f);
 
-    const float lifetime = 1.0f;
+    const float lifetime = 1.5f;
     float activeTimer = 0.0f;
 };

@@ -28,17 +28,19 @@ GameOverSystem::GameOverSystem(Game &game, Entity* EndScene, Entity* Witch,
         const char* btntext = "Exit";
         // Defining properties of the button
         LfUIElementProps btnprops = lf_get_theme().button_props;
+
         btnprops.margin_left = 0.0f; btnprops.margin_top = 15.0f; btnprops.border_width = 0.0f; btnprops.corner_radius = 9.0f;
         btnprops.text_color = LF_WHITE;
         btnprops.color = (LfColor){90, 90, 90, 255};
         {
           const float width = 50.0f;
+          const float height = 30.0f;
 
           lf_push_style_props(btnprops);
           int windowWidth = g.getContext().getWindowWidth();
             int windowHeight = g.getContext().getWindowHeight();
-          lf_set_ptr_x_absolute(static_cast<float>(windowWidth)/2 - (width + btnprops.padding * 4.0f));
-            lf_set_ptr_y_absolute(static_cast<float>(windowHeight)/2);
+          lf_set_ptr_x_absolute(static_cast<float>(windowWidth)/2 - (width + btnprops.padding * 4.0f)*6);
+            lf_set_ptr_y_absolute(static_cast<float>(windowHeight)/2 + (height + btnprops.padding));
           // Rendering a button with fixed scale (-1 stands for "use normal height")
           auto button_state = lf_button_fixed(btntext, width, -1);
           if(button_state == LF_CLICKED) {
@@ -48,7 +50,7 @@ GameOverSystem::GameOverSystem(Game &game, Entity* EndScene, Entity* Witch,
           lf_pop_style_props();
         }
         /* Reset Button */
-        const char* rtbtntext = "Restart";
+        const char* rtbtntext = "Retry";
         // Defining properties of the button
         LfUIElementProps rtbtnprops = lf_get_theme().button_props;
         rtbtnprops.margin_left = 0.0f; rtbtnprops.margin_top = 15.0f; rtbtnprops.border_width = 0.0f; rtbtnprops.corner_radius = 9.0f;
@@ -60,7 +62,7 @@ GameOverSystem::GameOverSystem(Game &game, Entity* EndScene, Entity* Witch,
           lf_push_style_props(rtbtnprops);
           int windowWidth = g.getContext().getWindowWidth();
             int windowHeight = g.getContext().getWindowHeight();
-          lf_set_ptr_x_absolute(static_cast<float>(windowWidth)/2 - (width + rtbtnprops.padding * 4.0f)*3);
+          lf_set_ptr_x_absolute(static_cast<float>(windowWidth)/2 - (width + rtbtnprops.padding * 4.0f)*6);
             lf_set_ptr_y_absolute(static_cast<float>(windowHeight)/2);
           // Rendering a button with fixed scale (-1 stands for "use normal height")
           auto button_state = lf_button_fixed(rtbtntext, width, -1);
