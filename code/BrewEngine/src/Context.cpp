@@ -22,8 +22,11 @@ namespace gl3::brewEngine::context {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-        window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+        GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+
+        window = glfwCreateWindow(width, height, title.c_str(), monitor, nullptr);
         if(window == nullptr) {
             throw std::runtime_error("Failed to create window");
         }
