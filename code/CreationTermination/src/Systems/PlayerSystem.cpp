@@ -4,6 +4,7 @@
 
 #include "../Components/MissileComponent.h"
 #include "../Components/ShieldComponent.h"
+#include "brewEngine/Assets.h"
 #include "brewEngine/Config.h"
 #include "brewEngine/collision/ColliderComponent.h"
 #include "brewEngine/rendering/SpriteComponent.h"
@@ -83,7 +84,9 @@ void PlayerSystem::playerShield(Game& game, TransformComponent* witchTransform, 
     if(shieldCooldown <= -1) shieldCooldown = -1;
     if (shieldCooldown >= 0) {
         (shieldCooldownUINumber) = (int)shieldCooldown;
-    } else (shieldCooldownUINumber) = 0;
+    } else {
+        (shieldCooldownUINumber) = 0;
+    }
 
     if(Input::IsKeyDown(Input::KEY_LEFT_SHIFT) && shieldCooldown <= 0) {
         witchCollider->isShielded = true;

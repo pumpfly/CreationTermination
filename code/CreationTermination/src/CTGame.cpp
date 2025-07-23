@@ -153,6 +153,7 @@ void CTGame::start() {
             }
         }
 
+
         if(currScore >= maxScore) {
             this->setGameState(gl3::brewEngine::GAME_WIN);
             EndScene = &this->entityManager.createEntity();
@@ -189,6 +190,9 @@ void CTGame::start() {
 }
 
 void CTGame::update(GLFWwindow *window) {
+    if(Input::IsKeyDown(Input::KEY_O)) {
+        glfwSetWindowShouldClose(window, true);
+    }
     witchHealthQuadTransform->localScale.x = 19 * witchHealth->health;
     if(shieldCooldownUiNumber <= 20) {
         shieldQuadTransform->localScale.x = shieldQuadMaxX - static_cast<float>(shieldCooldownUiNumber) * 6.0f;

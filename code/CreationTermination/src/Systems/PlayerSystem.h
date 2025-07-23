@@ -25,8 +25,10 @@ class PlayerSystem : public System{
     bool isTooFarUp = false;
     bool isTooFarDown = false;
 
+    //Textures
     gl3::brewEngine::rendering::Texture2D missileSprite;
     gl3::brewEngine::rendering::Texture2D shieldSprite;
+
     //needed for bool isBeingCharged
     MissileComponent* chargeMissile = nullptr;
     guid_t currMissileID = -1;
@@ -36,6 +38,7 @@ class PlayerSystem : public System{
     void playerShooting(Game &game, TransformComponent* witchTransform, PlayerComponent* witchPlayer);
 
     float shieldCooldown = -1;
+
 };
 
 

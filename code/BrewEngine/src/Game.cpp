@@ -22,6 +22,8 @@ namespace gl3::brewEngine {
         //audio.init();
         //audio.setGlobalVolume(0.1f);
         origin = &entityManager.createEntity().addComponent<TransformComponent>();
+        audio.init();
+        audio.setGlobalVolume(0.1f);
     }
 
     void Game::run() {
@@ -68,6 +70,7 @@ namespace gl3::brewEngine {
     }
 
     Game::~Game() {
+        audio.deinit();
         context.~Context();
     }
 }

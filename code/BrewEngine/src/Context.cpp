@@ -3,6 +3,9 @@
 #include <stdexcept>
 #include "brewEngine/Context.h"
 #include <iostream>
+#include <thread>
+#include <windows.h>
+#include <chrono>
 
 
 namespace gl3::brewEngine::context {
@@ -32,12 +35,17 @@ namespace gl3::brewEngine::context {
         }
 
         glfwMakeContextCurrent(window);
+
         glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
         gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
         glDisable(GL_DEPTH_TEST);
         if(glGetError() != GL_NO_ERROR) {
             throw std::runtime_error("gl error");
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+        glViewport(0, 0, width, height);
+
 
         //UI: leif library initialization
         lf_init_glfw(width, height, window);

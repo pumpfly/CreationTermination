@@ -63,6 +63,8 @@ namespace gl3::brewEngine {
         collision::SpatialGridManager spatialGridManager;
         TransformComponent *origin = nullptr;
 
+        SoLoud::Soloud audio;
+
     protected:
         Game(int width, int height, const std::string &title);
         /// @function start() will be called once at the start of the game.
@@ -74,7 +76,6 @@ namespace gl3::brewEngine {
         virtual void draw() {}
         virtual ~Game();
 
-        SoLoud::Soloud audio;
         float deltaTime = 1.0f / 60;
 
     private:
