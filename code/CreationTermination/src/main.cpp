@@ -1,8 +1,6 @@
 #include <iostream>
-#include <leif.h>
 
 #include "CTGame.h"
-#include "brewEngine/Config.h"
 #include "GameRestarter.h"
 
 int main(int argc, char *argv[]) {
