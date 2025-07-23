@@ -12,7 +12,6 @@ add_subdirectory(extern/glm)
 add_subdirectory(extern/soloud)
 add_subdirectory(BrewEngine)
 
-add_subdirectory(game)
 add_subdirectory(CreationTermination)
 
 

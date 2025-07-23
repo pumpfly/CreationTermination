@@ -98,10 +98,10 @@ namespace gl3::brewEngine::rendering {
     void SpriteRenderer::DrawSpriteSheet(Texture2D &texture, glm::vec4 source, glm::vec4 dest, float rotate,
         glm::vec4 color) {
 
-        glm::vec2 topLeft = glm::vec2(source.x/texture.Width, (source.y + source.w)/texture.Height);
-        glm::vec2 bottomLeft = glm::vec2(source.x/texture.Width, source.y/texture.Height);
-        glm::vec2 bottomRight = glm::vec2((source.x + source.z)/texture.Width, source.y/texture.Height);
-        glm::vec2 topRight = glm::vec2((source.x + source.z)/texture.Width, (source.y + source.w)/texture.Height);
+        glm::vec2 topLeft = glm::vec2(source.x/texture.getImageWidth(), (source.y + source.w)/texture.getImageHeight());
+        glm::vec2 bottomLeft = glm::vec2(source.x/texture.getImageWidth(), source.y/texture.getImageHeight());
+        glm::vec2 bottomRight = glm::vec2((source.x + source.z)/texture.getImageWidth(), source.y/texture.getImageHeight());
+        glm::vec2 topRight = glm::vec2((source.x + source.z)/texture.getImageWidth(), (source.y + source.w)/texture.getImageHeight());
 
         generateQuad(topLeft, bottomLeft, bottomRight, topRight);
 

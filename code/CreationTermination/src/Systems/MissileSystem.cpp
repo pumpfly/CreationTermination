@@ -8,7 +8,7 @@
 MissileSystem::MissileSystem(Game &game): System(game) {
     debugSprite = gl3::brewEngine::rendering::Texture2D::FromFile("sprites/radiusCircle.png");
     game.onAfterUpdate.addListener([&] (Game&) {
-        if(game.getGameState() != GAME_ACTIVE) return;
+        if(game.getGameState() != gl3::brewEngine::GAME_ACTIVE) return;
         game.componentManager.forEachComponent<MissileComponent>([&](MissileComponent& component) {
             Entity* Missile;
             TransformComponent* missileTransform;
@@ -26,8 +26,8 @@ MissileSystem::MissileSystem(Game &game): System(game) {
                 missileCollider->isInvulnerable = false;
             }
 
-            if(missileTransform->localPosition.x > game.getContext().getWindowWidth() || missileTransform->localPosition.x < 0
-                || missileTransform->localPosition.y > game.getContext().getWindowHeight() || missileTransform->localPosition.y < 0) {
+            if(missileTransform->localPosition.x > game.getWindowWidth() || missileTransform->localPosition.x < 0
+                || missileTransform->localPosition.y > game.getWindowHeight() || missileTransform->localPosition.y < 0) {
                 game.entityManager.deleteEntity(*Missile);
             }
             else {

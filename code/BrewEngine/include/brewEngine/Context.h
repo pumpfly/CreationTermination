@@ -16,8 +16,8 @@ namespace gl3::brewEngine::context {
         virtual ~Context();
         void run(const Callback& update);
         [[nodiscard]] GLFWwindow *getWindow() { return window; }
-        [[nodiscard]] int getWindowWidth() { return width; }
-        [[nodiscard]] int getWindowHeight() { return height; }
+        [[nodiscard]] int getWindowWidth() const { return width; }
+        [[nodiscard]] int getWindowHeight() const { return height; }
 
     private:
         GLFWwindow *window = nullptr;

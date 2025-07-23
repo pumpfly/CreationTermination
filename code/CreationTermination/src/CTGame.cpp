@@ -30,24 +30,24 @@ void CTGame::start() {
     Background_Layer3 = &entityManager.createEntity();
     backgroundTransform_Layer3 = &Background_Layer3->addComponent<TransformComponent>(origin, glm::vec2(0, 0), 0, glm::vec2(1280*3, 720));
     backgroundComponents_Layer3 = &Background_Layer3->addComponent<BackgroundComponent>(glm::vec2(1280*3, 0), 400.0f, true, true);
-    backgroundSprite_Layer3 = &Background_Layer3->addComponent<SpriteComponent>(backgroundTexture_Layer3);
+    backgroundSprite_Layer3 = &Background_Layer3->addComponent<SpriteComponent>(backgroundTexture_Layer3, glm::vec4(1,1,1,1));
 
     Background_Layer2 = &entityManager.createEntity();
     backgroundTransform_Layer2 = &Background_Layer2->addComponent<TransformComponent>(origin, glm::vec2(0, 0), 0, glm::vec2(1280*3, 720));
     backgroundComponents_Layer2 = &Background_Layer2->addComponent<BackgroundComponent>(glm::vec2(1280*3, 0), 600.0f, true, true);
-    backgroundSprite_Layer2 = &Background_Layer2->addComponent<SpriteComponent>(backgroundTexture_Layer2);
+    backgroundSprite_Layer2 = &Background_Layer2->addComponent<SpriteComponent>(backgroundTexture_Layer2, glm::vec4(1,1,1,1));
 
     Background_Layer1 = &entityManager.createEntity();
     backgroundTransform_Layer1 = &Background_Layer1->addComponent<TransformComponent>(origin, glm::vec2(0, 0), 0, glm::vec2(1280*3, 720));
     backgroundComponents_Layer1 = &Background_Layer1->addComponent<BackgroundComponent>(glm::vec2(1280*3, 0), 800.0f, true, true);
-    backgroundSprite_Layer1 = &Background_Layer1->addComponent<SpriteComponent>(backgroundTexture_Layer1);
+    backgroundSprite_Layer1 = &Background_Layer1->addComponent<SpriteComponent>(backgroundTexture_Layer1, glm::vec4(1,1,1,1));
 
     //Player: Witch
     Witch = &entityManager.createEntity();
     witchPlayer = &Witch->addComponent<PlayerComponent>();
     witchTransform = &Witch->addComponent<TransformComponent>(origin, glm::vec2(100, 100), 0, glm::vec2(120*1.6, 120), 60);
     witchSprite = &Witch->addComponent<SpriteComponent>(witchTexture,
-        glm::vec2(680, 415),
+        glm::vec2(witchTexture.getImageWidth()/4, witchTexture.getImageHeight()),
         4,
         10,
         glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
@@ -67,12 +67,12 @@ void CTGame::start() {
         collider->isInvulnerable = true;
 
         if(witchHealth->health == 0) {
-            this->setGameState(GAME_OVER);
+            this->setGameState(gl3::brewEngine::GAME_OVER);
             EndScene = &this->entityManager.createEntity();
             endSceneTransform = &EndScene->addComponent<TransformComponent>(origin,
                 glm::vec2(0, 0),
                 0,
-                glm::vec2(this->getContext().getWindowWidth(), this->getContext().getWindowHeight()));
+                glm::vec2(this->getWindowWidth(), this->getWindowHeight()));
             gameOverSystem = std::make_unique<GameOverSystem>(*this, EndScene, Witch, endSceneTexture_Lost, endSceneTexture_Won);
         }
     });
@@ -82,7 +82,7 @@ void CTGame::start() {
     WitchBackgroundHealthBar = &entityManager.createEntity();
     witchBackgroundHealthBarTransform =
         &WitchBackgroundHealthBar->addComponent<TransformComponent>(origin, glm::vec2(0, 0), 0, glm::vec2(100 * 2.0f, 30 * 2.0f));
-    witchBackgroundHealthBarSprite = &WitchBackgroundHealthBar->addComponent<SpriteComponent>(witchBackgroundHealthbarTexture);
+    witchBackgroundHealthBarSprite = &WitchBackgroundHealthBar->addComponent<SpriteComponent>(witchBackgroundHealthbarTexture, glm::vec4(1,1,1,1));
     // The background of the healthbar does not have an UIComponent, because it is not interactive or changes
     //Drawing the UI representation of the Players Health
     WitchHealthQuad = &entityManager.createEntity();
@@ -91,7 +91,7 @@ void CTGame::start() {
         glm::vec2(22, 20),
         0,
         glm::vec2(14 * 2.5f * witchHealth->health, 12 * 2.0f));
-    witchHealthQuadSprite = &WitchHealthQuad->addComponent<SpriteComponent>(witchHealthQuadTexture);
+    witchHealthQuadSprite = &WitchHealthQuad->addComponent<SpriteComponent>(witchHealthQuadTexture, glm::vec4(1,1,1,1));
     witchHealthQuadComponent = &WitchHealthQuad->addComponent<UiComponent>();
 
     ////ShieldCooldownBar
@@ -102,7 +102,7 @@ void CTGame::start() {
             witchBackgroundHealthBarTransform->localPosition + glm::vec2(witchBackgroundHealthBarTransform->localScale.x + 20, 0),
             0,
             glm::vec2(100 * 2.0f, 30 * 2.0f));
-    shieldBarSprite = &ShieldBar->addComponent<SpriteComponent>(shieldCoolDownBarTexture);
+    shieldBarSprite = &ShieldBar->addComponent<SpriteComponent>(shieldCoolDownBarTexture, glm::vec4(1,1,1,1));
 
     ShieldQuad = &entityManager.createEntity();
     shieldQuadTransform = &ShieldQuad->addComponent<TransformComponent>(
@@ -110,7 +110,7 @@ void CTGame::start() {
         shieldBarTransform->localPosition + glm::vec2(22, 20),
         0,
         glm::vec2(120, 12 * 2.0f));
-    shieldQuadSprite = &ShieldQuad->addComponent<SpriteComponent>(shieldQuadTexture);
+    shieldQuadSprite = &ShieldQuad->addComponent<SpriteComponent>(shieldQuadTexture, glm::vec4(1,1,1,1));
     shieldQuad = &ShieldQuad->addComponent<UiComponent>();
     shieldQuadMaxX = shieldQuadTransform->localScale.x;
 
@@ -154,12 +154,12 @@ void CTGame::start() {
         }
 
         if(currScore >= maxScore) {
-            this->setGameState(GAME_WIN);
+            this->setGameState(gl3::brewEngine::GAME_WIN);
             EndScene = &this->entityManager.createEntity();
             endSceneTransform = &EndScene->addComponent<TransformComponent>(origin,
                 glm::vec2(0, 0),
                 0,
-                glm::vec2(this->getContext().getWindowWidth(), this->getContext().getWindowHeight()));
+                glm::vec2(this->getWindowWidth(), this->getWindowHeight()));
             gameOverSystem =
                 std::make_unique<GameOverSystem>(*this, EndScene, Witch, endSceneTexture_Lost, endSceneTexture_Won);
         }
@@ -172,8 +172,8 @@ void CTGame::start() {
             &CutScene->addComponent<TransformComponent>(origin,
                     glm::vec2(0.0f, 0.0f),
                     0,
-                    glm::vec2(this->getContext().getWindowWidth(),
-                    this->getContext().getWindowHeight()),
+                    glm::vec2(this->getWindowWidth(),
+                    this->getWindowHeight()),
                     0);
 
     introSystem = std::make_unique<IntroSystem>(*this, CutScene);
@@ -197,7 +197,7 @@ void CTGame::update(GLFWwindow *window) {
 }
 
 void CTGame::draw() {
-    if (this->getGameState() == GAME_ACTIVE) {
+    if (this->getGameState() == gl3::brewEngine::GAME_ACTIVE) {
         //Score display
         std::string scoreText = "SCORE: " + std::to_string(currScore) + "  GOAL: 5000";
         {
@@ -206,7 +206,7 @@ void CTGame::draw() {
             LfUIElementProps scoreDisplay = lf_get_theme().text_props;
             scoreDisplay.text_color = LF_BLACK;
             // Center the text horizontally
-            lf_set_ptr_x_absolute((this->getContext().getWindowWidth() - lf_text_dimension(scoreText.c_str()).x) / 2.0f);
+            lf_set_ptr_x_absolute((this->getWindowWidth() - lf_text_dimension(scoreText.c_str()).x) / 2.0f);
             lf_set_ptr_y_absolute(0);
             // Push the style props
             lf_push_style_props(scoreDisplay);
@@ -227,8 +227,8 @@ void CTGame::draw() {
             lf_push_font(&mediumfont);
             LfUIElementProps bottomInfoDisplay = lf_get_theme().text_props;
             bottomInfoDisplay.text_color = LF_BLACK;
-            lf_set_ptr_x_absolute(this->getContext().getWindowWidth() - 100);
-            lf_set_ptr_y_absolute(this->getContext().getWindowHeight() - 64);
+            lf_set_ptr_x_absolute(this->getWindowWidth() - 100);
+            lf_set_ptr_y_absolute(this->getWindowHeight() - 64);
             // Push the style props
             lf_push_style_props(bottomInfoDisplay);
 

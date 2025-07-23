@@ -25,6 +25,7 @@ set(SOURCE_FILES
         src/Components/ShieldComponent.h
         src/Systems/ShieldSystem.cpp
         src/Systems/ShieldSystem.h
+        src/GameRestarter.h
 )
 
 # set executable name

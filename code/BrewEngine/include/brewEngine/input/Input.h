@@ -1,7 +1,3 @@
-//
-// Created by pumf on 05/12/2024.
-//
-
 #pragma once
 #include "GLFW/glfw3.h"
 
@@ -10,9 +6,7 @@
 namespace gl3::brewEngine::input {
     class Input {
     public:
-        //Input(GLFWwindow *window);
-        //~Input();
-
+        /// To access a Key this engine uses custom names, but are just openGL macros in disguise
         static enum {
             KEY_NULL            = 0,        // Key: NULL, used for no key pressed
             // Alphanumeric keys
@@ -70,30 +64,14 @@ namespace gl3::brewEngine::input {
             KEY_RIGHT_CONTROL   = GLFW_KEY_RIGHT_CONTROL,   // Key: Control right
         }keys;
 
-        typedef enum {
-            MOUSE_BUTTON_LEFT    = GLFW_MOUSE_BUTTON_LEFT,       // Mouse button left
-            MOUSE_BUTTON_RIGHT   = GLFW_MOUSE_BUTTON_RIGHT,       // Mouse button right
-            MOUSE_BUTTON_MIDDLE  = GLFW_MOUSE_BUTTON_MIDDLE,       // Mouse button middle (pressed wheel)
-        } MouseButton;
-
         //Keyboard
+        /// The methods that track Inputs are limited to keyboard only.
         static bool IsKeyPressed(int key);
         static bool IsKeyDown(int key);
         static bool IsKeyReleased(int key);
         static bool IsKeyUp(int key);
-        static int GetKeyPressed();
-
-        static void SetExitKey(int key);
-
-        //Mouse
-        static bool IsMouseButtonPressed(int button);
-        static bool IsMouseButtonDown(int button);
-        static bool IsMouseButtonReleased(int button);
-        static bool IsMouseButtonUp(int button);
 
         static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods); //For input handling
-        static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
-        static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 
         static void inputUpdate();
 

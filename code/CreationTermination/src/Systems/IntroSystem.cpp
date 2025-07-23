@@ -18,9 +18,9 @@ IntroSystem::IntroSystem(Game &game, Entity* CutScene): System(game){
     }
 
     game.onUpdate.addListener([&, CutScene](Game &g, float deltaTime) {
-        if(g.getGameState() != GAME_INTRO) return;
+        if(g.getGameState() != gl3::brewEngine::GAME_INTRO) return;
 
-        cutSceneSprite = &CutScene->addComponent<SpriteComponent>(introSceneTextures.at(sceneIndex));
+        cutSceneSprite = &CutScene->addComponent<SpriteComponent>(introSceneTextures.at(sceneIndex), glm::vec4(1, 1, 1, 1));
         sceneCountdown = sceneCountdown + deltaTime*2;
 
         /* Skip Button */
@@ -35,7 +35,7 @@ IntroSystem::IntroSystem(Game &game, Entity* CutScene): System(game){
 
           lf_push_style_props(btnprops);
           // Center the button horizontally
-          int windowWidth = g.getContext().getWindowWidth();
+          int windowWidth = g.getWindowWidth();
           lf_set_ptr_x_absolute((static_cast<float>(windowWidth) - (width + btnprops.padding * 4.0f)));
 
           // Rendering a button with fixed scale (-1 stands for "use normal height")
@@ -54,7 +54,7 @@ IntroSystem::IntroSystem(Game &game, Entity* CutScene): System(game){
 
         if(sceneIndex == 6) {
             game.entityManager.deleteEntity(*CutScene);
-            g.setGameState(GAME_ACTIVE);
+            g.setGameState(gl3::brewEngine::GAME_ACTIVE);
         }
     });
 }

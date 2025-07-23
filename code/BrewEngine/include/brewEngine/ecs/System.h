@@ -4,6 +4,8 @@
 
 namespace gl3::brewEngine::ecs {
     class System {
+    /// The Systems, objects/classes that inherit from gl3::brewEngine::ecs::System, make use of the events.
+    /// Systems are being created inside the start function of game.
     public:
         explicit System(Game &engine) : engine(engine) {}
         System(System &&) = delete;
@@ -11,6 +13,6 @@ namespace gl3::brewEngine::ecs {
         virtual ~System() = default;
 
     protected:
-        brewEngine::Game &engine;
+        Game &engine;
     };
 }

@@ -7,7 +7,7 @@
 #include "../Components/MissileComponent.h"
 #include "../Components/PlayerComponent.h"
 #include "../Components/UiComponent.h"
-#include "brewEngine/GameRestarter.h"
+#include "../GameRestarter.h"
 #include "brewEngine/rendering/SpriteComponent.h"
 
 extern "C" {
@@ -17,12 +17,12 @@ extern "C" {
 GameOverSystem::GameOverSystem(Game &game, Entity* EndScene, Entity* Witch,
   const Texture2D &gameOver, const Texture2D &gameWon) : System(game) {
     game.onUpdate.addListener([&, EndScene, Witch](Game &g, float deltaTime) {
-        if(g.getGameState() == GAME_ACTIVE) return;
-        if(g.getGameState() == GAME_OVER) {
-          endSceneSprite = &EndScene->addComponent<SpriteComponent>(gameOver);
+        if(g.getGameState() == gl3::brewEngine::GAME_ACTIVE) return;
+        if(g.getGameState() == gl3::brewEngine::GAME_OVER) {
+          endSceneSprite = &EndScene->addComponent<SpriteComponent>(gameOver, glm::vec4(1,1,1,1));
         }
-        if(g.getGameState() == GAME_WIN) {
-          endSceneSprite = &EndScene->addComponent<SpriteComponent>(gameWon);
+        if(g.getGameState() == gl3::brewEngine::GAME_WIN) {
+          endSceneSprite = &EndScene->addComponent<SpriteComponent>(gameWon, glm::vec4(1,1,1,1));
         }
         /* Exit Button */
         const char* btntext = "Exit";
@@ -37,8 +37,8 @@ GameOverSystem::GameOverSystem(Game &game, Entity* EndScene, Entity* Witch,
           const float height = 30.0f;
 
           lf_push_style_props(btnprops);
-          int windowWidth = g.getContext().getWindowWidth();
-            int windowHeight = g.getContext().getWindowHeight();
+          int windowWidth = g.getWindowWidth();
+            int windowHeight = g.getWindowHeight();
           lf_set_ptr_x_absolute(static_cast<float>(windowWidth)/2 - (width + btnprops.padding * 4.0f)*6);
             lf_set_ptr_y_absolute(static_cast<float>(windowHeight)/2 + (height + btnprops.padding));
           // Rendering a button with fixed scale (-1 stands for "use normal height")
@@ -60,14 +60,14 @@ GameOverSystem::GameOverSystem(Game &game, Entity* EndScene, Entity* Witch,
           const float width = 50.0f;
 
           lf_push_style_props(rtbtnprops);
-          int windowWidth = g.getContext().getWindowWidth();
-            int windowHeight = g.getContext().getWindowHeight();
+          int windowWidth = g.getWindowWidth();
+            int windowHeight = g.getWindowHeight();
           lf_set_ptr_x_absolute(static_cast<float>(windowWidth)/2 - (width + rtbtnprops.padding * 4.0f)*6);
             lf_set_ptr_y_absolute(static_cast<float>(windowHeight)/2);
           // Rendering a button with fixed scale (-1 stands for "use normal height")
           auto button_state = lf_button_fixed(rtbtntext, width, -1);
           if(button_state == LF_CLICKED) {
-            gl3::brewEngine::GameRestarter::getInstance().restart();
+            GameRestarter::getInstance().restart();
           }
 
           lf_pop_style_props();

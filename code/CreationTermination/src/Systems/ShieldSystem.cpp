@@ -4,7 +4,7 @@
 
 ShieldSystem::ShieldSystem(Game &game): System(game) {
     game.onUpdate.addListener([](Game& game, float dt) {
-        if(game.getGameState() != GAME_ACTIVE) return;
+        if(game.getGameState() != gl3::brewEngine::GAME_ACTIVE) return;
         game.componentManager.forEachComponent<ShieldComponent>([&](ShieldComponent& shieldComponent) {
             Entity* shieldEntity;
             TransformComponent* shieldTransform;

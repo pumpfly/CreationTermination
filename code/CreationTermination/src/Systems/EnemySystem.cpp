@@ -20,7 +20,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 EnemyComponent* smallEnemy = &SmallEnemy->addComponent<EnemyComponent>(SMALLENEMY, true, false, false, false);
                 TransformComponent* smallEnemyTransform =
                         &SmallEnemy->addComponent<TransformComponent>(game.origin,
-                            glm::vec2(game.getContext().getWindowWidth() + 120*j, 50 + 100*i),
+                            glm::vec2(game.getWindowWidth() + 120*j, 50 + 100*i),
                             0,
                             glm::vec2(60, 50), 40);
                 SpriteComponent* smallEnemySprite = &SmallEnemy->addComponent<SpriteComponent>(
@@ -30,7 +30,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                     5,
                     glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
                 HealthComponent* smallEnemyHealth = &SmallEnemy->addComponent<HealthComponent>(2);
-                ColliderComponent* smallEnemyCollider = &SmallEnemy->addComponent<ColliderComponent>(ENEMY, 0, [&game, SmallEnemy]() {
+                ColliderComponent* smallEnemyCollider = &SmallEnemy->addComponent<ColliderComponent>(ENEMY, [&game, SmallEnemy]() {
                     if(SmallEnemy->isDeleted()) return;
 
                     HealthComponent* healthC = &SmallEnemy->getComponent<HealthComponent>();
@@ -67,7 +67,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
 
     game.onBeforeUpdate.addListener([&, Creature] (Game & g)
     {
-        if(game.getGameState() != GAME_ACTIVE) return;
+        if(game.getGameState() != gl3::brewEngine::GAME_ACTIVE) return;
 
         TransformComponent* creatureTransform = &Creature->getComponent<TransformComponent>();
         EnemyComponent* creature = &Creature->getComponent<EnemyComponent>();
@@ -88,7 +88,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
     });
 
     game.onUpdate.addListener([&] (Game & g, float deltaTime) {
-        if(game.getGameState() != GAME_ACTIVE) return;
+        if(game.getGameState() != gl3::brewEngine::GAME_ACTIVE) return;
 
         currentTime += deltaTime;
 
@@ -160,18 +160,18 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
             else {
                 if(UpOrDown == 1) {
                     diagonalUp = true;
-                    currLocalPos = glm::vec2(g.getContext().getWindowWidth() + 60, g.getContext().getWindowHeight() + 50);
+                    currLocalPos = glm::vec2(g.getWindowWidth() + 60, g.getWindowHeight() + 50);
                 }
                 else {
                     diagonalDown = true;
-                    currLocalPos = glm::vec2(g.getContext().getWindowWidth() + 60, 0);
+                    currLocalPos = glm::vec2(g.getWindowWidth() + 60, 0);
                 }
             }
 
             for(int j = 0; j < SwaveSize; j++) {
                 for(int i = 0; i < SwaveSize - difficulty; i++) {
                     if(cos || sin) {
-                        currLocalPos = glm::vec2(g.getContext().getWindowWidth() + 120*j + pos, 50*pos + 100*i);
+                        currLocalPos = glm::vec2(g.getWindowWidth() + 120*j + pos, 50*pos + 100*i);
                     }
                     else {
                         //offset between the line of enemies
@@ -195,7 +195,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                     HealthComponent* smallEnemyHealth = &SmallEnemy->addComponent<HealthComponent>(2);
 
                     //Collision Handling:
-                    ColliderComponent* smallEnemyCollider = &SmallEnemy->addComponent<ColliderComponent>(ENEMY, 0,[&g, SmallEnemy]{
+                    ColliderComponent* smallEnemyCollider = &SmallEnemy->addComponent<ColliderComponent>(ENEMY, [&g, SmallEnemy]{
                         if(SmallEnemy->isDeleted()) return;
 
                         HealthComponent* healthC = &SmallEnemy->getComponent<HealthComponent>();
@@ -245,18 +245,18 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 // Deciding the spawn point of the first enemy of the wave
                 if(UpOrDown == 1) {
                     diagonalUp = true;
-                    currLocalPos = glm::vec2(g.getContext().getWindowWidth()+60*2, g.getContext().getWindowHeight()+50*2);
+                    currLocalPos = glm::vec2(g.getWindowWidth()+60*2, g.getWindowHeight()+50*2);
                 }
                 else {
                     diagonalDown = true;
-                    currLocalPos = glm::vec2(g.getContext().getWindowWidth()+60*2, 0);
+                    currLocalPos = glm::vec2(g.getWindowWidth()+60*2, 0);
                 }
             }
 
             for(int j = 0; j < MwaveSize; j++) {
                 for(int i = 0; i < MwaveSize; i++) {
                     if(cos || sin) {
-                        currLocalPos = glm::vec2(g.getContext().getWindowWidth() + 120*j*1.5 + pos, pos*50*1.5 + 100*i);
+                        currLocalPos = glm::vec2(g.getWindowWidth() + 120*j*1.5 + pos, pos*50*1.5 + 100*i);
                     }
                     else {
                         //offset between enemies
@@ -280,7 +280,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                     HealthComponent* mediumEnemyHealth = &MediumEnemy->addComponent<HealthComponent>(5);
 
                     //Collision Handling:
-                    ColliderComponent* mediumEnemyCollider = &MediumEnemy->addComponent<ColliderComponent>(ENEMY, 0, [&g, MediumEnemy]() {
+                    ColliderComponent* mediumEnemyCollider = &MediumEnemy->addComponent<ColliderComponent>(ENEMY, [&g, MediumEnemy]() {
                         if(MediumEnemy->isDeleted()) return;
 
                         //Fresh health component pointer to avoid garbage data
@@ -326,7 +326,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 EnemyComponent* bigEnemy = &BigEnemy->addComponent<EnemyComponent>(BIGENEMY);
                 TransformComponent* bigEnemyTransform =
                         &BigEnemy->addComponent<TransformComponent>(g.origin,
-                            glm::vec2(((g.getContext().getWindowWidth()/2 + 50*6)-50*3 - i*60*3) + pos, -50*4),
+                            glm::vec2(((g.getWindowWidth()/2 + 50*6)-50*3 - i*60*3) + pos, -50*4),
                             0,
                             glm::vec2(60*4, 50*4),
                             100);
@@ -339,7 +339,7 @@ EnemySystem::EnemySystem(Game &game, Entity *Creature): System(game) {
                 HealthComponent* bigEnemyHealth = &BigEnemy->addComponent<HealthComponent>(20);
 
                 //Collision Handling:
-                ColliderComponent* bigEnemyCollider = &BigEnemy->addComponent<ColliderComponent>(ENEMY, 0, [&g, BigEnemy, deltaTime]() {
+                ColliderComponent* bigEnemyCollider = &BigEnemy->addComponent<ColliderComponent>(ENEMY, [&g, BigEnemy, deltaTime]() {
                     if(BigEnemy->isDeleted()) return;
 
                     //Fresh health component pointer to avoid garbage data
@@ -428,7 +428,7 @@ void EnemySystem::enemyDiagonalMovement(Game &game, TransformComponent *enemyTra
     static float referenceX = enemyTransform->localPosition.x;
     static float referenceY = enemyTransform->localPosition.y;
 
-    if(referenceY >= game.getContext().getWindowHeight() + enemyTransform->localScale.y * 2 ||
+    if(referenceY >= game.getWindowHeight() + enemyTransform->localScale.y * 2 ||
         referenceY <= -enemyTransform->localScale.y * 2) {
         try {
             game.entityManager.deleteEntity(game.entityManager.getEntity(enemyTransform->entity()));

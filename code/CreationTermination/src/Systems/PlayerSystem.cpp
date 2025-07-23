@@ -18,7 +18,7 @@ PlayerSystem::PlayerSystem(Game &game, Entity *Witch, int& shieldCooldownUINumbe
     shieldSprite = gl3::brewEngine::rendering::Texture2D::FromFile("sprites/shield.png");
 
     game.onBeforeUpdate.addListener([&, Witch] (Game& g) {
-        if(game.getGameState() != GAME_ACTIVE) return;
+        if(game.getGameState() != gl3::brewEngine::GAME_ACTIVE) return;
         TransformComponent* witchTransform = &Witch->getComponent<TransformComponent>();
         PlayerComponent* witch = &Witch->getComponent<PlayerComponent>();
         ColliderComponent* witchCollider = &Witch->getComponent<ColliderComponent>();
@@ -54,7 +54,7 @@ void PlayerSystem::playerMovement(Game &game, TransformComponent* witchTransform
         }
     }
     if(Input::IsKeyDown(Input::KEY_D)) {
-        if(witchTransform->localPosition.x > game.getContext().getWindowWidth()) isTooFarRight = true;
+        if(witchTransform->localPosition.x > game.getWindowWidth()) isTooFarRight = true;
         if(!isTooFarRight) {
             witchTransform->localPosition.x += forward.x * 200.0f;
             isTooFarLeft = false;
@@ -103,7 +103,7 @@ void PlayerSystem::playerShield(Game& game, TransformComponent* witchTransform, 
                 0,
                 glm::vec2(700/3, 600/3),
                 150);
-        shieldSpriteComponent = &shieldEntity->addComponent<SpriteComponent>(shieldSprite);
+        shieldSpriteComponent = &shieldEntity->addComponent<SpriteComponent>(shieldSprite, glm::vec4(1, 1, 1, 1));
         shieldColliderComponent = &shieldEntity->addComponent<ColliderComponent>(PLAYER, 0, [&game, shieldEntity, witchCollider] {
 
         });
@@ -251,7 +251,7 @@ void PlayerSystem::playerShooting(Game &game, TransformComponent* witchTransform
                         if(transform.localScale.x <= 100.0f) {
                             witchPlayer->missileTempSize = (witchPlayer->missileTempSize + 100.0f) * game.getDeltaTime();
                             transform.localScale += witchPlayer->missileTempSize;
-                            transform.radius += witchPlayer->missileTempSize;
+                            transform.radius += witchPlayer->missileTempSize/2.5;
                             collider.isInvulnerable = false;
                         }
 

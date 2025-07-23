@@ -30,9 +30,9 @@ namespace gl3::brewEngine::ecs {
             auto &container = containers.at(typeid(C).hash_code());
             auto component = container.at(owner).get();
             return *reinterpret_cast<C *>(component);
-            //return *reinterpret_cast<C*>(containers.at(typeid(C).hash_code()).at(owner).get());
         }
 
+        /// @function hasComponent tells you if the owner Entity has a component of given type
         template<typename C>
         bool hasComponent(const guid_t &owner) {
             if(containers.find(typeid(C).hash_code()) == containers.end()) {return false;}

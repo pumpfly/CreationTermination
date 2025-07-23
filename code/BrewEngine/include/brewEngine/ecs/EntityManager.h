@@ -16,7 +16,6 @@ namespace gl3::brewEngine::ecs {
 
         Entity& createEntity();
         [[nodiscard]] Entity& getEntity(guid_t guid);
-        [[nodiscard]] int getEntityCount(){return entities.size();}
         void deleteEntity(Entity &entity);
 
     private:

@@ -8,6 +8,7 @@ namespace gl3::brewEngine::ecs {
         friend class EntityManager;
 
     public:
+        /// @function guid() returns the unique ID of the entity
         [[nodiscard]] guid_t guid() const { return id; }
         [[nodiscard]] bool isDeleted() const { return deleted; }
 

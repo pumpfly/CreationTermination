@@ -5,7 +5,7 @@
 #include "brewEngine/ecs/ecs.h"
 #include "brewEngine/ecs/Component.h"
 
-//This forward declaration is not part of the sommer semester blockkurs, but without it i get a "is not declared" error
+//This forward declaration is not part of the sommer semester blockkurs, but without it, I get an "is not declared" error
 namespace gl3::brewEngine::ecs {
     class ComponentManager;
     class Entity;
@@ -17,6 +17,7 @@ using gl3::brewEngine::ecs::Entity;
 using gl3::brewEngine::ecs::guid_t;
 
 namespace gl3::brewEngine::sceneGraph {
+    /// The @class TransformComponent stores position, rotation, scale and also radius of the entities.
     class TransformComponent final : public Component {
         friend ComponentManager;
         friend Entity;

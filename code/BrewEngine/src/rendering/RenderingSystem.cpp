@@ -63,10 +63,10 @@ namespace gl3::brewEngine::rendering {
 
     void RenderingSystem::scrollBackgroundSprite(TransformComponent* backgroundTransform, BackgroundComponent* background,
         bool isScrollingSideways, bool goesLeftOrUp, float deltaTime) {
-        // If isScrollingSideways and goesLeftOrDown is true then the background will scroll to the left
-        // If isScrollingSideways is true but goesLeftOrDown is false then the background will scroll to the right
-        // If isScrollingSideways is false but goesLeftOrDown is true the background will move up along the y axis
-        // If isScrollingSideways and goesLeftOrDown is false, the background will go down
+        // If isScrollingSideways and goesLeftOrUp is true then the background will scroll to the left
+        // If isScrollingSideways is true but goesLeftOrUp is false then the background will scroll to the right
+        // If isScrollingSideways is false but goesLeftOrUp is true the background will move up along the y axis
+        // If isScrollingSideways and goesLeftOrUp is false, the background will go down
         float offset;
         float sign;
 

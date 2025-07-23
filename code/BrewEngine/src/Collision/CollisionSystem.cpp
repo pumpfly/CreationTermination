@@ -22,7 +22,7 @@ namespace gl3::brewEngine::collision {
                 //Cell Assignment
                 // if entity is outside the grid than it should not be added to a spatialGrid cell
                 if(entityMinX > 0 || entityMinY > 0
-                   || entityMaxX < g.getContext().getWindowWidth() || entityMaxY < g.getContext().getWindowHeight())
+                   || entityMaxX < g.getWindowWidth() || entityMaxY < g.getWindowHeight())
                 {
                     g.spatialGridManager.cellAssignment(entityMinX, entityMaxX, entityMinY, entityMaxY, Entity->guid());
                 }

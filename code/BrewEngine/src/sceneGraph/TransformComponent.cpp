@@ -23,7 +23,6 @@ namespace gl3::brewEngine::sceneGraph {
         owner = other.owner;
         setParent(other.parent);
     }
-
     TransformComponent *TransformComponent::getParent() {
         return parent;
     }
