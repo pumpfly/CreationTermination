@@ -1,6 +1,6 @@
 # Quick Start
 
-This is a simple quick start guide how to clone my wonderfull project and get it running.
+This is a simple quick start guide how to clone my project and compile it.
 
 1. You can clone the code with this command:
 
@@ -16,8 +16,8 @@ git clone --recursive https://gitlab2.informatik.uni-wuerzburg.de/GE/Teaching/gl
 
 ### How to play my game
 
-For how to play my game look into [this](wiki/game.md)
+For how to play my game Creation Termination look into [this](wiki/game.md)
 
 ### How to make a game
 
-For how to make a new game using my very nice own game engine look into [this](wiki/engine.md)
+For how to make a new game using BrewEngine look into [this](wiki/engine.md)
