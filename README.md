@@ -2,8 +2,8 @@
 
 |  General Info  | |
 | ---|---|
-| Working Title | Creation Termination |
-| Final Title | Creation Termination |
+| Working Title | Creation Termination, BrewEngine |
+| Final Title | Creation Termination, BrewEngine |
 | Student | Lisa Benner, lisa.benner@stud-mail.uni-wuerzburg.de, s410499 |
 | Target Platform(s) | C++, Clion, Windows |
 | Start Date | 14.10.2024 |
