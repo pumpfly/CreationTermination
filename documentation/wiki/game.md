@@ -19,7 +19,7 @@ The end goal is to obtain a score of 5000 which is reached by managing to hit th
     after it has been fired (after the key F has been released). 
     - With pressing the L_SHIFT key a shield activates. This shield kills everything it touches except the creature. The shield also has cooldown or must first recharge after use. It can't produce points if it touches the creature, its main purpose is to get out of difficult situations. 
 
-2. Core Mechanics
+3. Core Mechanics
  Like previously said the goal of the game is to reach a score of 5000 which is only achieved by hitting the creature with your fireballs. 
  The witch has 7 hit points and after every collision with an enemy or a misssile form an enemy, loses a hit point. After every hit their is an invurnable state of around 2 seconds, where the witch can't be hit.
  A clock is ticking in the background increasing the difficulty of the game, meaning that at the beginning it is adviced to increase the score as much as possible, because later in the game it will be very hard to reach the creature. The first difficulty phase only spawns little enemies, the bats who have only 2 hit points. During the first phase the bat waves are also rather small and sparse. The second wave introduces medium big enemies, the big birds that are a bit bigger in size, have 5 hit points. The waves sizes increase and waves appear more often. The third and the last phase includes the biggest enemy type, the dragons,
@@ -27,3 +27,6 @@ The end goal is to obtain a score of 5000 which is reached by managing to hit th
  The movement pattern of the bats and big birds is the same and fluctuates randomly between a diagonal line accross the screen or a block of enemies moving along either a cosine or sine function.
  The dragons appear from above to the middle of the screen and continues to move along the y axis randomly up and down. The same movement is what the creature is doing on the far right end of the screen. 
  No matter the enemy type, the witch always looses one hit point on collision. 
+
+4. How to Quit mid game
+ Press the Key O

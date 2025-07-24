@@ -413,7 +413,6 @@ audio.play(audioClip);
 - **UI Support**: Integration with leif UI framework
 - **Asset Management**: Streamlined asset loading and path resolution
 - **Game State Management**: Built-in state system for menus, gameplay, and game over screens
-- **Hierarchical Transforms**: Parent-child relationships for complex objects
 - **Event-Driven Architecture**: Decoupled system communication
 
 ## Best Practices
