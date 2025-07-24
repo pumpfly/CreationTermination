@@ -1,6 +1,6 @@
 # How to make a game
 
-BrewEngine is a entity component system based framework written in c++ and can be used for any small 2D game. 
+BrewEngine is a entity component system based framework written in C++ and can be used for any small 2D game. 
 
 ## Dependencies
 
