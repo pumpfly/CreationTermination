@@ -1,7 +1,3 @@
-//
-// Created by pumf on 21/07/2025.
-//
-
 #pragma once
 
 #include "brewEngine/ecs/System.h"

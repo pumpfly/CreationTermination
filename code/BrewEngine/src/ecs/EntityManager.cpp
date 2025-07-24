@@ -1,4 +1,4 @@
-// EntityManager.cpp
+
 #include "brewEngine/ecs/EntityManager.h"
 #include "brewEngine/Game.h"
 

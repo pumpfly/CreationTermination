@@ -1,7 +1,3 @@
-//
-// Created by Lisa B on 22/10/2024.
-//
-
 #pragma once
 
 #include "glad/glad.h"

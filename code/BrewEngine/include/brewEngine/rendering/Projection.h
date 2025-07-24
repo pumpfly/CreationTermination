@@ -1,7 +1,3 @@
-//
-// Created by pumf on 16/05/2025.
-//
-
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
